@@ -5,10 +5,13 @@ name: admin
 on:
   workflow_dispatch:
     inputs:
-      task:   { description: "작업 (retee)", required: true, default: "retee" }
-      course_id: { description: "구장 id", required: true }
-      arg1: { description: "예: 5=RED,GREEN,WHITE1,WHITE2,BLUE  또는  BLUE,WHITE,RED", required: true }
+      task:   { description: "작업 (retee | dump)", required: true, default: "retee" }
+      course_id: { description: "구장 id (dump는 이름 일부도 가능)", required: true }
+      arg1: { description: "retee: 예) 5=RED,GREEN,WHITE1,WHITE2,BLUE  또는  BLUE,WHITE,RED", required: false, default: "" }
       arg2: { description: "예: 4=RED,GREEN,WHITE,BLUE (선택)", required: false, default: "" }
+
+permissions:
+  contents: write
 
 jobs:
   admin:
@@ -29,3 +32,16 @@ jobs:
           A2: ${{ github.event.inputs.arg2 }}
         run: |
           if [ -n "$A2" ]; then python retee.py "$CID" "$A1" "$A2"; else python retee.py "$CID" "$A1"; fi
+
+      - name: 검수용 내려받기 (inspect 브랜치)
+        if: github.event.inputs.task == 'dump'
+        working-directory: crawler
+        env:
+          Q: ${{ github.event.inputs.course_id }}
+        run: |
+          python dump.py "$Q"
+          D=$(mktemp -d); cp -r inspect "$D/inspect"
+          cd "$D" && git init -q && git checkout -q -b inspect
+          git config user.name "crawl-bot"; git config user.email "crawl-bot@users.noreply.github.com"
+          git add -A && git commit -qm "inspect ${{ github.run_id }} $Q"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" inspect
