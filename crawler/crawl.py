@@ -95,8 +95,10 @@ def harvest_page(page, url):
             continue
         if re.fullmatch(r"(HOLE\s*\d{1,2}|\d{1,2}\s*번?\s*홀|\d{1,2}H|[A-Za-z가-힣]{2,10}\s*(코스|COURSE))", t, re.I):
             try:
-                href = el.evaluate("e => { const a = e.closest('a'); return a ? (a.getAttribute('href') || '') : '' }")
-                if href and not re.match(r"^(#|javascript:|void)", href.strip(), re.I):
+                # 자신이 링크이거나 링크 안에 있거나, 안에 링크를 품은 칸(<li><a href="a1.html">1H</a></li>)이면 누르지 않는다
+                hrefs = el.evaluate("""e => { const out = []; const up = e.closest('a'); if (up) out.push(up.getAttribute('href') || '');
+                                         e.querySelectorAll('a[href]').forEach(a => out.push(a.getAttribute('href') || '')); return out }""")
+                if any(h and not re.match(r"^(#|javascript:|void)", h.strip(), re.I) for h in hrefs):
                     continue
                 el.click(timeout=1200)
                 clicked += 1
@@ -109,6 +111,16 @@ def harvest_page(page, url):
         page.wait_for_load_state("domcontentloaded", timeout=5000)
     except Exception:
         pass
+    # 안전장치: 클릭 때문에 다른 페이지로 넘어갔으면 원래 페이지를 다시 연다 (주소가 다르면 내용도 다르다)
+    def norm(u):
+        p = urlparse(u)
+        return (p.netloc.replace("www.", ""), p.path.rstrip("/"), p.query)
+    if clicked and norm(page.url) != norm(url):
+        page.goto(url, wait_until="domcontentloaded", timeout=45000)
+        try:
+            page.wait_for_load_state("networkidle", timeout=10000)
+        except Exception:
+            pass
 
     html = page.content()
     soup = BeautifulSoup(html, "html.parser")
@@ -263,8 +275,7 @@ def vision_page(client, d):
     content, urls = [], []
     for im in [i for i in d["images"] if max(i.get("w") or 0, i.get("h") or 0) >= 200][:4]:
         try:
-            req = __import__("urllib.request").request.Request(im["url"], headers={"User-Agent": UA, "Referer": d["url"]})
-            data = __import__("urllib.request").request.urlopen(req, timeout=20).read()
+            data = fetch_bytes(im["url"], referer=d["url"])
         except Exception:
             continue
         if len(data) > 4_500_000:
@@ -332,11 +343,24 @@ def classify_image(client, img_bytes, mime, course_names):
 
 
 # ---------- 3. 후처리 ----------
-def download(url, dest: Path):
+def fetch_bytes(url, referer=None):
+    """그림 받기. 오래된 골프장 서버는 SSL 연결이 가끔 끊기므로 재시도하고, 그래도 안 되면 http로 받는다."""
     import urllib.request
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Referer": url})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        data = r.read()
+    last = None
+    tries = [url] * 3 + ([url.replace("https://", "http://", 1)] if url.startswith("https://") else [])
+    for i, u in enumerate(tries):
+        try:
+            req = urllib.request.Request(u, headers={"User-Agent": UA, "Referer": referer or u})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return r.read()
+        except Exception as e:
+            last = e
+            time.sleep(0.8 * (i + 1))
+    raise last
+
+
+def download(url, dest: Path):
+    data = fetch_bytes(url)
     dest.write_bytes(data)
     return data
 
