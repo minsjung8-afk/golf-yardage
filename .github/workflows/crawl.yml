@@ -6,7 +6,12 @@ name: crawl
 on:
   repository_dispatch:
     types: [crawl]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      url:       { description: "바로 수집할 코스 페이지 주소 (비우면 대기열 처리)", required: false, default: "" }
+      club_name: { description: "골프장명", required: false, default: "" }
+      tees:      { description: "티 이름(긴 순서, 예: BLUE,WHITE,RED)", required: false, default: "" }
+      course_names: { description: "코스 이름(순서대로, 예: 아리아,빌리,샬롯)", required: false, default: "" }
   schedule:
     - cron: "7 * * * *"
 
@@ -33,6 +38,7 @@ jobs:
             c=$(curl -fsS -H "X-Worker-Key: $WORKER_KEY" "$APP_URL/api/crawl-requests?status=$s" | python3 -c "import json,sys;print(len(json.load(sys.stdin)))")
             echo "$s: $c"; n=$((n + c))
           done
+          [ -n "${{ github.event.inputs.url }}" ] && n=$((n + 1))     # 직접 수집 요청
           phase=idle; [ "$n" != "0" ] && phase=preparing
           curl -fsS -X POST -H "X-Worker-Key: $WORKER_KEY" "$APP_URL/api/worker/ping?phase=$phase" >/dev/null || true
           echo "pending=$n" >> "$GITHUB_OUTPUT"
@@ -63,6 +69,37 @@ jobs:
           else
             python -m playwright install --with-deps chromium
           fi
+
+      - name: 직접 수집 (workflow_dispatch url)
+        if: github.event.inputs.url != ''
+        working-directory: crawler
+        env:
+          IN_URL: ${{ github.event.inputs.url }}
+          IN_NAME: ${{ github.event.inputs.club_name }}
+          IN_TEES: ${{ github.event.inputs.tees }}
+          IN_CN: ${{ github.event.inputs.course_names }}
+        run: |
+          ID=$(python -c "import crawl,os;print(crawl.course_id_for(os.environ['IN_URL']))")
+          args=(--name "${IN_NAME:-$IN_URL}" --url "$IN_URL" --id "$ID")
+          [ -n "$IN_TEES" ] && args+=(--tees "$IN_TEES")
+          [ -n "$IN_CN" ] && args+=(--course-names "$IN_CN")
+          python crawl.py "${args[@]}"
+          python - <<PY
+          import json,sys
+          d=json.load(open("out/$ID/course.json",encoding="utf-8"))
+          n=sum(len(c.get("holes") or []) for c in d["courses"])
+          print("홀 수:", n); sys.exit(0 if n else 1)
+          PY
+          python worker.py --upload "$ID"
+
+      - name: 결과 보관
+        if: always() && steps.q.outputs.pending != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: crawl-out
+          path: crawler/out/**/*.json
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: 수집 실행
         if: steps.q.outputs.pending != '0'
