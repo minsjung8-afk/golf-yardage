@@ -33,7 +33,7 @@ from bs4 import BeautifulSoup
 MODEL = os.environ.get("CRAWL_MODEL", "claude-sonnet-5-5")
 YD = 0.9144
 COURSE_LINK_RE = re.compile(r"(코스|course|hole|홀|야디지|yardage|제원|layout|^\s*\d{1,2}\s*(h|홀|번\s*홀)\s*$)", re.I)
-SKIP_RE = re.compile(r"(login|member|reserv|예약|board|mypage|policy|logout|join|notice|event|\.pdf$|\.hwp$)", re.I)
+SKIP_RE = re.compile(r"(login|member|reserv|예약|board|mypage|policy|logout|join|notice|event|gallery|galleryview|photo|갤러리|\.pdf$|\.hwp$)", re.I)
 MIN_IMG = 250
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"
@@ -160,13 +160,15 @@ def harvest_page(page, url):
             im["w"], im["h"] = w, h
             keep.append(im)
 
-    links = []
+    links, other = [], []
     for a in soup.find_all("a", href=True):
         href = urljoin(url, a["href"]).split("#")[0]
         label = a.get_text(" ", strip=True)
         if href.startswith("http") and host(href) == host(url) and not SKIP_RE.search(href):
             if COURSE_LINK_RE.search(label) or COURSE_LINK_RE.search(href):
                 links.append(href)
+            elif href.rstrip("/") != url.rstrip("/"):
+                other.append(href)              # 입구 페이지 대비(예: 베르힐 영종 'VISIT' → index.asp)
     # onclick·data 속성·스크립트 안에만 있는 이동 주소 (JS로 화면 전환하는 사이트)
     for m in re.finditer(r"['\"]((?:https?://[^'\"\s]+)?/[^'\"\s<>]*(?:course|hole|코스)[^'\"\s<>]*)['\"]", html, re.I):
         href = urljoin(url, m.group(1).replace("&amp;", "&")).split("#")[0]
@@ -184,7 +186,8 @@ def harvest_page(page, url):
     except Exception:
         pass
 
-    return {"url": url, "text": text[:20000], "tables": tables, "images": keep, "links": sorted(set(links))}
+    return {"url": url, "text": text[:20000], "tables": tables, "images": keep, "links": sorted(set(links)),
+            "other_links": list(dict.fromkeys(other))[:10]}
 
 
 def crawl_site(seed_url, max_pages=25):
@@ -208,7 +211,12 @@ def crawl_site(seed_url, max_pages=25):
                 continue
             pages.append(d)
             print(f"  · {u}  (img {len(d['images'])}, table {len(d['tables'])}, links {len(d['links'])})")
-            for l in d["links"]:
+            nxt = list(d["links"])
+            # 입구(인트로) 페이지: 첫 페이지에 코스 링크가 거의 없으면 같은 사이트 링크를 따라 한 단계 더 들어간다
+            if len(pages) == 1 and len(nxt) < 3 and d.get("other_links"):
+                print(f"  입구 페이지로 보고 안쪽으로 들어감: {', '.join(d['other_links'][:4])}")
+                nxt += d["other_links"]
+            for l in nxt:
                 if l not in seen and l not in queue and in_scope(l, scope):
                     queue.append(l)
         browser.close()
