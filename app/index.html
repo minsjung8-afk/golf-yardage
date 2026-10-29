@@ -430,11 +430,18 @@ $('#btnNew').onclick = () => {
   if (round && !confirm('진행 중인 라운드가 있습니다. 새로 시작할까요? (기존 라운드는 서버에 미완료로 남습니다)')) return;
   openNew();
 };
+// 홀마다 티 구성이 다를 때(예: 더크로스비 5티 코스 WHITE1·WHITE2 / 4티 코스 WHITE) 같은 계열 티로 맞춘다
+function matchTee(tees_m, tee) {
+  if (!tees_m || !tee || tees_m[tee] != null) return tee;
+  const base = tee.replace(/\d+$/, '').toUpperCase();
+  const same = Object.keys(tees_m).filter(k => k.replace(/\d+$/, '').toUpperCase() === base);
+  return same.length ? same.sort()[0] : tee;          // WHITE → WHITE1, WHITE1/WHITE2 → WHITE
+}
 function buildHoles(c, parts, tee, saved = []) {
   const out = []; let seq = 1;
   parts.forEach(n => (c.courses.find(x => x.name === n)?.holes || []).forEach(h => {
     const s = saved.find(x => x.seq === seq) || {};
-    out.push({ seq: seq++, course_name: n, hole: h.hole, par: h.par, tee: s.tee || tee, image_url: h.image_url, tees_m: h.tees_m,
+    out.push({ seq: seq++, course_name: n, hole: h.hole, par: h.par, tee: s.tee || matchTee(h.tees_m, tee), image_url: h.image_url, tees_m: h.tees_m,
       score: s.score ?? null, putts: s.putts ?? null, remain_m: s.remain_m ?? null, fairway: s.fairway ?? null });
   }));
   return out;
@@ -466,7 +473,7 @@ async function restoreRound() {
 
 /* ================= 홀 화면 ================= */
 const hole = () => round?.holes[cur];
-const lengthM = h => h.tees_m?.[h.tee] ?? null;
+const lengthM = h => h.tees_m?.[h.tee] ?? h.tees_m?.[matchTee(h.tees_m, h.tee)] ?? null;
 function render() {
   const h = hole();
   $('#holePanel').hidden = !h; $('#nav').hidden = !h; $('#hud').hidden = !h; $('#homePanel').hidden = !!h;
@@ -558,7 +565,7 @@ async function renderHome() {
 }
 
 /* ================= PWA: 설치·업데이트 ================= */
-const APP_VERSION = '2026.10.29-4';
+const APP_VERSION = '2026.10.29-5';
 const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 let installEvt = null;
