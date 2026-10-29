@@ -33,9 +33,9 @@ jobs:
             c=$(curl -fsS -H "X-Worker-Key: $WORKER_KEY" "$APP_URL/api/crawl-requests?status=$s" | python3 -c "import json,sys;print(len(json.load(sys.stdin)))")
             echo "$s: $c"; n=$((n + c))
           done
-          curl -fsS -X POST -H "X-Worker-Key: $WORKER_KEY" "$APP_URL/api/worker/ping" >/dev/null || true
+          phase=idle; [ "$n" != "0" ] && phase=preparing
+          curl -fsS -X POST -H "X-Worker-Key: $WORKER_KEY" "$APP_URL/api/worker/ping?phase=$phase" >/dev/null || true
           echo "pending=$n" >> "$GITHUB_OUTPUT"
-
       - uses: actions/checkout@v4
         if: steps.q.outputs.pending != '0'
 
@@ -46,11 +46,23 @@ jobs:
           cache: pip
           cache-dependency-path: crawler/requirements.txt
 
+      - name: 브라우저 캐시
+        if: steps.q.outputs.pending != '0'
+        id: pwcache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ hashFiles('crawler/requirements.txt') }}
+
       - name: 설치
         if: steps.q.outputs.pending != '0'
         run: |
           pip install -r crawler/requirements.txt
-          python -m playwright install --with-deps chromium
+          if [ "${{ steps.pwcache.outputs.cache-hit }}" = "true" ]; then
+            python -m playwright install-deps chromium      # 브라우저는 캐시, 시스템 라이브러리만
+          else
+            python -m playwright install --with-deps chromium
+          fi
 
       - name: 수집 실행
         if: steps.q.outputs.pending != '0'

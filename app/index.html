@@ -5,9 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="theme-color" content="#0f3d2e">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon.svg">
+<meta name="apple-mobile-web-app-title" content="Yardage">
+<meta name="description" content="골프장 코스맵을 보며 스코어·퍼트·세컨 잔여거리를 기록하고 티샷 거리를 계산합니다.">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
 <title>Yardage</title>
 <style>
 :root{--bg:#0b1612;--panel:#132219;--line:#1f3a2c;--txt:#e8f1ec;--mut:#8fa89a;--acc:#7ad68f;--warn:#f0b35a;--bad:#e36b6b;--tap:56px}
@@ -76,6 +81,12 @@ input.num{flex:1;min-width:0;height:var(--tap);font-size:28px;text-align:center;
 .req .st{font-size:12px;color:var(--mut)}
 .req a{color:var(--acc);word-break:break-all}
 .req .bar button{height:40px}
+#installBar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#163b2b;border-bottom:1px solid var(--line);font-size:13px}
+#installBar span{flex:1}
+#installBar button{height:32px;border:none;border-radius:8px;padding:0 10px;font-size:13px;background:#1b4a33;color:#fff}
+#installBar button.x{background:none;color:var(--mut)}
+.ios-steps{font-size:15px;line-height:1.7}
+.ios-steps b{color:var(--acc)}
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#000d;color:#fff;padding:8px 14px;border-radius:20px;font-size:14px;opacity:0;transition:.3s;pointer-events:none;z-index:20;max-width:90vw;text-align:center}
 #toast.on{opacity:1}
 </style>
@@ -88,6 +99,8 @@ input.num{flex:1;min-width:0;height:var(--tap);font-size:28px;text-align:center;
   <button id="btnNew">새 라운드</button>
   <button id="btnMe" aria-label="내 정보">☰</button>
 </header>
+
+<div id="installBar" hidden><span>홈 화면에 설치하면 앱처럼 전체 화면으로 쓰고, 통신이 끊겨도 열립니다.</span><button id="btnInstall">설치</button><button class="x" id="btnInstallX" aria-label="닫기">✕</button></div>
 
 <section id="map">
   <div class="ph" id="mapPh">구장을 선택하고 새 라운드를 시작하세요</div>
@@ -129,6 +142,20 @@ input.num{flex:1;min-width:0;height:var(--tap);font-size:28px;text-align:center;
   <h3 id="meTitle">내 정보</h3>
   <p class="msg" id="meSync"></p>
   <div class="bar"><button id="btnFlush">지금 저장</button><button id="btnLogout">로그아웃</button><button data-close>닫기</button></div>
+  <div class="bar" id="meInstallRow"><button id="btnInstall2">📲 홈 화면에 설치</button></div>
+  <p class="msg" id="appVer"></p>
+</div></div>
+
+<!-- 아이폰 설치 안내 -->
+<div class="modal" id="mIos"><div class="box">
+  <h3>아이폰에 설치</h3>
+  <div class="ios-steps">
+    ① 화면 아래(또는 위) <b>공유 버튼</b> <span style="font-size:20px">⬆︎</span> 을 누르세요<br>
+    ② 목록을 내려 <b>홈 화면에 추가</b> 를 누르세요<br>
+    ③ 오른쪽 위 <b>추가</b> 를 누르면 홈 화면에 Yardage 아이콘이 생깁니다
+  </div>
+  <p class="msg">Safari에서만 됩니다. 카카오톡·네이버 앱 안에서 열었다면 오른쪽 위 메뉴 → "다른 브라우저로 열기" → Safari 로 연 뒤 진행하세요.</p>
+  <div class="bar"><button class="pri" data-close>확인</button></div>
 </div></div>
 
 <!-- 구장 목록 -->
@@ -300,8 +327,17 @@ $('#btnAddSubmit').onclick = async () => {
   const club_name = $('#addName').value.trim(), url = $('#addUrl').value.trim();
   if (!club_name) return toast('골프장명을 입력하세요');
   if (url && !/^https?:\/\//.test(url)) return toast('주소는 http:// 또는 https:// 로 시작해야 합니다');
-  try { await api('/crawl-requests', { method: 'POST', body: { club_name, url } }); $('#addName').value = $('#addUrl').value = ''; toast(url ? '수집 요청됨' : '홈페이지를 찾는 중입니다 — 잠시 후 확인해 주세요'); renderQueue(); }
-  catch (e) { toast('요청 실패: ' + e.message); }
+  let res;
+  try { res = await api('/crawl-requests', { method: 'POST', body: { club_name, url } }); }
+  catch (e) { return toast('요청 실패: ' + e.message); }
+  $('#addName').value = $('#addUrl').value = '';
+  if (!res.search_here) { toast(url ? '수집 요청됨' : '홈페이지 찾기를 수집기에 맡겼습니다'); return renderQueue(); }
+  // 이름만 입력: Cloudflare에서 바로 홈페이지 검색 (10~30초)
+  const btn = $('#btnAddSubmit'); btn.disabled = true; btn.textContent = '홈페이지 찾는 중…';
+  renderQueue();
+  try { await api(`/crawl-requests/${res.id}/search`, { method: 'POST' }); toast('찾았습니다 — 주소를 확인해 주세요'); }
+  catch (e) { toast(e.message); }
+  finally { btn.disabled = false; btn.textContent = '요청'; renderQueue(); }
 };
 const ST = { searching: '홈페이지 찾는 중', confirm: '주소 확인 필요', queued: '수집 대기', running: '수집 중', done: '완료', failed: '실패', canceled: '취소됨' };
 function ago(iso) {
@@ -309,11 +345,13 @@ function ago(iso) {
   const m = Math.round((Date.now() - new Date(iso.replace(' ', 'T') + (/[zZ+]/.test(iso) ? '' : 'Z')).getTime()) / 60000);
   return m < 1 ? '방금' : m < 60 ? `${m}분 전` : m < 1440 ? `${Math.round(m / 60)}시간 전` : `${Math.round(m / 1440)}일 전`;
 }
+let workerSt = null;
 async function renderWorker(pending) {
   let st = null; try { st = await api('/worker/status'); } catch { return; }
+  workerSt = st;
   const last = ago(st.last_seen);
   let h = st.auto
-    ? `🟢 자동 수집 켜짐 (GitHub) · 수집기 마지막 실행 ${last || '없음'}. 요청하면 보통 1~3분 안에 처리됩니다.`
+    ? `🟢 자동 수집 켜짐 (GitHub) · 수집기 마지막 실행 ${last || '없음'}.${st.search_here ? ' 홈페이지 찾기는 바로(10~30초), 수집은 확인 후 3~6분.' : ' 요청하면 보통 1~3분 안에 시작됩니다.'}`
     : `⚪ 자동 수집 꺼짐 · 수집기 마지막 실행 ${last || '없음'}. PC에서 worker.py를 켜야 처리됩니다.`;
   if (st.auto && st.last_wake && !/ ok$/.test(st.last_wake)) h += `<br><span style="color:var(--warn)">⚠ 최근 GitHub 호출 실패 — 토큰 만료·권한 확인 필요 (setup_github.sh 다시 실행: RESET_GH_TOKEN=1)</span>`;
   if (st.auto && pending) h += ` <button id="btnWake" style="margin-left:6px;height:30px;border:1px solid var(--line);background:none;color:var(--acc);border-radius:8px;padding:0 10px">지금 실행</button>`;
@@ -321,13 +359,23 @@ async function renderWorker(pending) {
   const w = $('#btnWake');
   if (w) w.onclick = async () => { try { await api('/worker/wake', { method: 'POST' }); toast('수집기를 깨웠습니다 — 1~3분 후 확인'); } catch (e) { toast(e.message); } };
 }
+function phaseNote() {
+  // 수집기가 지금 무엇을 하는지: preparing(실행 서버·브라우저 준비) / working(처리 중)
+  const p = workerSt?.phase; if (!p) return '';
+  const [ph, ts] = p.split(' ');
+  const min = (Date.now() - new Date(ts).getTime()) / 60000;
+  if (ph === 'preparing' && min < 10) return ' · 수집기 준비 중(1~2분)';
+  if (ph === 'working' && min < 10) return ' · 수집기 작동 중 — 곧 차례';
+  return '';
+}
 async function renderQueue() {
   let q = []; try { q = await api('/crawl-requests'); } catch { return; }
-  renderWorker(q.some(r => ['searching', 'queued', 'running'].includes(r.status)));
+  await renderWorker(q.some(r => ['searching', 'queued', 'running'].includes(r.status)));
   const el = $('#addQueue');
   if (!q.length) { el.innerHTML = ''; return; }
   el.innerHTML = '<p class="msg"><b>요청 현황</b></p>' + q.map(r => {
-    let h = `<div class="req" data-id="${r.id}"><b>${esc(r.club_name)}</b> <span class="st">· ${ST[r.status] || esc(r.status)}</span>`;
+    const extra = r.status === 'queued' ? phaseNote() : r.status === 'searching' ? (workerSt?.search_here ? ' (10~30초)' : phaseNote()) : '';
+    let h = `<div class="req" data-id="${r.id}"><b>${esc(r.club_name)}</b> <span class="st">· ${ST[r.status] || esc(r.status)}${extra}</span>`;
     if (r.status === 'confirm') {
       h += r.candidate_url
         ? `<div class="msg">이 주소가 맞나요?<br><a href="${esc(r.candidate_url)}" target="_blank" rel="noopener">${esc(r.candidate_url)}</a></div><input class="cand" value="${esc(r.candidate_url)}" inputmode="url" autocapitalize="off">`
@@ -509,10 +557,55 @@ async function renderHome() {
   });
 }
 
+/* ================= PWA: 설치·업데이트 ================= */
+const APP_VERSION = '2026.10.29-4';
+const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+let installEvt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; showInstallBar(); });
+window.addEventListener('appinstalled', () => { installEvt = null; $('#installBar').hidden = true; toast('설치되었습니다 — 홈 화면의 Yardage 아이콘으로 여세요'); });
+function canOfferInstall() { return !isStandalone() && (installEvt || isIOS()); }
+function showInstallBar() {
+  const dismissed = lsGet('installDismissed', 0);
+  $('#installBar').hidden = !canOfferInstall() || (Date.now() - dismissed < 7 * 86400000);
+  $('#meInstallRow').hidden = !canOfferInstall();
+}
+async function doInstall() {
+  if (installEvt) { installEvt.prompt(); const r = await installEvt.userChoice; if (r.outcome === 'accepted') $('#installBar').hidden = true; installEvt = null; }
+  else if (isIOS()) $('#mIos').classList.add('on');
+  else toast('브라우저 메뉴에서 "앱 설치" 또는 "홈 화면에 추가"를 선택하세요');
+}
+$('#btnInstall').onclick = doInstall;
+$('#btnInstall2').onclick = () => { $('#mMe').classList.remove('on'); doInstall(); };
+$('#btnInstallX').onclick = () => { lsSet('installDismissed', Date.now()); $('#installBar').hidden = true; };
+$('#appVer').textContent = `버전 ${APP_VERSION}${isStandalone() ? ' · 설치된 앱' : ''}`;
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(reg => {
+    // 새 버전 확인: 앱을 다시 볼 때마다
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) reg.update().catch(() => {}); });
+  }).catch(() => {});
+  // 새 서비스워커가 자리를 잡으면: 라운드 중이 아니면 새로고침, 라운드 중이면 다음 실행 때 적용
+  let reloaded = false;
+  const hadController = !!navigator.serviceWorker.controller;   // 첫 설치 때는 새로고침하지 않음
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (reloaded || !hadController) return;
+    if (!round && !outbox.length) { reloaded = true; location.reload(); }
+    else toast('새 버전이 준비됐습니다 — 라운드를 마치고 앱을 다시 열면 적용됩니다');
+  });
+}
+
 /* ================= 시작 ================= */
 document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('.modal').classList.remove('on'));
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
-async function afterLogin() { await flush(); await restoreRound(); render(); }
+showInstallBar();
+async function afterLogin() {
+  await flush(); await restoreRound(); render();
+  // 홈 화면 아이콘 길게 누르기 바로가기(새 라운드 / 구장추가)
+  const act = new URLSearchParams(location.search).get('action');
+  if (act) history.replaceState(null, '', '/');
+  if (act === 'new' && !round) openNew();
+  if (act === 'add') { renderCourseList(); $('#mCourses').classList.add('on'); $('#btnAddCourse').click(); }
+}
 (async () => {
   render();
   await loadCourses();

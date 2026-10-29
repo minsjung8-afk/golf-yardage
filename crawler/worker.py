@@ -169,11 +169,13 @@ def main():
         print(find_homepage(a.find)); return
     print("워커 시작 →", APP, "(drain)" if a.drain else "")
     started = time.time()
-    while True:
+    def ping(phase):
         try:
-            api("POST", "/worker/ping")
+            api("POST", f"/worker/ping?phase={phase}")
         except Exception:
             pass
+    while True:
+        ping("working")
         did = False
         for status, fn in (("searching", run_search), ("queued", run_crawl)):
             try:
@@ -184,9 +186,9 @@ def main():
                 print(f"[{status}] {req['club_name']} {req.get('url') or ''}")
                 fn(req); did = True
         if (a.once or a.drain) and not did:
-            return
+            ping("idle"); return
         if a.drain and time.time() - started > 35 * 60:    # Actions 제한시간 전에 정리
-            print("시간 한도 — 나머지는 다음 실행에서"); return
+            print("시간 한도 — 나머지는 다음 실행에서"); ping("idle"); return
         time.sleep(3 if did else 15)
 
 

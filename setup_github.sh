@@ -86,6 +86,17 @@ EOT
   echo "  토큰 확인·등록 완료"
 fi
 
+# ---------- 4b. 홈페이지 즉시 검색용 Anthropic 키 (Cloudflare) ----------
+say "4b 홈페이지 찾기를 앱에서 바로 하도록 Anthropic 키 등록"
+if $W pages secret list --project-name golf-yardage 2>/dev/null | grep -q ANTHROPIC_API_KEY; then
+  echo "  이미 등록됨"
+else
+  K="${ANTHROPIC_API_KEY:-}"; [ -n "$K" ] || K=$(ask_secret "Anthropic API 키 (sk-ant-api03-…, 3단계와 같은 키)")
+  [[ "$K" == sk-ant-* ]] || { echo "  sk-ant- 로 시작하는 키가 아닙니다. 다시 실행하세요."; exit 1; }
+  printf "%s" "$K" | $W pages secret put ANTHROPIC_API_KEY --project-name golf-yardage >/dev/null
+  echo "  등록 완료"
+fi
+
 # ---------- 5. 재배포 + 시험 ----------
 say "5/5 앱 재배포 (새 비밀값 적용)"
 unset CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID || true

@@ -137,8 +137,23 @@ export async function onRequest({ request, env, params, waitUntil }) {
       const id = uuid();
       // 주소가 있으면 바로 수집 대기, 없으면 워커가 먼저 홈페이지를 검색
       await DB.prepare('insert into crawl_requests(id,user_id,club_name,url,status) values(?,?,?,?,?)').bind(id, user.id, name, url, url ? 'queued' : 'searching').run();
-      wake(env, waitUntil);
-      return J({ id });
+      // 주소가 있으면 바로 수집기(GitHub) 호출. 이름만이면 앱이 이어서 /search 로 Cloudflare에서 즉시 검색한다
+      // (Anthropic 키가 없을 때만 GitHub 수집기가 검색까지 맡음)
+      if (url || !env.ANTHROPIC_API_KEY) wake(env, waitUntil);
+      return J({ id, search_here: !url && !!env.ANTHROPIC_API_KEY });
+    }
+    const crs = path.match(/^\/crawl-requests\/([\w-]+)\/search$/);
+    if (crs && m === 'POST') {                             // 이름 → 공식 홈페이지 (Cloudflare에서 즉시)
+      if (!user) return bad('login required', 401);
+      const r = await DB.prepare('select * from crawl_requests where id=? and user_id=?').bind(crs[1], user.id).first();
+      if (!r) return bad('not found', 404);
+      if (r.status !== 'searching') return J(r);
+      if (!env.ANTHROPIC_API_KEY) { wake(env, waitUntil); return bad('검색 키 미설정 — 수집기가 대신 찾습니다', 400); }
+      let res;
+      try { res = await findHomepage(env, r.club_name); }
+      catch (e) { wake(env, waitUntil); return bad('검색 실패 — 수집기가 대신 찾습니다: ' + String(e.message || e).slice(0, 120), 502); }
+      await DB.prepare('update crawl_requests set status="confirm", candidate_url=?, message=? where id=?').bind(res.url, res.note, r.id).run();
+      return J({ ...r, status: 'confirm', candidate_url: res.url, message: res.note });
     }
     const crd = path.match(/^\/crawl-requests\/([\w-]+)$/);
     if (crd && m === 'DELETE') {                           // 사용자: 요청 현황에서 지우기
@@ -175,13 +190,16 @@ export async function onRequest({ request, env, params, waitUntil }) {
     // ================= 수집기 상태 =================
     if (path === '/worker/ping' && m === 'POST') {
       if (!isWorker) return bad('unauthorized', 401);
-      await DB.prepare('insert into worker_status(k,v,updated_at) values("last_seen",?,datetime("now")) on conflict(k) do update set v=excluded.v, updated_at=excluded.updated_at').bind(new Date().toISOString()).run();
+      const now = new Date().toISOString();
+      const phase = new URL(request.url).searchParams.get('phase');   // preparing | working | idle
+      const up = (k, v) => DB.prepare('insert into worker_status(k,v,updated_at) values(?,?,datetime("now")) on conflict(k) do update set v=excluded.v, updated_at=excluded.updated_at').bind(k, v);
+      await DB.batch([up('last_seen', now), ...(phase ? [up('phase', `${phase} ${now}`)] : [])]);
       return J({ ok: true });
     }
     if (path === '/worker/status' && m === 'GET') {
       const rows = (await DB.prepare('select k, v from worker_status').all()).results;
       const kv = Object.fromEntries(rows.map(r => [r.k, r.v]));
-      return J({ last_seen: kv.last_seen || null, auto: !!(env.GH_TOKEN && env.GH_REPO), last_wake: kv.last_wake || null });
+      return J({ last_seen: kv.last_seen || null, auto: !!(env.GH_TOKEN && env.GH_REPO), last_wake: kv.last_wake || null, search_here: !!env.ANTHROPIC_API_KEY, phase: kv.phase || null });
     }
     if (path === '/worker/wake' && m === 'POST') {           // 앱의 '지금 실행' 버튼
       if (!user && !isWorker) return bad('login required', 401);
@@ -250,6 +268,70 @@ export async function onRequest({ request, env, params, waitUntil }) {
   } catch (e) {
     return bad(String(e.message || e), 500);
   }
+}
+
+// ---------- 이름 → 공식 홈페이지 (Anthropic 웹 검색) ----------
+const NOT_OFFICIAL = /(kimcaddie|dbegl|teescanner|tigerbooking|xgolf|smartscore|naver\.com|daum\.net|kakao|tistory|blog|cafe|instagram|facebook|youtube|wikipedia|namu\.wiki|ktriptips|golfpass|teetimegolfpass)/i;
+const hostOf = u => { try { return new URL(u).hostname.toLowerCase().replace(/^www\./, ''); } catch { return ''; } };
+
+async function askClaude(env, model, prompt) {
+  const r = await fetch((env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com') + '/v1/messages', {
+    method: 'POST',
+    headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+    body: JSON.stringify({
+      model, max_tokens: 2000,
+      tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 3, user_location: { type: 'approximate', country: 'KR' } }],
+      messages: [{ role: 'user', content: prompt }],
+    }),
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(`Anthropic ${r.status} ${j?.error?.message || ''}`.trim());
+  return j;
+}
+
+async function searchOnce(env, name, dead) {
+  const prompt = `대한민국 골프장 '${name}'의 **공식 홈페이지** 주소를 웹 검색으로 찾아라.
+- 예약·중개·리뷰·블로그·지도·위키 사이트는 공식 홈페이지가 아니다.
+- 운영사 통합 사이트(예: 골프존카운티)라면 해당 골프장 전용 페이지 주소를 택한다.
+- 같은 이름의 해외 골프장과 혼동하지 마라. 주소(시·군)로 국내 골프장인지 확인하라.
+- 인수·리뉴얼로 도메인이 바뀌었을 수 있으니 최신 정보를 우선하라.
+- 가능하면 '코스소개/코스안내' 페이지 주소를, 못 찾으면 메인 주소를 답한다.${dead.length ? `\n- 다음 주소는 접속이 안 되는 옛 주소이니 제외하라: ${dead.join(', ')}` : ''}
+마지막 줄에 JSON만: {"url": "https://..." 또는 null, "location": "시·군", "confidence": 0~1, "reason": "한 줄"}`;
+  let j;
+  const fast = env.SEARCH_MODEL || 'claude-haiku-5-5', strong = env.SEARCH_MODEL_FALLBACK || 'claude-sonnet-5-5';
+  try { j = await askClaude(env, fast, prompt); }
+  catch (e) { j = await askClaude(env, strong, prompt); }           // 빠른 모델이 실패하면 기존 모델로
+  const seen = new Set();
+  for (const b of j.content || []) if (b.type === 'web_search_tool_result' && Array.isArray(b.content)) b.content.forEach(x => seen.add(hostOf(x.url)));
+  const text = (j.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+  const all = text.match(/\{[^{}]*"url"[^{}]*\}/gs);
+  if (!all) return { url: null, note: '검색 결과를 해석하지 못했습니다' };
+  const o = JSON.parse(all[all.length - 1]);
+  if (!o.url || !/^https?:\/\//.test(o.url)) return { url: null, note: o.reason || '공식 홈페이지를 찾지 못했습니다' };
+  const h = hostOf(o.url);
+  if (NOT_OFFICIAL.test(h)) return { url: null, note: `공식 홈페이지가 아닌 사이트만 찾았습니다(${h}). 주소를 직접 입력해 주세요` };
+  let note = [o.location, o.confidence != null ? `신뢰도 ${o.confidence}` : '', o.reason].filter(Boolean).join(' · ');
+  if (!seen.has(h)) note += ' · ⚠ 검색 결과에 직접 나온 주소가 아님, 꼭 확인';
+  return { url: o.url, note };
+}
+
+async function reachable(url) {
+  try {
+    const r = await fetch(url, { redirect: 'follow', headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(8000) });
+    return { ok: r.status < 500, url: r.url || url };
+  } catch { return { ok: false, url }; }
+}
+
+async function findHomepage(env, name) {
+  const dead = [];
+  for (let i = 0; i < 2; i++) {
+    const r = await searchOnce(env, name, dead);
+    if (!r.url) return r;
+    const c = await reachable(r.url);
+    if (c.ok) return { url: c.url, note: r.note };
+    dead.push(r.url);
+  }
+  return { url: null, note: `찾은 주소가 접속되지 않습니다(${dead.join(', ')}). 주소를 직접 입력해 주세요` };
 }
 
 // GitHub Actions 수집기 깨우기 (GH_TOKEN·GH_REPO 시크릿이 있을 때만)

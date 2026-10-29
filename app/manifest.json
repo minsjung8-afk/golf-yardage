@@ -1,1 +1,24 @@
-{"name":"Yardage","short_name":"Yardage","start_url":"./index.html","display":"standalone","background_color":"#0b1612","theme_color":"#0f3d2e","orientation":"portrait","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml"}]}
+{
+  "id": "/",
+  "name": "Yardage — 골프 야디지·스코어",
+  "short_name": "Yardage",
+  "description": "골프장 코스맵을 보며 스코어·퍼트·세컨 잔여거리를 기록하고 티샷 거리를 계산합니다.",
+  "lang": "ko",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1612",
+  "theme_color": "#0f3d2e",
+  "categories": ["sports", "lifestyle"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "새 라운드", "short_name": "새 라운드", "url": "/?action=new", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "구장추가", "short_name": "구장추가", "url": "/?action=add", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
