@@ -32,7 +32,7 @@ from bs4 import BeautifulSoup
 
 MODEL = os.environ.get("CRAWL_MODEL", "claude-sonnet-5-5")
 YD = 0.9144
-COURSE_LINK_RE = re.compile(r"(코스|course|hole|홀|야디지|yardage|제원|layout)", re.I)
+COURSE_LINK_RE = re.compile(r"(코스|course|hole|홀|야디지|yardage|제원|layout|^\s*\d{1,2}\s*(h|홀|번\s*홀)\s*$)", re.I)
 SKIP_RE = re.compile(r"(login|member|reserv|예약|board|mypage|policy|logout|join|notice|event|\.pdf$|\.hwp$)", re.I)
 MIN_IMG = 250
 HERE = Path(__file__).resolve().parent
@@ -66,7 +66,7 @@ def in_scope(url, scope):
 def course_id_for(url):
     """도메인 + (구장 파라미터 | 첫 경로) → 'golfzoncounty-com-64', 'seowongolf-co-kr-hills'"""
     sc = scope_params(url)
-    parts = [host(url)]
+    parts = [re.sub(r"^(m|mobile)\.", "", host(url))]          # m.golfzoncounty.com = golfzoncounty.com (중복 방지)
     if sc:
         parts += [v for _, v in sorted(sc.items())]
     else:
@@ -135,7 +135,7 @@ def harvest_page(page, url):
             continue
         seen.add(im["url"])
         w, h = size_map.get(im["url"], (MIN_IMG, MIN_IMG))
-        if w >= MIN_IMG and h >= MIN_IMG and not re.search(r"(logo|icon|banner|bn_|btn|weather|partner|special|visual|main_|tile|kakaocdn|daumcdn|staticmap|maps\.)", im["url"], re.I):
+        if max(w, h) >= MIN_IMG and min(w, h) >= 120 and not re.search(r"(logo|icon|banner|bn_|btn|weather|partner|special|visual|main_|tile|kakaocdn|daumcdn|staticmap|maps\.)", im["url"], re.I):
             im["w"], im["h"] = w, h
             keep.append(im)
 
@@ -151,6 +151,17 @@ def harvest_page(page, url):
         href = urljoin(url, m.group(1).replace("&amp;", "&")).split("#")[0]
         if host(href) == host(url) and not SKIP_RE.search(href) and not re.search(r"\.(js|css|png|jpe?g|gif|svg|webp)(\?|$)", href, re.I):
             links.append(href)
+
+    # iframe/frame 안의 페이지 (예: 더크로스비 — 코스공략이 /Course/iframe/a1.html 에 들어 있음)
+    #   위에서 BeautifulSoup가 iframe 태그를 지우므로, 렌더된 DOM에서 직접 주소를 받는다. 코스 관련 여부와 무관하게 따라간다.
+    try:
+        for src in page.evaluate("() => [...document.querySelectorAll('iframe,frame')].map(f => f.src).filter(Boolean)"):
+            href = urljoin(url, src).split("#")[0]
+            if href.startswith("http") and host(href) == host(url) and not SKIP_RE.search(href) \
+                    and not re.search(r"(youtube|map|kakao|naver|google|facebook|instagram|player|\.pdf)", href, re.I):
+                links.append(href)
+    except Exception:
+        pass
 
     return {"url": url, "text": text[:20000], "tables": tables, "images": keep, "links": sorted(set(links))}
 
@@ -205,6 +216,8 @@ SCHEMA_HINT = """
   티 이름이 페이지에 없으면 거리가 긴 순서대로 "T1","T2","T3"... 를 키로 쓰고 issues에 적는다.
 - 전장은 표에 있는 숫자를 우선. 표가 없으면 본문. 추정 금지, 없으면 tees를 {}로.
 - 단위: 미터(m)와 야드(yd)가 함께 적혀 있으면 **미터 값을 쓰고 unit="m"**. 야드만 있으면 unit="yd".
+- VISION 블록은 그 페이지 그림에서 읽은 값이다. 표·본문에 숫자가 없으면 VISION의 hole·par·hdcp·tees·unit을 쓰고,
+  VISION의 map_image가 있으면 그 홀의 image_url로 쓴다. 페이지 주소의 코스 기호(예: /iframe/a3.html → a코스 3홀)와 탭 이름으로 코스를 정한다.
 - image_url은 파일명/alt/주변 텍스트로 홀 번호가 식별될 때만 채운다(예: w3.jpg → 웨스트 3홀, hole_05.png → 5홀).
   같은 홀에 '코스맵(조감도)'과 '사진'이 둘 다 있으면 코스맵(일러스트/조감도) 쪽을 택한다(보통 파일명이 짧거나 img_ 접두가 없는 쪽).
   18홀/9홀이 한 장에 그려진 전체도는 image_url에 넣지 말고 issues에 URL을 적는다.
@@ -224,16 +237,75 @@ def llm_json(client, content, max_tokens=16000):
     return json.loads(m.group(0))
 
 
+DIST_RE = re.compile(r"(\d{2,3}\s*(m|M|미터|yd|Yd|YD|야드)\b|par\s*\d|파\s*[345]\b|HDCP|핸디)", re.I)
+
+
+def needs_vision(d):
+    """파·거리가 글자로 없고 큰 그림이 1~4장인 페이지 = 숫자가 그림 안에 있을 가능성 (홀별 안내 페이지)"""
+    if d["tables"] or len(DIST_RE.findall(d["text"])) >= 3:
+        return False
+    big = [i for i in d["images"] if max(i.get("w") or 0, i.get("h") or 0) >= 300]
+    return 1 <= len(big) <= 4
+
+
+def vision_page(client, d):
+    """홀 안내 페이지의 그림들을 보고 홀 번호·파·핸디캡·티별 거리·코스맵 그림을 읽는다."""
+    import base64
+    content, urls = [], []
+    for im in [i for i in d["images"] if max(i.get("w") or 0, i.get("h") or 0) >= 200][:4]:
+        try:
+            req = __import__("urllib.request").request.Request(im["url"], headers={"User-Agent": UA, "Referer": d["url"]})
+            data = __import__("urllib.request").request.urlopen(req, timeout=20).read()
+        except Exception:
+            continue
+        if len(data) > 4_500_000:
+            continue
+        mime = "image/png" if data[:4] == b"\x89PNG" else ("image/webp" if data[8:12] == b"WEBP" else ("image/gif" if data[:3] == b"GIF" else "image/jpeg"))
+        content.append({"type": "text", "text": f"그림 {len(urls) + 1}: {im['url']}"})
+        content.append({"type": "image", "source": {"type": "base64", "media_type": mime, "data": base64.b64encode(data).decode()}})
+        urls.append(im["url"])
+    if not urls:
+        return None
+    content.append({"type": "text", "text":
+        f"골프장 홈페이지의 한 페이지({d['url']})에 있는 그림들이다. 페이지 글: {d['text'][:400]!r}\n"
+        "그림 안에 적힌 숫자를 읽어라. 한 홀 안내 페이지라면 "
+        '{"hole": 번호, "par": n, "hdcp": n 또는 null, "tees": {"티 이름(그림에 적힌 그대로, 없으면 T1·T2… 긴 순서)": 거리숫자}, '
+        '"unit": "m" 또는 "yd", "map_image": "홀 코스맵(조감도·공략도) 그림의 URL 또는 null"} '
+        '여러 홀 정보가 한 그림에 있으면 {"holes": [위 형식의 배열]}. 홀 안내가 아니면 {"none": true}. '
+        "m와 yd가 함께 있으면 m. 읽을 수 없는 값은 null. JSON만."})
+    try:
+        return llm_json(client, content, max_tokens=4000)
+    except Exception as e:
+        return {"error": str(e)[:120]}
+
+
+def add_vision(client, pages, limit=45):
+    """숫자가 그림에만 있는 페이지들을 병렬로 판독해 d['vision']에 붙인다."""
+    from concurrent.futures import ThreadPoolExecutor
+    targets = [d for d in pages if needs_vision(d)][:limit]
+    if not targets:
+        return
+    print(f"  그림 판독: {len(targets)}페이지 (파·거리가 그림 안에 있는 페이지)")
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        for d, v in zip(targets, ex.map(lambda x: vision_page(client, x), targets)):
+            if v:
+                d["vision"] = v
+
+
 def structure(client, pages, club_hint):
+    add_vision(client, pages)
     chunks = []
+    per_page = max(1200, min(6000, 110000 // max(1, len(pages))))   # 페이지가 많으면 본문을 줄여 한도 안에
     for d in pages:
         chunks.append(f"### PAGE {d['url']}")
         if d["tables"]:
             chunks.append("TABLES:\n" + "\n\n".join(d["tables"]))
+        if d.get("vision"):
+            chunks.append("VISION(그림에서 읽은 값 — 표가 없으면 이 값을 사용):\n" + json.dumps(d["vision"], ensure_ascii=False))
         if d["images"]:
             chunks.append("IMAGES:\n" + "\n".join(
                 f"- {i['url']} | alt={i['alt']} | {i.get('w')}x{i.get('h')} | ctx={i['ctx'][:120]}" for i in d["images"]))
-        chunks.append("TEXT:\n" + d["text"][:6000])
+        chunks.append("TEXT:\n" + d["text"][:per_page])
     prompt = f"골프장 '{club_hint}' 홈페이지에서 수집한 자료다. 홀별 코스 데이터로 구조화하라.\n{SCHEMA_HINT}\n\n" + "\n".join(chunks)
     return llm_json(client, prompt)
 
@@ -372,7 +444,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--course", help="seeds.json의 id")
     ap.add_argument("--name"); ap.add_argument("--url")
-    ap.add_argument("--max-pages", type=int, default=25)
+    ap.add_argument("--max-pages", type=int, default=60)
     ap.add_argument("--no-llm", action="store_true", help="수집만 하고 raw_pages.json 저장")
     ap.add_argument("--id", help="결과 폴더/구장 id (기본: 주소에서 자동)")
     ap.add_argument("--tees", help="티 이름이 사이트에 없을 때 긴 순서대로 붙일 이름. 예: BLUE,WHITE,RED")

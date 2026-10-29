@@ -20,5 +20,11 @@
     "name": "김포씨사이드CC",
     "url": "https://www.gimpocc.co.kr",
     "note": "경기 김포, 18홀. 서버 응답 불안정(재시도 필요할 수 있음)"
+  },
+  "the-crosby": {
+    "name": "더크로스비",
+    "url": "https://thecrosbygc.co.kr/Course/CourseAttack.aspx",
+    "course_names": "아리아,빌리,샬롯",
+    "note": "경기 이천, 27홀. 코스공략이 iframe(/Course/iframe/a1~c9.html)에 있고 파·거리는 그림 안에 있음 → 그림 판독 필요"
   }
 }

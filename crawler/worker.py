@@ -146,6 +146,11 @@ def run_crawl(req):
         print(p.stdout[-1500:])
         if p.returncode != 0:
             raise RuntimeError((p.stderr or p.stdout)[-800:] or "crawl.py 실패")
+        cj = json.loads((OUT / course_id / "course.json").read_text(encoding="utf-8"))
+        n_holes = sum(len(c.get("holes") or []) for c in cj.get("courses", []))
+        if n_holes == 0:                                  # 홀을 하나도 못 읽었으면 '완료'가 아니라 실패
+            issues = "; ".join(cj.get("issues", [])[:3])
+            raise RuntimeError(f"홀 정보를 찾지 못했습니다(코스소개 페이지 구조 미지원). {issues}")
         upload_course(course_id)
         review = json.loads((OUT / course_id / "review.json").read_text(encoding="utf-8"))
         msg = ("완료 · 확인 필요: " + "; ".join(review[:4])) if review else "완료"
