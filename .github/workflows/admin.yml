@@ -1,0 +1,31 @@
+# 관리 작업 — 서버의 구장 데이터를 손보는 일회성 작업 (예: 티 이름 바꾸기)
+# 실행: Actions → admin → Run workflow, 또는 gh api 로 workflow_dispatch
+name: admin
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:   { description: "작업 (retee)", required: true, default: "retee" }
+      course_id: { description: "구장 id", required: true }
+      arg1: { description: "예: 5=RED,GREEN,WHITE1,WHITE2,BLUE  또는  BLUE,WHITE,RED", required: true }
+      arg2: { description: "예: 4=RED,GREEN,WHITE,BLUE (선택)", required: false, default: "" }
+
+jobs:
+  admin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      APP_URL: ${{ secrets.APP_URL }}
+      WORKER_KEY: ${{ secrets.WORKER_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests
+      - name: 티 이름 바꾸기
+        if: github.event.inputs.task == 'retee'
+        working-directory: crawler
+        env:
+          CID: ${{ github.event.inputs.course_id }}
+          A1: ${{ github.event.inputs.arg1 }}
+          A2: ${{ github.event.inputs.arg2 }}
+        run: |
+          if [ -n "$A2" ]; then python retee.py "$CID" "$A1" "$A2"; else python retee.py "$CID" "$A1"; fi
