@@ -85,6 +85,8 @@ def harvest_page(page, url):
     time.sleep(0.8)
 
     # 탭/버튼형 홀 전환 → 전부 클릭해서 숨은 DOM/이미지 로드
+    #   단, 다른 페이지로 이동하는 진짜 링크(a href="a2.html")는 누르지 않는다 — 누르면 페이지가 바뀌어
+    #   모든 홀이 같은 내용으로 수집된다(더크로스비에서 1번 홀만 남던 원인). 그런 링크는 아래에서 따로 따라간다.
     clicked = 0
     for el in page.query_selector_all("a, button, li, span, div[onclick]")[:600]:
         try:
@@ -93,6 +95,9 @@ def harvest_page(page, url):
             continue
         if re.fullmatch(r"(HOLE\s*\d{1,2}|\d{1,2}\s*번?\s*홀|\d{1,2}H|[A-Za-z가-힣]{2,10}\s*(코스|COURSE))", t, re.I):
             try:
+                href = el.evaluate("e => { const a = e.closest('a'); return a ? (a.getAttribute('href') || '') : '' }")
+                if href and not re.match(r"^(#|javascript:|void)", href.strip(), re.I):
+                    continue
                 el.click(timeout=1200)
                 clicked += 1
                 time.sleep(0.25)
@@ -100,6 +105,10 @@ def harvest_page(page, url):
                 pass
         if clicked >= 60:
             break
+    try:
+        page.wait_for_load_state("domcontentloaded", timeout=5000)
+    except Exception:
+        pass
 
     html = page.content()
     soup = BeautifulSoup(html, "html.parser")
