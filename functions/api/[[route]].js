@@ -73,7 +73,7 @@ export async function onRequest({ request, env, params, waitUntil }) {
         mine: !!user && c.created_by === user.id,
         courses: JSON.parse(c.course_names || '[]').map(n => ({
           name: n, holes: hs.filter(h => h.course_id === c.id && h.course_name === n)
-            .map(h => ({ hole: h.hole, par: h.par, hdcp: h.hdcp, tees_m: JSON.parse(h.tees_m || '{}'), image_url: h.image_url, note: h.note }))
+            .map(h => ({ hole: h.hole, par: h.par, hdcp: h.hdcp, tees_m: JSON.parse(h.tees_m || '{}'), greens_m: h.greens_m ? JSON.parse(h.greens_m) : null, image_url: h.image_url, note: h.note }))
         }))
       })));
     }
@@ -90,8 +90,9 @@ export async function onRequest({ request, env, params, waitUntil }) {
         .bind(c.course_id, c.club_name, c.source || null, JSON.stringify(tees), JSON.stringify(c.courses.map(x => x.name)), isWorker ? null : user.id),
         DB.prepare('delete from holes where course_id=?').bind(c.course_id)];
       for (const x of c.courses) for (const h of x.holes)
-        stmts.push(DB.prepare('insert into holes(course_id,course_name,hole,par,hdcp,tees_m,image_url,note) values(?,?,?,?,?,?,?,?)')
-          .bind(c.course_id, x.name, +h.hole, +h.par, h.hdcp ?? null, JSON.stringify(h.tees_m || {}), h.image_url || null, h.note || null));
+        stmts.push(DB.prepare('insert into holes(course_id,course_name,hole,par,hdcp,tees_m,greens_m,image_url,note) values(?,?,?,?,?,?,?,?,?)')
+          .bind(c.course_id, x.name, +h.hole, +h.par, h.hdcp ?? null, JSON.stringify(h.tees_m || {}),
+                h.greens_m && Object.keys(h.greens_m).length >= 2 ? JSON.stringify(h.greens_m) : null, h.image_url || null, h.note || null));
       await DB.batch(stmts);
       return J({ ok: true, holes: stmts.length - 2 });
     }
@@ -220,8 +221,8 @@ export async function onRequest({ request, env, params, waitUntil }) {
         .bind(r.id, user.id, user.id, r.course_id, r.club_name, r.played_on, r.tee, r.front, r.back || null, r.id).run();
       return J({ ok: true });
     }
-    const putHole = (rid, h) => DB.prepare('insert or replace into hole_scores(round_id,seq,course_name,hole,par,tee,length_m,remain_m,score,putts,fairway,updated_at) values(?,?,?,?,?,?,?,?,?,?,?,datetime("now"))')
-      .bind(rid, +h.seq, h.course_name, +h.hole, +h.par, h.tee, h.length_m ?? null, +h.par === 3 ? null : (h.remain_m ?? null), h.score ?? null, h.putts ?? null, h.fairway ?? null);
+    const putHole = (rid, h) => DB.prepare('insert or replace into hole_scores(round_id,seq,course_name,hole,par,tee,length_m,remain_m,score,putts,fairway,green,updated_at) values(?,?,?,?,?,?,?,?,?,?,?,?,datetime("now"))')
+      .bind(rid, +h.seq, h.course_name, +h.hole, +h.par, h.tee, h.length_m ?? null, +h.par === 3 ? null : (h.remain_m ?? null), h.score ?? null, h.putts ?? null, h.fairway ?? null, h.green ?? null);
     const rh1 = path.match(/^\/rounds\/([\w-]+)\/holes\/(\d+)$/);
     if (rh1 && m === 'PUT') {
       if (!(await own(rh1[1]))) return bad('round not found', 404);

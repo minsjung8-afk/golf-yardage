@@ -37,6 +37,7 @@ create table if not exists holes (
   par integer not null,
   hdcp integer,
   tees_m text not null default '{}',
+  greens_m text,                     -- JSON {"우":{"BLACK":404},"좌":{"BLACK":435}} — 그린이 둘인 홀만
   image_url text,
   note text,
   primary key (course_id, course_name, hole)
@@ -69,6 +70,7 @@ create table if not exists hole_scores (
   score integer,
   putts integer,
   fairway text,
+  green text,                        -- 그린이 둘인 홀에서 고른 그린(우/좌)
   updated_at text default (datetime('now')),
   primary key (round_id, seq)
 );

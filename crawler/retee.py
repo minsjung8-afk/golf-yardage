@@ -41,6 +41,9 @@ def main():
                 skipped.append(f"{k['name']} {h['hole']}홀({len(tees)}티)")
                 continue
             h["tees_m"] = {names[i]: m for i, (_, m) in enumerate(tees)}
+            if h.get("greens_m"):                       # 그린별 전장도 같은 순서로
+                h["greens_m"] = {g: {names[i]: m for i, (_, m) in enumerate(sorted(t.items(), key=lambda kv: -(kv[1] or 0))) if i < len(names)}
+                                 for g, t in h["greens_m"].items()}
             for nm in names[:len(tees)]:
                 if nm not in order:
                     order.append(nm)

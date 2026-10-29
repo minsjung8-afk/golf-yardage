@@ -232,6 +232,7 @@ SCHEMA_HINT = """
   {"name": "코스명(예: 웨스트)", "holes": [
     {"hole": 1, "par": 4, "hdcp": 7,
      "tees": {"BLACK": 420, "BLUE": 400, "WHITE": 380, "RED": 330},
+     "greens": null,
      "unit": "yd",
      "image_url": "홀 코스맵 이미지 URL 또는 null",
      "image_confidence": 0.9,
@@ -243,6 +244,11 @@ SCHEMA_HINT = """
 규칙:
 - 티 이름은 원문 표기(BLACK/BLUE/WHITE/GOLD/RED/챔피언/레귤러/레이디 등)를 그대로.
   티 이름이 페이지에 없으면 거리가 긴 순서대로 "T1","T2","T3"... 를 키로 쓰고 issues에 적는다.
+- 티 이름이 글자 없이 색 점·아이콘(●)으로만 표시되면 색으로 이름을 붙인다:
+  검정=BLACK, 파랑=BLUE, 흰색/빈 원=WHITE, 빨강=RED, 노랑·금색=GOLD, 초록=GREEN, 주황=ORANGE, 은색·회색=SILVER.
+- 그린이 두 개인 홀(우그린/좌그린, A/B그린, 또는 표에 '좌·우'로 두 줄)은 "greens"에 그린별 전장을 모두 넣는다:
+  "greens": {"우": {"BLACK": 404, "BLUE": 375, ...}, "좌": {"BLACK": 435, ...}}. 이때 "tees"에는 첫 번째 그린(보통 우) 값을 넣는다.
+  그린이 하나면 "greens": null.
 - 전장은 표에 있는 숫자를 우선. 표가 없으면 본문. 추정 금지, 없으면 tees를 {}로.
 - 단위: 미터(m)와 야드(yd)가 함께 적혀 있으면 **미터 값을 쓰고 unit="m"**. 야드만 있으면 unit="yd".
 - VISION 블록은 그 페이지 그림에서 읽은 값이다. 표·본문에 숫자가 없으면 VISION의 hole·par·hdcp·tees·unit을 쓰고,
@@ -296,7 +302,9 @@ def vision_page(client, d):
         return None
     content.append({"type": "text", "text":
         f"골프장 홈페이지의 한 페이지({d['url']})에 있는 그림들이다. 페이지 글: {d['text'][:400]!r}\n"
-        "그림 안에 적힌 숫자를 읽어라. 한 홀 안내 페이지라면 "
+        "그림 안에 적힌 숫자를 읽어라. 티 이름이 글자 없이 색 점으로만 있으면 색으로 이름을 붙여라"
+        "(검정 BLACK, 파랑 BLUE, 흰색 WHITE, 빨강 RED, 노랑 GOLD, 초록 GREEN). 그린이 둘(우/좌)이면 \"greens\": {\"우\": {티: 거리}, \"좌\": {...}} 도 넣어라. "
+        "한 홀 안내 페이지라면 "
         '{"hole": 번호, "par": n, "hdcp": n 또는 null, "tees": {"티 이름(그림에 적힌 그대로, 없으면 T1·T2… 긴 순서)": 거리숫자}, '
         '"unit": "m" 또는 "yd", "map_image": "홀 코스맵(조감도·공략도) 그림의 URL 또는 null"} '
         '여러 홀 정보가 한 그림에 있으면 {"holes": [위 형식의 배열]}. 홀 안내가 아니면 {"none": true}. '
@@ -416,6 +424,40 @@ def finalize(client, course_id, struct, pages):
         elif len(cand) > 1:
             review.append(f"홀 수와 장수가 같은 이미지 묶음이 {len(cand)}개라 순서 매칭 보류")
 
+    # 3-2b 번호 추론: 같은 코스에 그림이 있는 홀이 있고 파일명에 그 홀 번호가 들어 있으면(s_01.png, hole1.jpg)
+    #      번호만 바꿔 빠진 홀 그림을 찾아본다 (예: 베르힐 영종 — 페이지는 9홀 모두 s_01.png를 걸고 JS로 바꿔 끼움)
+    for c in struct["courses"]:
+        known = [h for h in c["holes"] if h.get("image") and h.get("image_url")]
+        need = [h for h in c["holes"] if not h.get("image")]
+        if not known or not need:
+            continue
+        tmpl = None
+        for h in known:
+            base = h["image_url"].rsplit("/", 1)
+            n = int(h["hole"])
+            m = list(re.finditer(rf"(?<!\d)0*{n}(?!\d)", base[-1]))
+            if len(m) == 1:
+                width = len(m[0].group(0))
+                tmpl = (base[0] + "/" + base[-1][:m[0].start()], base[-1][m[0].end():], width)
+                break
+        if not tmpl:
+            continue
+        found = 0
+        for h in need:
+            u = f"{tmpl[0]}{str(int(h['hole'])).zfill(tmpl[2])}{tmpl[1]}"
+            fn = f"{c['name']}_{int(h['hole']):02d}{os.path.splitext(urlparse(u).path)[1] or '.jpg'}"
+            try:
+                data = fetch_bytes(u)
+                if len(data) < 2000 or not (data[:4] == b"\x89PNG" or data[:3] == b"\xff\xd8\xff" or data[8:12] == b"WEBP" or data[:3] == b"GIF"):
+                    continue
+                (out / "images" / fn).write_bytes(data)
+                h["image"], h["image_url"], h["image_confidence"] = f"images/{fn}", u, 0.75
+                found += 1
+            except Exception:
+                continue
+        if found:
+            review.append(f"{c['name']}: 1번 홀 그림 이름의 번호를 바꿔 {found}개 홀 코스맵을 찾음 — 몇 홀 확인 권장")
+
     missing = [(c, h) for c in struct["courses"] for h in c["holes"] if not h["image"]]
     if missing and client:
         for u in list(all_imgs)[:60]:
@@ -453,8 +495,13 @@ def finalize(client, course_id, struct, pages):
         for h in c["holes"]:
             unit = (h.get("unit") or "m").lower()
             tees = h.get("tees") or {}
-            h["tees_m"] = {k: (round(v * YD) if unit.startswith("y") else int(round(v)))
-                           for k, v in tees.items() if isinstance(v, (int, float))}
+            conv = lambda d: {k: (round(v * YD) if unit.startswith("y") else int(round(v)))
+                              for k, v in (d or {}).items() if isinstance(v, (int, float))}
+            h["tees_m"] = conv(tees)
+            greens = h.get("greens") if isinstance(h.get("greens"), dict) else None
+            h["greens_m"] = {g: conv(t) for g, t in greens.items() if conv(t)} if greens and len(greens) >= 2 else None
+            if h["greens_m"] and not h["tees_m"]:
+                h["tees_m"] = next(iter(h["greens_m"].values()))
             if not h["tees_m"]:
                 review.append(f"{c['name']} {h['hole']}홀 전장 없음")
             if not h["image"]:

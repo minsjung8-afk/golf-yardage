@@ -111,6 +111,7 @@ input.num{flex:1;min-width:0;height:var(--tap);font-size:28px;text-align:center;
 
 <section id="sheet">
   <div id="holePanel" hidden>
+    <div class="row" id="greenRow" hidden><label>그린</label><div class="chips" id="greenChips"></div></div>
     <div class="row"><label>티</label><div class="tees" id="teeRow"></div></div>
     <div class="row"><label>스코어</label>
       <div class="stepper"><button data-k="score" data-d="-1">−</button><output id="score">–</output><button data-k="score" data-d="1">+</button></div></div>
@@ -441,7 +442,9 @@ function buildHoles(c, parts, tee, saved = []) {
   const out = []; let seq = 1;
   parts.forEach(n => (c.courses.find(x => x.name === n)?.holes || []).forEach(h => {
     const s = saved.find(x => x.seq === seq) || {};
+    const greens = h.greens_m && Object.keys(h.greens_m).length >= 2 ? h.greens_m : null;
     out.push({ seq: seq++, course_name: n, hole: h.hole, par: h.par, tee: s.tee || matchTee(h.tees_m, tee), image_url: h.image_url, tees_m: h.tees_m,
+      greens_m: greens, green: greens ? (s.green && greens[s.green] ? s.green : Object.keys(greens)[0]) : null,
       score: s.score ?? null, putts: s.putts ?? null, remain_m: s.remain_m ?? null, fairway: s.fairway ?? null });
   }));
   return out;
@@ -473,7 +476,9 @@ async function restoreRound() {
 
 /* ================= 홀 화면 ================= */
 const hole = () => round?.holes[cur];
-const lengthM = h => h.tees_m?.[h.tee] ?? h.tees_m?.[matchTee(h.tees_m, h.tee)] ?? null;
+// 그린이 둘인 홀(베르힐 영종 우/좌)은 고른 그린의 전장을 쓴다
+const holeTees = h => (h.greens_m && h.green && h.greens_m[h.green]) || h.tees_m || {};
+const lengthM = h => { const t = holeTees(h); return t[h.tee] ?? t[matchTee(t, h.tee)] ?? null; };
 function render() {
   const h = hole();
   $('#holePanel').hidden = !h; $('#nav').hidden = !h; $('#hud').hidden = !h; $('#homePanel').hidden = !!h;
@@ -483,9 +488,19 @@ function render() {
   const img = $('#mapImg');
   if (h.image_url) { img.hidden = false; $('#mapPh').hidden = true; img.onerror = () => { img.hidden = true; $('#mapPh').hidden = false; $('#mapPh').textContent = '코스맵을 불러오지 못했습니다'; }; if (img.getAttribute('src') !== h.image_url) img.src = h.image_url; }
   else { img.hidden = true; $('#mapPh').hidden = false; $('#mapPh').textContent = '코스맵 없음'; }
-  $('#hud').innerHTML = `<b>${esc(h.course_name)} ${h.hole}</b>홀 · PAR ${h.par}<br>${esc(h.tee)} ${lengthM(h) ?? '–'}m`;
-  const tees = Object.keys(h.tees_m || {});
-  $('#teeRow').innerHTML = tees.map(t => `<button class="${t === h.tee ? 'on' : ''}" data-tee="${esc(t)}">${esc(t)} ${h.tees_m[t]}</button>`).join('');
+  $('#hud').innerHTML = `<b>${esc(h.course_name)} ${h.hole}</b>홀 · PAR ${h.par}<br>${esc(h.tee)} ${lengthM(h) ?? '–'}m${h.green ? ' · ' + esc(h.green) + '그린' : ''}`;
+  // 그린 선택: 고르면 이 홀과, 아직 스코어를 안 넣은 다음 홀들에 같이 적용(그날 그린)
+  $('#greenRow').hidden = !h.greens_m;
+  if (h.greens_m) {
+    $('#greenChips').innerHTML = Object.keys(h.greens_m).map(g => `<button class="${g === h.green ? 'on' : ''}" data-g="${esc(g)}">${esc(g)}그린</button>`).join('');
+    $('#greenChips').querySelectorAll('button').forEach(b => b.onclick = () => {
+      const g = b.dataset.g; h.green = g; save(h);
+      round.holes.slice(cur + 1).forEach(x => { if (x.greens_m && x.greens_m[g] && x.score == null && x.green !== g) { x.green = g; save(x); } });
+      render();
+    });
+  }
+  const tm = holeTees(h), tees = Object.keys(tm);
+  $('#teeRow').innerHTML = tees.map(t => `<button class="${t === matchTee(tm, h.tee) ? 'on' : ''}" data-tee="${esc(t)}">${esc(t)} ${tm[t]}</button>`).join('');
   $('#teeRow').querySelectorAll('button').forEach(b => b.onclick = () => { h.tee = b.dataset.tee; save(h); render(); });
   const so = $('#score'); so.textContent = h.score ?? '–'; so.className = h.score == null ? '' : h.score <= h.par ? 'par' : h.score === h.par + 1 ? 'over' : 'dbl';
   $('#putts').textContent = h.putts ?? '–';
@@ -505,16 +520,17 @@ function renderSummary() {
   const f = round.holes.slice(0, 9), b = round.holes.slice(9);
   mk($('#sumFront'), f, 0); mk($('#sumBack'), b, 9); $('#sumBack').hidden = !b.length;
 }
+const holePayload = h => ({ course_name: h.course_name, hole: h.hole, par: h.par, tee: h.tee, length_m: lengthM(h), remain_m: h.par === 3 ? null : h.remain_m, score: h.score, putts: h.putts, fairway: h.fairway, green: h.green || null });
 /* 입력 → 기기 사본 갱신 + 해당 홀만 서버로 (연속 입력은 0.6초 모아서 한 번) */
 const timers = {};
 function save(h) {
   lsSet('round', round);
   clearTimeout(timers[h.seq]);
   timers[h.seq] = setTimeout(() => enqueue(`hole:${round.id}:${h.seq}`, 'PUT', `/rounds/${round.id}/holes/${h.seq}`,
-    { course_name: h.course_name, hole: h.hole, par: h.par, tee: h.tee, length_m: lengthM(h), remain_m: h.par === 3 ? null : h.remain_m, score: h.score, putts: h.putts, fairway: h.fairway }), 600);
+    holePayload(h)), 600);
   $('#sync').className = 'wait'; $('#sync').textContent = '⏳';
 }
-function enqueueNow(h) { enqueue(`hole:${round.id}:${h.seq}`, 'PUT', `/rounds/${round.id}/holes/${h.seq}`, { course_name: h.course_name, hole: h.hole, par: h.par, tee: h.tee, length_m: lengthM(h), remain_m: h.par === 3 ? null : h.remain_m, score: h.score, putts: h.putts, fairway: h.fairway }); }
+function enqueueNow(h) { enqueue(`hole:${round.id}:${h.seq}`, 'PUT', `/rounds/${round.id}/holes/${h.seq}`, holePayload(h)); }
 document.querySelectorAll('.stepper button').forEach(b => b.onclick = () => {
   const h = hole(), k = b.dataset.k, d = +b.dataset.d;
   const base = k === 'score' ? h.par : 2;
@@ -565,7 +581,7 @@ async function renderHome() {
 }
 
 /* ================= PWA: 설치·업데이트 ================= */
-const APP_VERSION = '2026.10.29-5';
+const APP_VERSION = '2026.10.29-6';
 const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 let installEvt = null;
