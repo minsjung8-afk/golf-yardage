@@ -15,6 +15,9 @@ on:
   schedule:
     - cron: "7 * * * *"
 
+permissions:
+  contents: write     # 디버그 기록을 crawl-logs 브랜치에 남기기 위해
+
 concurrency:
   group: crawl
   cancel-in-progress: false
@@ -83,7 +86,9 @@ jobs:
           args=(--name "${IN_NAME:-$IN_URL}" --url "$IN_URL" --id "$ID")
           [ -n "$IN_TEES" ] && args+=(--tees "$IN_TEES")
           [ -n "$IN_CN" ] && args+=(--course-names "$IN_CN")
-          python crawl.py "${args[@]}"
+          set -o pipefail
+          mkdir -p out
+          python crawl.py "${args[@]}" 2>&1 | tee out/crawl.log
           python - <<PY
           import json,sys
           d=json.load(open("out/$ID/course.json",encoding="utf-8"))
@@ -91,6 +96,18 @@ jobs:
           print("홀 수:", n); sys.exit(0 if n else 1)
           PY
           python worker.py --upload "$ID"
+
+      - name: 디버그 기록 (crawl-logs 브랜치)
+        if: always() && github.event.inputs.url != ''
+        working-directory: crawler
+        run: |
+          [ -d out ] || exit 0
+          D=$(mktemp -d); cp -r out "$D/out"
+          find "$D/out" -type f ! -name "*.json" ! -name "*.log" -delete
+          cd "$D" && git init -q && git checkout -q -b crawl-logs
+          git config user.name "crawl-bot"; git config user.email "crawl-bot@users.noreply.github.com"
+          git add -A && git commit -qm "crawl ${{ github.run_id }} ${{ github.event.inputs.club_name }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" crawl-logs
 
       - name: 결과 보관
         if: always() && steps.q.outputs.pending != '0'
