@@ -1,0 +1,1761 @@
+{
+  "club_name": "베르힐CC 영종",
+  "courses": [
+    {
+      "name": "베르힐",
+      "holes": [
+        {
+          "hole": 1,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 404,
+            "BLUE": 375,
+            "WHITE": 353,
+            "RED": 276
+          },
+          "greens": {
+            "우": {
+              "BLACK": 404,
+              "BLUE": 375,
+              "WHITE": 353,
+              "RED": 276
+            },
+            "좌": {
+              "BLACK": 435,
+              "BLUE": 406,
+              "WHITE": 384,
+              "RED": 307
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/verthill/v_01.png",
+          "image_confidence": 0.85,
+          "note": "전체 코스 중 가장 까다로운 난이도를 자랑하는 베르힐 코스의 첫 홀입니다. 티샷은 좌측 벙커를 피해 페어웨이 중앙을 확보해야 하며, 세컨샷은 깊은 벙커를 넘어 정교하게 올려야 파 세이브가 가능합니다.",
+          "image": "images/베르힐_01.png",
+          "tees_m": {
+            "BLACK": 404,
+            "BLUE": 375,
+            "WHITE": 353,
+            "RED": 276
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 404,
+              "BLUE": 375,
+              "WHITE": 353,
+              "RED": 276
+            },
+            "좌": {
+              "BLACK": 435,
+              "BLUE": 406,
+              "WHITE": 384,
+              "RED": 307
+            }
+          }
+        },
+        {
+          "hole": 2,
+          "par": 5,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 525,
+            "BLUE": 506,
+            "WHITE": 486,
+            "RED": 398
+          },
+          "greens": {
+            "우": {
+              "BLACK": 525,
+              "BLUE": 506,
+              "WHITE": 486,
+              "RED": 398
+            },
+            "좌": {
+              "BLACK": 527,
+              "BLUE": 508,
+              "WHITE": 488,
+              "RED": 400
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/verthill/v_02.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/베르힐_02.png",
+          "tees_m": {
+            "BLACK": 525,
+            "BLUE": 506,
+            "WHITE": 486,
+            "RED": 398
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 525,
+              "BLUE": 506,
+              "WHITE": 486,
+              "RED": 398
+            },
+            "좌": {
+              "BLACK": 527,
+              "BLUE": 508,
+              "WHITE": 488,
+              "RED": 400
+            }
+          }
+        },
+        {
+          "hole": 3,
+          "par": 3,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 170,
+            "BLUE": 157,
+            "WHITE": 145,
+            "RED": 122
+          },
+          "greens": {
+            "우": {
+              "BLACK": 170,
+              "BLUE": 157,
+              "WHITE": 145,
+              "RED": 122
+            },
+            "좌": {
+              "BLACK": 159,
+              "BLUE": 146,
+              "WHITE": 132,
+              "RED": 109
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/verthill/v_03.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/베르힐_03.png",
+          "tees_m": {
+            "BLACK": 170,
+            "BLUE": 157,
+            "WHITE": 145,
+            "RED": 122
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 170,
+              "BLUE": 157,
+              "WHITE": 145,
+              "RED": 122
+            },
+            "좌": {
+              "BLACK": 159,
+              "BLUE": 146,
+              "WHITE": 132,
+              "RED": 109
+            }
+          }
+        },
+        {
+          "hole": 4,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 390,
+            "BLUE": 360,
+            "WHITE": 340,
+            "RED": 270
+          },
+          "greens": {
+            "우": {
+              "BLACK": 390,
+              "BLUE": 360,
+              "WHITE": 340,
+              "RED": 270
+            },
+            "좌": {
+              "BLACK": 397,
+              "BLUE": 367,
+              "WHITE": 348,
+              "RED": 277
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/verthill/v_04.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/베르힐_04.png",
+          "tees_m": {
+            "BLACK": 390,
+            "BLUE": 360,
+            "WHITE": 340,
+            "RED": 270
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 390,
+              "BLUE": 360,
+              "WHITE": 340,
+              "RED": 270
+            },
+            "좌": {
+              "BLACK": 397,
+              "BLUE": 367,
+              "WHITE": 348,
+              "RED": 277
+            }
+          }
+        },
+        {
+          "hole": 5,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 357,
+            "BLUE": 336,
+            "WHITE": 313,
+            "RED": 246
+          },
+          "greens": {
+            "우": {
+              "BLACK": 357,
+              "BLUE": 336,
+              "WHITE": 313,
+              "RED": 246
+            },
+            "좌": {
+              "BLACK": 351,
+              "BLUE": 329,
+              "WHITE": 306,
+              "RED": 239
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/verthill/v_05.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/베르힐_05.png",
+          "tees_m": {
+            "BLACK": 357,
+            "BLUE": 336,
+            "WHITE": 313,
+            "RED": 246
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 357,
+              "BLUE": 336,
+              "WHITE": 313,
+              "RED": 246
+            },
+            "좌": {
+              "BLACK": 351,
+              "BLUE": 329,
+              "WHITE": 306,
+              "RED": 239
+            }
+          }
+        },
+        {
+          "hole": 6,
+          "par": 5,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 560,
+            "BLUE": 539,
+            "WHITE": 516,
+            "RED": 406
+          },
+          "greens": {
+            "우": {
+              "BLACK": 560,
+              "BLUE": 539,
+              "WHITE": 516,
+              "RED": 406
+            },
+            "좌": {
+              "BLACK": 540,
+              "BLUE": 519,
+              "WHITE": 496,
+              "RED": 386
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/verthill/v_06.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/베르힐_06.png",
+          "tees_m": {
+            "BLACK": 560,
+            "BLUE": 539,
+            "WHITE": 516,
+            "RED": 406
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 560,
+              "BLUE": 539,
+              "WHITE": 516,
+              "RED": 406
+            },
+            "좌": {
+              "BLACK": 540,
+              "BLUE": 519,
+              "WHITE": 496,
+              "RED": 386
+            }
+          }
+        },
+        {
+          "hole": 7,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 398,
+            "BLUE": 369,
+            "WHITE": 347,
+            "RED": 273
+          },
+          "greens": {
+            "우": {
+              "BLACK": 398,
+              "BLUE": 369,
+              "WHITE": 347,
+              "RED": 273
+            },
+            "좌": {
+              "BLACK": 420,
+              "BLUE": 391,
+              "WHITE": 369,
+              "RED": 295
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/verthill/v_07.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/베르힐_07.png",
+          "tees_m": {
+            "BLACK": 398,
+            "BLUE": 369,
+            "WHITE": 347,
+            "RED": 273
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 398,
+              "BLUE": 369,
+              "WHITE": 347,
+              "RED": 273
+            },
+            "좌": {
+              "BLACK": 420,
+              "BLUE": 391,
+              "WHITE": 369,
+              "RED": 295
+            }
+          }
+        },
+        {
+          "hole": 8,
+          "par": 3,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 199,
+            "BLUE": 184,
+            "WHITE": 170,
+            "RED": 132
+          },
+          "greens": {
+            "우": {
+              "BLACK": 199,
+              "BLUE": 184,
+              "WHITE": 170,
+              "RED": 132
+            },
+            "좌": {
+              "BLACK": 182,
+              "BLUE": 167,
+              "WHITE": 152,
+              "RED": 115
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/verthill/v_08.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/베르힐_08.png",
+          "tees_m": {
+            "BLACK": 199,
+            "BLUE": 184,
+            "WHITE": 170,
+            "RED": 132
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 199,
+              "BLUE": 184,
+              "WHITE": 170,
+              "RED": 132
+            },
+            "좌": {
+              "BLACK": 182,
+              "BLUE": 167,
+              "WHITE": 152,
+              "RED": 115
+            }
+          }
+        },
+        {
+          "hole": 9,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 458,
+            "BLUE": 429,
+            "WHITE": 412,
+            "RED": 306
+          },
+          "greens": {
+            "우": {
+              "BLACK": 458,
+              "BLUE": 429,
+              "WHITE": 412,
+              "RED": 306
+            },
+            "좌": {
+              "BLACK": 460,
+              "BLUE": 429,
+              "WHITE": 412,
+              "RED": 306
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/verthill/v_09.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/베르힐_09.png",
+          "tees_m": {
+            "BLACK": 458,
+            "BLUE": 429,
+            "WHITE": 412,
+            "RED": 306
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 458,
+              "BLUE": 429,
+              "WHITE": 412,
+              "RED": 306
+            },
+            "좌": {
+              "BLACK": 460,
+              "BLUE": 429,
+              "WHITE": 412,
+              "RED": 306
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "스카이",
+      "holes": [
+        {
+          "hole": 1,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 400,
+            "BLUE": 374,
+            "WHITE": 351,
+            "RED": 275
+          },
+          "greens": {
+            "우": {
+              "BLACK": 400,
+              "BLUE": 374,
+              "WHITE": 351,
+              "RED": 275
+            },
+            "좌": {
+              "BLACK": 365,
+              "BLUE": 338,
+              "WHITE": 316,
+              "RED": 240
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/sky/s_01.png",
+          "image_confidence": 0.85,
+          "note": "시원하게 펼쳐지는 경관 속에서 라운드를 시작하는 스타트홀입니다. 부담 없이 티샷하며 첫 홀의 긴장을 편하게 풀어보시기 바랍니다.",
+          "image": "images/스카이_01.png",
+          "tees_m": {
+            "BLACK": 400,
+            "BLUE": 374,
+            "WHITE": 351,
+            "RED": 275
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 400,
+              "BLUE": 374,
+              "WHITE": 351,
+              "RED": 275
+            },
+            "좌": {
+              "BLACK": 365,
+              "BLUE": 338,
+              "WHITE": 316,
+              "RED": 240
+            }
+          }
+        },
+        {
+          "hole": 2,
+          "par": 3,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 158,
+            "BLUE": 141,
+            "WHITE": 123,
+            "RED": 88
+          },
+          "greens": {
+            "우": {
+              "BLACK": 158,
+              "BLUE": 141,
+              "WHITE": 123,
+              "RED": 88
+            },
+            "좌": {
+              "BLACK": 165,
+              "BLUE": 148,
+              "WHITE": 129,
+              "RED": 92
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/sky/s_02.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/스카이_02.png",
+          "tees_m": {
+            "BLACK": 158,
+            "BLUE": 141,
+            "WHITE": 123,
+            "RED": 88
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 158,
+              "BLUE": 141,
+              "WHITE": 123,
+              "RED": 88
+            },
+            "좌": {
+              "BLACK": 165,
+              "BLUE": 148,
+              "WHITE": 129,
+              "RED": 92
+            }
+          }
+        },
+        {
+          "hole": 3,
+          "par": 5,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 510,
+            "BLUE": 489,
+            "WHITE": 469,
+            "RED": 389
+          },
+          "greens": {
+            "우": {
+              "BLACK": 510,
+              "BLUE": 489,
+              "WHITE": 469,
+              "RED": 389
+            },
+            "좌": {
+              "BLACK": 515,
+              "BLUE": 495,
+              "WHITE": 474,
+              "RED": 394
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/sky/s_03.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/스카이_03.png",
+          "tees_m": {
+            "BLACK": 510,
+            "BLUE": 489,
+            "WHITE": 469,
+            "RED": 389
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 510,
+              "BLUE": 489,
+              "WHITE": 469,
+              "RED": 389
+            },
+            "좌": {
+              "BLACK": 515,
+              "BLUE": 495,
+              "WHITE": 474,
+              "RED": 394
+            }
+          }
+        },
+        {
+          "hole": 4,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 361,
+            "BLUE": 341,
+            "WHITE": 319,
+            "RED": 253
+          },
+          "greens": {
+            "우": {
+              "BLACK": 361,
+              "BLUE": 341,
+              "WHITE": 319,
+              "RED": 253
+            },
+            "좌": {
+              "BLACK": 380,
+              "BLUE": 359,
+              "WHITE": 338,
+              "RED": 272
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/sky/s_04.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/스카이_04.png",
+          "tees_m": {
+            "BLACK": 361,
+            "BLUE": 341,
+            "WHITE": 319,
+            "RED": 253
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 361,
+              "BLUE": 341,
+              "WHITE": 319,
+              "RED": 253
+            },
+            "좌": {
+              "BLACK": 380,
+              "BLUE": 359,
+              "WHITE": 338,
+              "RED": 272
+            }
+          }
+        },
+        {
+          "hole": 5,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 416,
+            "BLUE": 393,
+            "WHITE": 367,
+            "RED": 283
+          },
+          "greens": {
+            "우": {
+              "BLACK": 416,
+              "BLUE": 393,
+              "WHITE": 367,
+              "RED": 283
+            },
+            "좌": {
+              "BLACK": 430,
+              "BLUE": 407,
+              "WHITE": 381,
+              "RED": 298
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/sky/s_05.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/스카이_05.png",
+          "tees_m": {
+            "BLACK": 416,
+            "BLUE": 393,
+            "WHITE": 367,
+            "RED": 283
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 416,
+              "BLUE": 393,
+              "WHITE": 367,
+              "RED": 283
+            },
+            "좌": {
+              "BLACK": 430,
+              "BLUE": 407,
+              "WHITE": 381,
+              "RED": 298
+            }
+          }
+        },
+        {
+          "hole": 6,
+          "par": 3,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 240,
+            "BLUE": 216,
+            "WHITE": 198,
+            "RED": 160
+          },
+          "greens": null,
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/sky/s_06.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/스카이_06.png",
+          "tees_m": {
+            "BLACK": 240,
+            "BLUE": 216,
+            "WHITE": 198,
+            "RED": 160
+          },
+          "greens_m": null
+        },
+        {
+          "hole": 7,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 332,
+            "BLUE": 314,
+            "WHITE": 293,
+            "RED": 224
+          },
+          "greens": {
+            "우": {
+              "BLACK": 332,
+              "BLUE": 314,
+              "WHITE": 293,
+              "RED": 224
+            },
+            "좌": {
+              "BLACK": 343,
+              "BLUE": 325,
+              "WHITE": 304,
+              "RED": 235
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/sky/s_07.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/스카이_07.png",
+          "tees_m": {
+            "BLACK": 332,
+            "BLUE": 314,
+            "WHITE": 293,
+            "RED": 224
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 332,
+              "BLUE": 314,
+              "WHITE": 293,
+              "RED": 224
+            },
+            "좌": {
+              "BLACK": 343,
+              "BLUE": 325,
+              "WHITE": 304,
+              "RED": 235
+            }
+          }
+        },
+        {
+          "hole": 8,
+          "par": 5,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 553,
+            "BLUE": 533,
+            "WHITE": 512,
+            "RED": 408
+          },
+          "greens": {
+            "우": {
+              "BLACK": 553,
+              "BLUE": 533,
+              "WHITE": 512,
+              "RED": 408
+            },
+            "좌": {
+              "BLACK": 560,
+              "BLUE": 541,
+              "WHITE": 519,
+              "RED": 415
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/sky/s_08.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/스카이_08.png",
+          "tees_m": {
+            "BLACK": 553,
+            "BLUE": 533,
+            "WHITE": 512,
+            "RED": 408
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 553,
+              "BLUE": 533,
+              "WHITE": 512,
+              "RED": 408
+            },
+            "좌": {
+              "BLACK": 560,
+              "BLUE": 541,
+              "WHITE": 519,
+              "RED": 415
+            }
+          }
+        },
+        {
+          "hole": 9,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 410,
+            "BLUE": 390,
+            "WHITE": 366,
+            "RED": 302
+          },
+          "greens": {
+            "우": {
+              "BLACK": 410,
+              "BLUE": 390,
+              "WHITE": 366,
+              "RED": 302
+            },
+            "좌": {
+              "BLACK": 384,
+              "BLUE": 364,
+              "WHITE": 340,
+              "RED": 276
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/sky/s_09.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/스카이_09.png",
+          "tees_m": {
+            "BLACK": 410,
+            "BLUE": 390,
+            "WHITE": 366,
+            "RED": 302
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 410,
+              "BLUE": 390,
+              "WHITE": 366,
+              "RED": 302
+            },
+            "좌": {
+              "BLACK": 384,
+              "BLUE": 364,
+              "WHITE": 340,
+              "RED": 276
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "오션",
+      "holes": [
+        {
+          "hole": 1,
+          "par": 5,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 513,
+            "BLUE": 497,
+            "WHITE": 473,
+            "RED": 392
+          },
+          "greens": {
+            "우": {
+              "BLACK": 513,
+              "BLUE": 497,
+              "WHITE": 473,
+              "RED": 392
+            },
+            "좌": {
+              "BLACK": 519,
+              "BLUE": 504,
+              "WHITE": 479,
+              "RED": 398
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/ocean/o_01.png",
+          "image_confidence": 0.85,
+          "note": "바다를 항해하는 듯 시원하게 펼쳐지는 오션 코스의 첫 홀입니다. 티샷은 왼쪽 페어웨이를 지키며 안전하게 출발하는 것이 유리하고, 길게 늘어진 워터 해저드를 피해 두 번째 샷을 안정적으로 이어가면 여유로운 스타트를 만들 수 있습니다.",
+          "image": "images/오션_01.png",
+          "tees_m": {
+            "BLACK": 513,
+            "BLUE": 497,
+            "WHITE": 473,
+            "RED": 392
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 513,
+              "BLUE": 497,
+              "WHITE": 473,
+              "RED": 392
+            },
+            "좌": {
+              "BLACK": 519,
+              "BLUE": 504,
+              "WHITE": 479,
+              "RED": 398
+            }
+          }
+        },
+        {
+          "hole": 2,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 379,
+            "BLUE": 350,
+            "WHITE": 318,
+            "RED": 267
+          },
+          "greens": {
+            "우": {
+              "BLACK": 379,
+              "BLUE": 350,
+              "WHITE": 318,
+              "RED": 267
+            },
+            "좌": {
+              "BLACK": 358,
+              "BLUE": 328,
+              "WHITE": 296,
+              "RED": 245
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/ocean/o_02.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/오션_02.png",
+          "tees_m": {
+            "BLACK": 379,
+            "BLUE": 350,
+            "WHITE": 318,
+            "RED": 267
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 379,
+              "BLUE": 350,
+              "WHITE": 318,
+              "RED": 267
+            },
+            "좌": {
+              "BLACK": 358,
+              "BLUE": 328,
+              "WHITE": 296,
+              "RED": 245
+            }
+          }
+        },
+        {
+          "hole": 3,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 403,
+            "BLUE": 372,
+            "WHITE": 352,
+            "RED": 258
+          },
+          "greens": {
+            "우": {
+              "BLACK": 403,
+              "BLUE": 372,
+              "WHITE": 352,
+              "RED": 258
+            },
+            "좌": {
+              "BLACK": 416,
+              "BLUE": 385,
+              "WHITE": 365,
+              "RED": 271
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/ocean/o_03.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/오션_03.png",
+          "tees_m": {
+            "BLACK": 403,
+            "BLUE": 372,
+            "WHITE": 352,
+            "RED": 258
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 403,
+              "BLUE": 372,
+              "WHITE": 352,
+              "RED": 258
+            },
+            "좌": {
+              "BLACK": 416,
+              "BLUE": 385,
+              "WHITE": 365,
+              "RED": 271
+            }
+          }
+        },
+        {
+          "hole": 4,
+          "par": 3,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 156,
+            "BLUE": 143,
+            "WHITE": 129,
+            "RED": 105
+          },
+          "greens": {
+            "우": {
+              "BLACK": 156,
+              "BLUE": 143,
+              "WHITE": 129,
+              "RED": 105
+            },
+            "좌": {
+              "BLACK": 157,
+              "BLUE": 143,
+              "WHITE": 129,
+              "RED": 106
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/ocean/o_04.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/오션_04.png",
+          "tees_m": {
+            "BLACK": 156,
+            "BLUE": 143,
+            "WHITE": 129,
+            "RED": 105
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 156,
+              "BLUE": 143,
+              "WHITE": 129,
+              "RED": 105
+            },
+            "좌": {
+              "BLACK": 157,
+              "BLUE": 143,
+              "WHITE": 129,
+              "RED": 106
+            }
+          }
+        },
+        {
+          "hole": 5,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 331,
+            "BLUE": 313,
+            "WHITE": 287,
+            "RED": 236
+          },
+          "greens": null,
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/ocean/o_05.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/오션_05.png",
+          "tees_m": {
+            "BLACK": 331,
+            "BLUE": 313,
+            "WHITE": 287,
+            "RED": 236
+          },
+          "greens_m": null
+        },
+        {
+          "hole": 6,
+          "par": 3,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 185,
+            "BLUE": 170,
+            "WHITE": 155,
+            "RED": 124
+          },
+          "greens": {
+            "우": {
+              "BLACK": 185,
+              "BLUE": 170,
+              "WHITE": 155,
+              "RED": 124
+            },
+            "좌": {
+              "BLACK": 174,
+              "BLUE": 159,
+              "WHITE": 143,
+              "RED": 113
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/ocean/o_06.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/오션_06.png",
+          "tees_m": {
+            "BLACK": 185,
+            "BLUE": 170,
+            "WHITE": 155,
+            "RED": 124
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 185,
+              "BLUE": 170,
+              "WHITE": 155,
+              "RED": 124
+            },
+            "좌": {
+              "BLACK": 174,
+              "BLUE": 159,
+              "WHITE": 143,
+              "RED": 113
+            }
+          }
+        },
+        {
+          "hole": 7,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 420,
+            "BLUE": 401,
+            "WHITE": 381,
+            "RED": 299
+          },
+          "greens": {
+            "우": {
+              "BLACK": 420,
+              "BLUE": 401,
+              "WHITE": 381,
+              "RED": 299
+            },
+            "좌": {
+              "BLACK": 435,
+              "BLUE": 416,
+              "WHITE": 396,
+              "RED": 314
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/ocean/o_07.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/오션_07.png",
+          "tees_m": {
+            "BLACK": 420,
+            "BLUE": 401,
+            "WHITE": 381,
+            "RED": 299
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 420,
+              "BLUE": 401,
+              "WHITE": 381,
+              "RED": 299
+            },
+            "좌": {
+              "BLACK": 435,
+              "BLUE": 416,
+              "WHITE": 396,
+              "RED": 314
+            }
+          }
+        },
+        {
+          "hole": 8,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 425,
+            "BLUE": 395,
+            "WHITE": 371,
+            "RED": 288
+          },
+          "greens": {
+            "우": {
+              "BLACK": 425,
+              "BLUE": 395,
+              "WHITE": 371,
+              "RED": 288
+            },
+            "좌": {
+              "BLACK": 450,
+              "BLUE": 420,
+              "WHITE": 396,
+              "RED": 313
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/ocean/o_08.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/오션_08.png",
+          "tees_m": {
+            "BLACK": 425,
+            "BLUE": 395,
+            "WHITE": 371,
+            "RED": 288
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 425,
+              "BLUE": 395,
+              "WHITE": 371,
+              "RED": 288
+            },
+            "좌": {
+              "BLACK": 450,
+              "BLUE": 420,
+              "WHITE": 396,
+              "RED": 313
+            }
+          }
+        },
+        {
+          "hole": 9,
+          "par": 5,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 526,
+            "BLUE": 507,
+            "WHITE": 485,
+            "RED": 397
+          },
+          "greens": {
+            "우": {
+              "BLACK": 526,
+              "BLUE": 507,
+              "WHITE": 485,
+              "RED": 397
+            },
+            "좌": {
+              "BLACK": 535,
+              "BLUE": 515,
+              "WHITE": 494,
+              "RED": 405
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/ocean/o_09.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/오션_09.png",
+          "tees_m": {
+            "BLACK": 526,
+            "BLUE": 507,
+            "WHITE": 485,
+            "RED": 397
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 526,
+              "BLUE": 507,
+              "WHITE": 485,
+              "RED": 397
+            },
+            "좌": {
+              "BLACK": 535,
+              "BLUE": 515,
+              "WHITE": 494,
+              "RED": 405
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "레이크",
+      "holes": [
+        {
+          "hole": 1,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 312,
+            "BLUE": 291,
+            "WHITE": 271,
+            "RED": 211
+          },
+          "greens": {
+            "우": {
+              "BLACK": 312,
+              "BLUE": 291,
+              "WHITE": 271,
+              "RED": 211
+            },
+            "좌": {
+              "BLACK": 329,
+              "BLUE": 308,
+              "WHITE": 288,
+              "RED": 228
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/lake/l_01.png",
+          "image_confidence": 0.85,
+          "note": "아침 햇살이 우측 언덕을 타고 내려앉는 1번홀입니다. 페어웨이 중앙을 향해 티샷을 보내면 벙커를 피해 안정적인 세컨샷이 가능합니다. 상쾌한 첫 샷으로 레이크의 하루를 시작해 보세요.",
+          "image": "images/레이크_01.png",
+          "tees_m": {
+            "BLACK": 312,
+            "BLUE": 291,
+            "WHITE": 271,
+            "RED": 211
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 312,
+              "BLUE": 291,
+              "WHITE": 271,
+              "RED": 211
+            },
+            "좌": {
+              "BLACK": 329,
+              "BLUE": 308,
+              "WHITE": 288,
+              "RED": 228
+            }
+          }
+        },
+        {
+          "hole": 2,
+          "par": 5,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 533,
+            "BLUE": 203,
+            "WHITE": 475,
+            "RED": 394
+          },
+          "greens": {
+            "우": {
+              "BLACK": 533,
+              "BLUE": 203,
+              "WHITE": 475,
+              "RED": 394
+            },
+            "좌": {
+              "BLACK": 550,
+              "BLUE": 521,
+              "WHITE": 492,
+              "RED": 412
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/lake/l_02.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/레이크_02.png",
+          "tees_m": {
+            "BLACK": 533,
+            "BLUE": 203,
+            "WHITE": 475,
+            "RED": 394
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 533,
+              "BLUE": 203,
+              "WHITE": 475,
+              "RED": 394
+            },
+            "좌": {
+              "BLACK": 550,
+              "BLUE": 521,
+              "WHITE": 492,
+              "RED": 412
+            }
+          }
+        },
+        {
+          "hole": 3,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 423,
+            "BLUE": 396,
+            "WHITE": 373,
+            "RED": 286
+          },
+          "greens": {
+            "우": {
+              "BLACK": 423,
+              "BLUE": 396,
+              "WHITE": 373,
+              "RED": 286
+            },
+            "좌": {
+              "BLACK": 434,
+              "BLUE": 408,
+              "WHITE": 384,
+              "RED": 297
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/lake/l_03.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/레이크_03.png",
+          "tees_m": {
+            "BLACK": 423,
+            "BLUE": 396,
+            "WHITE": 373,
+            "RED": 286
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 423,
+              "BLUE": 396,
+              "WHITE": 373,
+              "RED": 286
+            },
+            "좌": {
+              "BLACK": 434,
+              "BLUE": 408,
+              "WHITE": 384,
+              "RED": 297
+            }
+          }
+        },
+        {
+          "hole": 4,
+          "par": 3,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 197,
+            "BLUE": 179,
+            "WHITE": 160,
+            "RED": 103
+          },
+          "greens": {
+            "우": {
+              "BLACK": 197,
+              "BLUE": 179,
+              "WHITE": 160,
+              "RED": 103
+            },
+            "좌": {
+              "BLACK": 206,
+              "BLUE": 188,
+              "WHITE": 169,
+              "RED": 112
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/lake/l_04.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/레이크_04.png",
+          "tees_m": {
+            "BLACK": 197,
+            "BLUE": 179,
+            "WHITE": 160,
+            "RED": 103
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 197,
+              "BLUE": 179,
+              "WHITE": 160,
+              "RED": 103
+            },
+            "좌": {
+              "BLACK": 206,
+              "BLUE": 188,
+              "WHITE": 169,
+              "RED": 112
+            }
+          }
+        },
+        {
+          "hole": 5,
+          "par": 5,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 532,
+            "BLUE": 513,
+            "WHITE": 492,
+            "RED": 403
+          },
+          "greens": {
+            "우": {
+              "BLACK": 532,
+              "BLUE": 513,
+              "WHITE": 492,
+              "RED": 403
+            },
+            "좌": {
+              "BLACK": 529,
+              "BLUE": 509,
+              "WHITE": 489,
+              "RED": 400
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/lake/l_05.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/레이크_05.png",
+          "tees_m": {
+            "BLACK": 532,
+            "BLUE": 513,
+            "WHITE": 492,
+            "RED": 403
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 532,
+              "BLUE": 513,
+              "WHITE": 492,
+              "RED": 403
+            },
+            "좌": {
+              "BLACK": 529,
+              "BLUE": 509,
+              "WHITE": 489,
+              "RED": 400
+            }
+          }
+        },
+        {
+          "hole": 6,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 340,
+            "BLUE": 322,
+            "WHITE": 301,
+            "RED": 240
+          },
+          "greens": null,
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/lake/l_06.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/레이크_06.png",
+          "tees_m": {
+            "BLACK": 340,
+            "BLUE": 322,
+            "WHITE": 301,
+            "RED": 240
+          },
+          "greens_m": null
+        },
+        {
+          "hole": 7,
+          "par": 3,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 165,
+            "BLUE": 149,
+            "WHITE": 137,
+            "RED": 112
+          },
+          "greens": {
+            "우": {
+              "BLACK": 165,
+              "BLUE": 149,
+              "WHITE": 137,
+              "RED": 112
+            },
+            "좌": {
+              "BLACK": 165,
+              "BLUE": 150,
+              "WHITE": 139,
+              "RED": 116
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/lake/l_07.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/레이크_07.png",
+          "tees_m": {
+            "BLACK": 165,
+            "BLUE": 149,
+            "WHITE": 137,
+            "RED": 112
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 165,
+              "BLUE": 149,
+              "WHITE": 137,
+              "RED": 112
+            },
+            "좌": {
+              "BLACK": 165,
+              "BLUE": 150,
+              "WHITE": 139,
+              "RED": 116
+            }
+          }
+        },
+        {
+          "hole": 8,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 380,
+            "BLUE": 362,
+            "WHITE": 339,
+            "RED": 267
+          },
+          "greens": {
+            "우": {
+              "BLACK": 380,
+              "BLUE": 362,
+              "WHITE": 339,
+              "RED": 267
+            },
+            "좌": {
+              "BLACK": 390,
+              "BLUE": 372,
+              "WHITE": 349,
+              "RED": 277
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/lake/l_08.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/레이크_08.png",
+          "tees_m": {
+            "BLACK": 380,
+            "BLUE": 362,
+            "WHITE": 339,
+            "RED": 267
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 380,
+              "BLUE": 362,
+              "WHITE": 339,
+              "RED": 267
+            },
+            "좌": {
+              "BLACK": 390,
+              "BLUE": 372,
+              "WHITE": 349,
+              "RED": 277
+            }
+          }
+        },
+        {
+          "hole": 9,
+          "par": 4,
+          "hdcp": null,
+          "tees": {
+            "BLACK": 400,
+            "BLUE": 363,
+            "WHITE": 338,
+            "RED": 292
+          },
+          "greens": {
+            "우": {
+              "BLACK": 400,
+              "BLUE": 363,
+              "WHITE": 338,
+              "RED": 292
+            },
+            "좌": {
+              "BLACK": 386,
+              "BLUE": 349,
+              "WHITE": 324,
+              "RED": 278
+            }
+          },
+          "unit": "m",
+          "image_url": "https://www.verthillccyj.com/images/course/lake/l_09.png",
+          "image_confidence": 0.75,
+          "note": null,
+          "image": "images/레이크_09.png",
+          "tees_m": {
+            "BLACK": 400,
+            "BLUE": 363,
+            "WHITE": 338,
+            "RED": 292
+          },
+          "greens_m": {
+            "우": {
+              "BLACK": 400,
+              "BLUE": 363,
+              "WHITE": 338,
+              "RED": 292
+            },
+            "좌": {
+              "BLACK": 386,
+              "BLUE": 349,
+              "WHITE": 324,
+              "RED": 278
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "issues": [
+    "홀별 핸디캡(hdcp)은 페이지 어디에도 없어 전 홀 null 처리.",
+    "코스공략 탭의 홀별 상세 블록(H1~H9)은 모든 홀에 1번 홀 내용(거리·공략 TIP, 예: '385m / 350m')이 그대로 복제되어 있어 2~9번 홀에는 사용할 수 없음. 거리는 코스별 요약 표를 사용했고, 공략 설명(note)은 각 코스 1번 홀만 채움. 2~9번 홀 note는 null.",
+    "상세 블록의 '385m / 350m', '315m / 350m', '290m / 270m', '480m / 470m' 표기는 의미 불명확하고 표와 불일치하여 사용하지 않음.",
+    "레이크 2번 홀 BLUE 우그린 값이 표에 203으로 되어 있음(BLACK 533, WHITE 475, 좌그린 BLUE 521과 비교해 오기로 의심). 표 합계(2,778)도 이 값을 포함해 계산되어 있어 표 원문대로 기재함. 확인 필요.",
+    "'원 그린'(그린 1개) 홀은 표 헤더 순서와 합계 검산으로 위치를 확정함: 스카이 6번, 오션 5번, 레이크 6번. 이 홀들은 greens=null이고 tees에 단일 값을 넣음.",
+    "오션·레이크 표의 좌그린 합계는 원 그린 홀을 제외한 값(스카이는 포함)이라 코스별 합계 계산 방식이 서로 다름. 홀별 값에는 영향 없음.",
+    "홀 코스맵 이미지는 각 코스 1번 홀(v_01.png, s_01.png, o_01.png, l_01.png)만 확인됨. 파일명으로 홀 번호를 식별했고, 코스맵인지 사진인지는 확정하지 못함. 2~9번 홀 이미지는 없음(null).",
+    "티 이름은 원문이 소문자(black/blue/white/red)라서 스키마에 맞춰 대문자로 표기함. 코스 레이팅·슬로프 표(야드 단위)는 홀별 데이터가 아니므로 제외함.",
+    "코스 이름은 --course-names 지정값(베르힐,스카이,오션,레이크) 순서로 붙임"
+  ],
+  "course_id": "verthillccyj-com",
+  "crawled_at": "2026-10-29 09:41",
+  "unit": "m"
+}
