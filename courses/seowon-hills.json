@@ -1,0 +1,599 @@
+{
+ "course_id": "seowon-hills",
+ "club_name": "서원힐스CC",
+ "source": "https://www.seowongolf.co.kr/hills/course/course-info",
+ "crawled_at": "2026-10-29",
+ "unit": "m",
+ "tee_order": [
+  "BLACK",
+  "BLUE",
+  "WHITE",
+  "GOLD",
+  "RED"
+ ],
+ "courses": [
+  {
+   "name": "웨스트",
+   "holes": [
+    {
+     "hole": 1,
+     "par": 5,
+     "hdcp": 9,
+     "tees_yd": {
+      "BLACK": 563,
+      "BLUE": 541,
+      "WHITE": 514,
+      "GOLD": 486,
+      "RED": 464
+     },
+     "tees_m": {
+      "BLACK": 515,
+      "BLUE": 495,
+      "WHITE": 470,
+      "GOLD": 444,
+      "RED": 424
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/w1.jpg",
+     "note": null
+    },
+    {
+     "hole": 2,
+     "par": 4,
+     "hdcp": 7,
+     "tees_yd": {
+      "BLACK": 465,
+      "BLUE": 435,
+      "WHITE": 404,
+      "GOLD": 372,
+      "RED": 334
+     },
+     "tees_m": {
+      "BLACK": 425,
+      "BLUE": 398,
+      "WHITE": 369,
+      "GOLD": 340,
+      "RED": 305
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/w2.jpg",
+     "note": null
+    },
+    {
+     "hole": 3,
+     "par": 4,
+     "hdcp": 1,
+     "tees_yd": {
+      "BLACK": 413,
+      "BLUE": 379,
+      "WHITE": 342,
+      "GOLD": 306,
+      "RED": 306
+     },
+     "tees_m": {
+      "BLACK": 378,
+      "BLUE": 347,
+      "WHITE": 313,
+      "GOLD": 280,
+      "RED": 280
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/w3.jpg",
+     "note": null
+    },
+    {
+     "hole": 4,
+     "par": 3,
+     "hdcp": 17,
+     "tees_yd": {
+      "BLACK": 180,
+      "BLUE": 161,
+      "WHITE": 133,
+      "GOLD": 113,
+      "RED": 96
+     },
+     "tees_m": {
+      "BLACK": 165,
+      "BLUE": 147,
+      "WHITE": 122,
+      "GOLD": 103,
+      "RED": 88
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/w4.jpg",
+     "note": null
+    },
+    {
+     "hole": 5,
+     "par": 4,
+     "hdcp": 5,
+     "tees_yd": {
+      "BLACK": 401,
+      "BLUE": 375,
+      "WHITE": 362,
+      "GOLD": 328,
+      "RED": 274
+     },
+     "tees_m": {
+      "BLACK": 367,
+      "BLUE": 343,
+      "WHITE": 331,
+      "GOLD": 300,
+      "RED": 251
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/w5.jpg",
+     "note": null
+    },
+    {
+     "hole": 6,
+     "par": 4,
+     "hdcp": 15,
+     "tees_yd": {
+      "BLACK": 346,
+      "BLUE": 320,
+      "WHITE": 282,
+      "GOLD": 254,
+      "RED": 254
+     },
+     "tees_m": {
+      "BLACK": 316,
+      "BLUE": 293,
+      "WHITE": 258,
+      "GOLD": 232,
+      "RED": 232
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/w6.jpg",
+     "note": null
+    },
+    {
+     "hole": 7,
+     "par": 3,
+     "hdcp": 13,
+     "tees_yd": {
+      "BLACK": 186,
+      "BLUE": 168,
+      "WHITE": 140,
+      "GOLD": 116,
+      "RED": 116
+     },
+     "tees_m": {
+      "BLACK": 170,
+      "BLUE": 154,
+      "WHITE": 128,
+      "GOLD": 106,
+      "RED": 106
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/w7.jpg",
+     "note": null
+    },
+    {
+     "hole": 8,
+     "par": 5,
+     "hdcp": 3,
+     "tees_yd": {
+      "BLACK": 618,
+      "BLUE": 586,
+      "WHITE": 541,
+      "GOLD": 510,
+      "RED": 487
+     },
+     "tees_m": {
+      "BLACK": 565,
+      "BLUE": 536,
+      "WHITE": 495,
+      "GOLD": 466,
+      "RED": 445
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/w8.jpg",
+     "note": null
+    },
+    {
+     "hole": 9,
+     "par": 4,
+     "hdcp": 11,
+     "tees_yd": {
+      "BLACK": 375,
+      "BLUE": 352,
+      "WHITE": 327,
+      "GOLD": 293,
+      "RED": 267
+     },
+     "tees_m": {
+      "BLACK": 343,
+      "BLUE": 322,
+      "WHITE": 299,
+      "GOLD": 268,
+      "RED": 244
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/w9.jpg",
+     "note": null
+    }
+   ]
+  },
+  {
+   "name": "사우스",
+   "holes": [
+    {
+     "hole": 1,
+     "par": 4,
+     "hdcp": 8,
+     "tees_yd": {
+      "BLACK": 424,
+      "BLUE": 397,
+      "WHITE": 376,
+      "GOLD": 332,
+      "RED": 296
+     },
+     "tees_m": {
+      "BLACK": 388,
+      "BLUE": 363,
+      "WHITE": 344,
+      "GOLD": 304,
+      "RED": 271
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/s1.jpg",
+     "note": null
+    },
+    {
+     "hole": 2,
+     "par": 5,
+     "hdcp": 10,
+     "tees_yd": {
+      "BLACK": 566,
+      "BLUE": 533,
+      "WHITE": 490,
+      "GOLD": 443,
+      "RED": 443
+     },
+     "tees_m": {
+      "BLACK": 518,
+      "BLUE": 487,
+      "WHITE": 448,
+      "GOLD": 405,
+      "RED": 405
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/s2.jpg",
+     "note": null
+    },
+    {
+     "hole": 3,
+     "par": 4,
+     "hdcp": 2,
+     "tees_yd": {
+      "BLACK": 408,
+      "BLUE": 378,
+      "WHITE": 344,
+      "GOLD": 308,
+      "RED": 272
+     },
+     "tees_m": {
+      "BLACK": 373,
+      "BLUE": 346,
+      "WHITE": 315,
+      "GOLD": 282,
+      "RED": 249
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/s3.jpg",
+     "note": null
+    },
+    {
+     "hole": 4,
+     "par": 4,
+     "hdcp": 6,
+     "tees_yd": {
+      "BLACK": 373,
+      "BLUE": 347,
+      "WHITE": 292,
+      "GOLD": 244,
+      "RED": 244
+     },
+     "tees_m": {
+      "BLACK": 341,
+      "BLUE": 317,
+      "WHITE": 267,
+      "GOLD": 223,
+      "RED": 223
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/s4.jpg",
+     "note": null
+    },
+    {
+     "hole": 5,
+     "par": 3,
+     "hdcp": 14,
+     "tees_yd": {
+      "BLACK": 221,
+      "BLUE": 203,
+      "WHITE": 184,
+      "GOLD": 154,
+      "RED": 124
+     },
+     "tees_m": {
+      "BLACK": 202,
+      "BLUE": 186,
+      "WHITE": 168,
+      "GOLD": 141,
+      "RED": 113
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/s5.jpg",
+     "note": null
+    },
+    {
+     "hole": 6,
+     "par": 5,
+     "hdcp": 16,
+     "tees_yd": {
+      "BLACK": 522,
+      "BLUE": 504,
+      "WHITE": 487,
+      "GOLD": 445,
+      "RED": 404
+     },
+     "tees_m": {
+      "BLACK": 477,
+      "BLUE": 461,
+      "WHITE": 445,
+      "GOLD": 407,
+      "RED": 369
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/s6.jpg",
+     "note": null
+    },
+    {
+     "hole": 7,
+     "par": 3,
+     "hdcp": 18,
+     "tees_yd": {
+      "BLACK": 185,
+      "BLUE": 164,
+      "WHITE": 132,
+      "GOLD": 90,
+      "RED": 90
+     },
+     "tees_m": {
+      "BLACK": 169,
+      "BLUE": 150,
+      "WHITE": 121,
+      "GOLD": 82,
+      "RED": 82
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/s7.jpg",
+     "note": null
+    },
+    {
+     "hole": 8,
+     "par": 4,
+     "hdcp": 4,
+     "tees_yd": {
+      "BLACK": 421,
+      "BLUE": 390,
+      "WHITE": 363,
+      "GOLD": 323,
+      "RED": 323
+     },
+     "tees_m": {
+      "BLACK": 385,
+      "BLUE": 357,
+      "WHITE": 332,
+      "GOLD": 295,
+      "RED": 295
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/s8.jpg",
+     "note": null
+    },
+    {
+     "hole": 9,
+     "par": 4,
+     "hdcp": 12,
+     "tees_yd": {
+      "BLACK": 399,
+      "BLUE": 369,
+      "WHITE": 331,
+      "GOLD": 285,
+      "RED": 285
+     },
+     "tees_m": {
+      "BLACK": 365,
+      "BLUE": 337,
+      "WHITE": 303,
+      "GOLD": 261,
+      "RED": 261
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/s9.jpg",
+     "note": null
+    }
+   ]
+  },
+  {
+   "name": "이스트",
+   "holes": [
+    {
+     "hole": 1,
+     "par": 4,
+     "hdcp": 4,
+     "tees_yd": {
+      "BLACK": 397,
+      "BLUE": 372,
+      "WHITE": 347,
+      "GOLD": 318,
+      "RED": 318
+     },
+     "tees_m": {
+      "BLACK": 363,
+      "BLUE": 340,
+      "WHITE": 317,
+      "GOLD": 291,
+      "RED": 291
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/e1.jpg",
+     "note": null
+    },
+    {
+     "hole": 2,
+     "par": 3,
+     "hdcp": 6,
+     "tees_yd": {
+      "BLACK": 185,
+      "BLUE": 160,
+      "WHITE": 132,
+      "GOLD": 132,
+      "RED": 132
+     },
+     "tees_m": {
+      "BLACK": 169,
+      "BLUE": 146,
+      "WHITE": 121,
+      "GOLD": 121,
+      "RED": 121
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/e2.jpg",
+     "note": null
+    },
+    {
+     "hole": 3,
+     "par": 4,
+     "hdcp": 9,
+     "tees_yd": {
+      "BLACK": 362,
+      "BLUE": 333,
+      "WHITE": 317,
+      "GOLD": 290,
+      "RED": 290
+     },
+     "tees_m": {
+      "BLACK": 331,
+      "BLUE": 304,
+      "WHITE": 290,
+      "GOLD": 265,
+      "RED": 265
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/e3.jpg",
+     "note": null
+    },
+    {
+     "hole": 4,
+     "par": 4,
+     "hdcp": 7,
+     "tees_yd": {
+      "BLACK": 417,
+      "BLUE": 391,
+      "WHITE": 362,
+      "GOLD": 323,
+      "RED": 323
+     },
+     "tees_m": {
+      "BLACK": 381,
+      "BLUE": 358,
+      "WHITE": 331,
+      "GOLD": 295,
+      "RED": 295
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/e4.jpg",
+     "note": null
+    },
+    {
+     "hole": 5,
+     "par": 5,
+     "hdcp": 1,
+     "tees_yd": {
+      "BLACK": 593,
+      "BLUE": 572,
+      "WHITE": 533,
+      "GOLD": 485,
+      "RED": 485
+     },
+     "tees_m": {
+      "BLACK": 542,
+      "BLUE": 523,
+      "WHITE": 487,
+      "GOLD": 443,
+      "RED": 443
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/e5.jpg",
+     "note": null
+    },
+    {
+     "hole": 6,
+     "par": 4,
+     "hdcp": 5,
+     "tees_yd": {
+      "BLACK": 410,
+      "BLUE": 389,
+      "WHITE": 354,
+      "GOLD": 310,
+      "RED": 310
+     },
+     "tees_m": {
+      "BLACK": 375,
+      "BLUE": 356,
+      "WHITE": 324,
+      "GOLD": 283,
+      "RED": 283
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/e6.jpg",
+     "note": null
+    },
+    {
+     "hole": 7,
+     "par": 4,
+     "hdcp": 8,
+     "tees_yd": {
+      "BLACK": 375,
+      "BLUE": 347,
+      "WHITE": 313,
+      "GOLD": 281,
+      "RED": 281
+     },
+     "tees_m": {
+      "BLACK": 343,
+      "BLUE": 317,
+      "WHITE": 286,
+      "GOLD": 257,
+      "RED": 257
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/e7.jpg",
+     "note": null
+    },
+    {
+     "hole": 8,
+     "par": 3,
+     "hdcp": 2,
+     "tees_yd": {
+      "BLACK": 212,
+      "BLUE": 189,
+      "WHITE": 158,
+      "GOLD": 123,
+      "RED": 123
+     },
+     "tees_m": {
+      "BLACK": 194,
+      "BLUE": 173,
+      "WHITE": 144,
+      "GOLD": 112,
+      "RED": 112
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/e8.jpg",
+     "note": null
+    },
+    {
+     "hole": 9,
+     "par": 5,
+     "hdcp": 3,
+     "tees_yd": {
+      "BLACK": 572,
+      "BLUE": 542,
+      "WHITE": 508,
+      "GOLD": 474,
+      "RED": 474
+     },
+     "tees_m": {
+      "BLACK": 523,
+      "BLUE": 496,
+      "WHITE": 465,
+      "GOLD": 433,
+      "RED": 433
+     },
+     "image_url": "https://www.seowongolf.co.kr/pc/images/hills/course/e9.jpg",
+     "note": null
+    }
+   ]
+  }
+ ],
+ "issues": []
+}

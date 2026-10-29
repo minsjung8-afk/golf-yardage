@@ -1,0 +1,15 @@
+{
+  "name": "golf-yardage",
+  "version": "1.0.0",
+  "description": "- `crawler/crawl.py`  골프장 홈페이지 → 홀별 코스맵·파·티별 전장(m) 자동 수집 (Playwright + Claude) - `crawler/worker.py` 앱의 [구장추가] 요청 큐를 받아 crawl.py 실행 → Supabase 적재 (PC/서버 상시 실행) - `crawler/seeds.json` 테스트 구장 4곳 시드 - `courses/seowon-hills.json` 서원힐스 27홀 (코스제원 표에서 직접 추출, 야드→m 환산 완료) - `db/schema.sql`  Supabase 테이블/RLS/뷰 - `app/`  모바일 PWA (상단 코스맵, 하단 스코어·퍼트·세컨 잔여거리 → 티샷거리)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "wrangler": "^3.114.17"
+  }
+}

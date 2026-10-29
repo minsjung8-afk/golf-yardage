@@ -1,0 +1,13 @@
+name = "golf-yardage"
+compatibility_date = "2025-06-01"
+pages_build_output_dir = "app"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "golf-yardage"
+database_id = "REPLACE_WITH_ID_FROM__wrangler_d1_create"
+
+[[r2_buckets]]
+binding = "MAPS"
+bucket_name = "golf-coursemaps"
+

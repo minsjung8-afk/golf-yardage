@@ -1,0 +1,24 @@
+{
+  "seowon-hills": {
+    "name": "서원힐스CC",
+    "url": "https://www.seowongolf.co.kr/hills/course/course-info",
+    "note": "확인됨. 코스제원 표(5티·야드) + /hills/course/{west,south,east} 홀별 이미지 w1.jpg~e9.jpg"
+  },
+  "eaglemont": {
+    "name": "이글몬트CC",
+    "url": "https://www.golfzoncounty.com/golfclub/main?golfclubSeq=64",
+    "note": "27홀(이글·몬트·히든). 골프존카운티 통합 사이트. 옛 도메인 eaglemontcc.co.kr 폐쇄됨 · 티 이름 사이트에 없음 → 긴 순서대로 BLUE,WHITE,RED (사용자 확인)",
+    "tees": "BLUE,WHITE,RED",
+    "course_names": "이글,몬트,히든"
+  },
+  "rainbow-hills": {
+    "name": "레인보우힐스CC",
+    "url": "https://www.rainbowhills.co.kr",
+    "note": "충북 음성, 18홀. 도메인 응답 확인"
+  },
+  "gimpo-seaside": {
+    "name": "김포씨사이드CC",
+    "url": "https://www.gimpocc.co.kr",
+    "note": "경기 김포, 18홀. 서버 응답 불안정(재시도 필요할 수 있음)"
+  }
+}

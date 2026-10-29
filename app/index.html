@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0f3d2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Yardage</title>
+<style>
+:root{--bg:#0b1612;--panel:#132219;--line:#1f3a2c;--txt:#e8f1ec;--mut:#8fa89a;--acc:#7ad68f;--warn:#f0b35a;--bad:#e36b6b;--tap:56px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);font:16px/1.4 -apple-system,"Pretendard","Noto Sans KR",system-ui,sans-serif;overscroll-behavior:none}
+body{display:flex;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button{font:inherit;cursor:pointer}
+header{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--line)}
+header .t{font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header button{height:36px;border:1px solid var(--line);background:#0f1d16;color:var(--txt);border-radius:8px;padding:0 10px;font-size:14px;flex:none}
+#sync{font-size:12px;color:var(--mut);flex:none;min-width:14px;text-align:right}
+#sync.wait{color:var(--warn)}#sync.off{color:var(--bad)}
+#map{position:relative;background:#06100c;height:46vh;min-height:240px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+#map img{max-width:100%;max-height:100%;object-fit:contain}
+#map .ph{color:var(--mut);text-align:center;padding:20px}
+#map .hud{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.6);border-radius:10px;padding:6px 10px;font-size:13px;line-height:1.3}
+#map .hud b{font-size:22px;color:#fff}
+#map .nav{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:space-between;padding:0 8px}
+#map .nav button{height:40px;min-width:68px;border:none;border-radius:20px;background:rgba(0,0,0,.65);color:#fff;font-size:15px}
+#sheet{flex:1;overflow:auto;padding:10px 12px 24px}
+.row{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.row>label{width:76px;flex:none;color:var(--mut);font-size:14px}
+.stepper{display:flex;align-items:center;gap:6px;flex:1}
+.stepper button{width:var(--tap);height:var(--tap);border:none;border-radius:12px;background:var(--panel);color:var(--txt);font-size:26px}
+.stepper output{flex:1;text-align:center;font-size:30px;font-weight:700}
+.stepper output.par{color:var(--acc)}.stepper output.over{color:var(--warn)}.stepper output.dbl{color:var(--bad)}
+input.num{flex:1;min-width:0;height:var(--tap);font-size:28px;text-align:center;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--txt)}
+.calc{flex:1;text-align:center;font-size:18px;padding:8px;border-radius:12px;background:#0f1d16;border:1px dashed var(--line)}
+.calc b{font-size:28px;color:var(--acc)}
+.chips{display:flex;gap:6px;flex:1}
+.chips button{flex:1;height:44px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--mut)}
+.chips button.on{background:#1b4a33;color:#fff;border-color:#2e7a52}
+.tees{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.tees button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--mut);font-size:13px}
+.tees button.on{color:#fff;border-color:#2e7a52;background:#1b4a33}
+.sum{display:grid;grid-template-columns:repeat(9,1fr);gap:2px;font-size:11px;margin-top:12px}
+.sum div{background:var(--panel);text-align:center;padding:4px 0;border-radius:4px}
+.sum .h{color:var(--mut)}.sum .cur{outline:2px solid var(--acc)}
+.bar{display:flex;gap:8px;margin-top:12px}
+.bar button{flex:1;height:48px;border:none;border-radius:12px;background:var(--panel);color:var(--txt);font-size:15px}
+.bar button.pri{background:#1b4a33;color:#fff}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.card h4{margin:0 0 8px;font-size:14px;color:var(--mut);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.kpis div{background:#0f1d16;border-radius:10px;padding:8px}
+.kpis small{display:block;color:var(--mut);font-size:12px}.kpis b{font-size:20px}
+.hist{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.hist:first-of-type{border-top:none}
+.hist span{flex:1}.hist b{font-size:18px}
+.hist button{border:none;background:none;color:var(--mut);font-size:13px;padding:4px 6px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-end;z-index:9}
+.modal.on{display:flex}
+.modal .box{width:100%;background:var(--panel);border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}
+.modal h3{margin:0 0 12px}
+.modal input,.modal select{width:100%;height:48px;border:1px solid var(--line);border-radius:10px;background:#0f1d16;color:var(--txt);font-size:16px;padding:0 12px;margin-bottom:10px}
+.list button.item{display:block;width:100%;text-align:left;min-height:52px;border:none;border-bottom:1px solid var(--line);background:none;color:var(--txt);font-size:16px;padding:8px 0}
+.list small{color:var(--mut);margin-left:8px}
+.list .crow{display:flex;align-items:center;border-bottom:1px solid var(--line)}
+.list .crow button.item{border-bottom:none;flex:1}
+.list .crow .del{flex:none;border:1px solid var(--line);background:none;color:var(--bad);border-radius:8px;height:34px;padding:0 10px;font-size:13px}
+.msg{font-size:13px;color:var(--mut);margin:6px 0}
+.err{font-size:13px;color:var(--bad);min-height:18px}
+.badge{font-size:11px;padding:2px 6px;border-radius:6px;background:#2a2a1a;color:var(--warn)}
+.req{background:#0f1d16;border-radius:10px;padding:10px;margin:8px 0;font-size:14px}
+.req .st{font-size:12px;color:var(--mut)}
+.req a{color:var(--acc);word-break:break-all}
+.req .bar button{height:40px}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#000d;color:#fff;padding:8px 14px;border-radius:20px;font-size:14px;opacity:0;transition:.3s;pointer-events:none;z-index:20;max-width:90vw;text-align:center}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <div class="t" id="hdrTitle">Yardage</div>
+  <span id="sync" title="서버 저장 상태"></span>
+  <button id="btnCourses">구장</button>
+  <button id="btnNew">새 라운드</button>
+  <button id="btnMe" aria-label="내 정보">☰</button>
+</header>
+
+<section id="map">
+  <div class="ph" id="mapPh">구장을 선택하고 새 라운드를 시작하세요</div>
+  <img id="mapImg" alt="" hidden>
+  <div class="hud" id="hud" hidden></div>
+  <div class="nav" id="nav" hidden><button id="prev">◀ 이전</button><button id="next">다음 ▶</button></div>
+</section>
+
+<section id="sheet">
+  <div id="holePanel" hidden>
+    <div class="row"><label>티</label><div class="tees" id="teeRow"></div></div>
+    <div class="row"><label>스코어</label>
+      <div class="stepper"><button data-k="score" data-d="-1">−</button><output id="score">–</output><button data-k="score" data-d="1">+</button></div></div>
+    <div class="row"><label>퍼트</label>
+      <div class="stepper"><button data-k="putts" data-d="-1">−</button><output id="putts">–</output><button data-k="putts" data-d="1">+</button></div></div>
+    <div class="row" id="remainRow"><label>세컨 잔여</label>
+      <input class="num" id="remain" type="number" inputmode="numeric" placeholder="m" min="0" max="700"></div>
+    <div class="row" id="driveRow"><label>티샷</label><div class="calc">전장 <span id="len">–</span>m − 잔여 = <b id="drive">–</b> m</div></div>
+    <div class="row" id="fwRow"><label>페어웨이</label>
+      <div class="chips"><button data-fw="left">좌</button><button data-fw="hit">안착</button><button data-fw="right">우</button></div></div>
+    <div class="sum" id="sumFront"></div><div class="sum" id="sumBack"></div>
+    <div class="bar"><button class="pri" id="btnFinish">라운드 종료</button></div>
+  </div>
+  <div id="homePanel"></div>
+</section>
+
+<!-- 로그인 -->
+<div class="modal" id="mLogin"><div class="box">
+  <h3>로그인</h3>
+  <p class="msg">기록은 서버에 저장됩니다. 어느 휴대폰에서든 같은 닉네임·PIN으로 들어오면 이어서 볼 수 있습니다.</p>
+  <input id="lNick" placeholder="닉네임 (2~20자)" autocomplete="username" autocapitalize="off">
+  <input id="lPin" type="password" inputmode="numeric" pattern="\d*" maxlength="6" placeholder="PIN 숫자 4~6자리" autocomplete="current-password">
+  <div class="err" id="lErr"></div>
+  <div class="bar"><button class="pri" id="btnLogin">로그인</button><button id="btnRegister">처음이에요 · 가입</button></div>
+</div></div>
+
+<!-- 내 정보 -->
+<div class="modal" id="mMe"><div class="box">
+  <h3 id="meTitle">내 정보</h3>
+  <p class="msg" id="meSync"></p>
+  <div class="bar"><button id="btnFlush">지금 저장</button><button id="btnLogout">로그아웃</button><button data-close>닫기</button></div>
+</div></div>
+
+<!-- 구장 목록 -->
+<div class="modal" id="mCourses"><div class="box">
+  <h3>구장 선택</h3>
+  <div class="list" id="courseList"></div>
+  <div class="bar"><button id="btnAddCourse" class="pri">＋ 구장추가</button><button id="btnImport">JSON 가져오기</button><button data-close>닫기</button></div>
+  <input type="file" id="fileImport" accept="application/json,.json" hidden>
+</div></div>
+
+<!-- 구장추가 -->
+<div class="modal" id="mAdd"><div class="box">
+  <h3>구장추가</h3>
+  <input id="addName" placeholder="골프장명 (예: 이글몬트CC)">
+  <input id="addUrl" placeholder="홈페이지 주소 (선택 — 모르면 비워두세요)" inputmode="url" autocapitalize="off">
+  <p class="msg">주소를 비우면 이름으로 공식 홈페이지를 찾아 확인을 요청합니다. 확인 후 코스맵·파·티별 전장을 수집하며 보통 3~6분 걸립니다.</p>
+  <div class="bar"><button class="pri" id="btnAddSubmit">요청</button><button data-close>닫기</button></div>
+  <p class="msg" id="workerSt"></p>
+  <div id="addQueue"></div>
+</div></div>
+
+<!-- 새 라운드 -->
+<div class="modal" id="mNew"><div class="box">
+  <h3>새 라운드</h3>
+  <label class="msg">구장</label><select id="nCourse"></select>
+  <label class="msg">티</label><select id="nTee"></select>
+  <label class="msg">전반</label><select id="nFront"></select>
+  <label class="msg">후반</label><select id="nBack"></select>
+  <label class="msg">날짜</label><input id="nDate" type="date">
+  <div class="bar"><button class="pri" id="btnStart">시작</button><button data-close>취소</button></div>
+</div></div>
+
+<div id="toast"></div>
+
+<script>
+/* ================= 기본 ================= */
+const $ = s => document.querySelector(s);
+const toast = m => { const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('on'), 2200); };
+const lsGet = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const today = () => new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+
+let token = lsGet('token', null);
+let me = lsGet('me', null);
+let courses = lsGet('courses', {});
+let round = lsGet('round', null);       // 진행 중 라운드의 화면용 사본(원본은 서버)
+let cur = lsGet('cur', 0);
+let outbox = lsGet('outbox', []);       // 서버에 아직 못 보낸 쓰기만 보관
+
+class HttpError extends Error { constructor(s, m) { super(m); this.status = s; } }
+async function api(path, opt = {}) {
+  let r;
+  try {
+    r = await fetch('/api' + path, { method: opt.method || 'GET', headers: { 'content-type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) }, body: opt.body !== undefined ? JSON.stringify(opt.body) : undefined });
+  } catch { throw new HttpError(0, '오프라인'); }
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) { if (r.status === 401 && token && !path.startsWith('/auth/')) needLogin(); throw new HttpError(r.status, j.error || ('HTTP ' + r.status)); }
+  return j;
+}
+
+/* ================= 서버 저장 (즉시 전송 + 오프라인 대기열) ================= */
+function enqueue(key, method, path, body) {
+  outbox = outbox.filter(x => x.key !== key);       // 같은 대상의 이전 쓰기는 최신 것으로 교체
+  outbox.push({ key, method, path, body });
+  lsSet('outbox', outbox); showSync();
+  flush();
+}
+let flushing = false;
+async function flush() {
+  if (flushing || !token) return;
+  flushing = true;
+  try {
+    while (outbox.length) {
+      const it = outbox[0];
+      try { await api(it.path, { method: it.method, body: it.body }); }
+      catch (e) {
+        if (e.status === 0 || e.status === 401 || e.status >= 500) break;   // 네트워크·인증·서버 문제 → 나중에 재시도
+        console.warn('drop', it, e.message);                               // 4xx 데이터 오류는 버림
+      }
+      outbox.shift(); lsSet('outbox', outbox);
+    }
+  } finally { flushing = false; showSync(); }
+}
+function showSync() {
+  const el = $('#sync'), n = outbox.length;
+  el.className = n ? (navigator.onLine ? 'wait' : 'off') : '';
+  el.textContent = n ? (navigator.onLine ? `⏳${n}` : `⚠${n}`) : (round ? '✓' : '');
+  $('#meSync').textContent = n ? `서버에 아직 못 보낸 입력 ${n}건 — 연결되면 자동 전송됩니다.` : '모든 입력이 서버에 저장되었습니다.';
+}
+window.addEventListener('online', () => { showSync(); flush(); });
+window.addEventListener('offline', showSync);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) flush(); });
+setInterval(flush, 15000);
+
+/* ================= 로그인 ================= */
+function needLogin() { token = null; lsSet('token', null); $('#mLogin').classList.add('on'); }
+async function doAuth(kind) {
+  const nickname = $('#lNick').value.trim(), pin = $('#lPin').value.trim();
+  $('#lErr').textContent = '';
+  if (kind === 'register' && !confirm(`'${nickname}' 으로 새로 가입할까요? PIN을 잊으면 찾을 수 없으니 기억해 두세요.`)) return;
+  try {
+    const r = await api('/auth/' + kind, { method: 'POST', body: { nickname, pin } });
+    token = r.token; me = r.user; lsSet('token', token); lsSet('me', me);
+    $('#mLogin').classList.remove('on'); $('#lPin').value = '';
+    toast(`${me.nickname}님 환영합니다`);
+    await afterLogin();
+  } catch (e) { $('#lErr').textContent = e.status === 0 ? '서버에 연결할 수 없습니다' : e.message; }
+}
+$('#btnLogin').onclick = () => doAuth('login');
+$('#btnRegister').onclick = () => doAuth('register');
+$('#lPin').addEventListener('keydown', e => { if (e.key === 'Enter') doAuth('login'); });
+$('#btnMe').onclick = () => { $('#meTitle').textContent = me ? `${me.nickname} 님` : '내 정보'; showSync(); $('#mMe').classList.add('on'); };
+$('#btnFlush').onclick = async () => { await flush(); toast(outbox.length ? '아직 연결이 안 됩니다' : '저장 완료'); };
+$('#btnLogout').onclick = async () => {
+  if (outbox.length && !confirm(`서버에 못 보낸 입력 ${outbox.length}건이 있습니다. 로그아웃하면 사라집니다. 계속할까요?`)) return;
+  try { await api('/auth/logout', { method: 'POST' }); } catch {}
+  outbox = []; round = null; me = null; ['outbox', 'round', 'me'].forEach(k => lsSet(k, null));
+  $('#mMe').classList.remove('on'); render(); needLogin();
+};
+
+/* ================= 구장 ================= */
+async function loadCourses() {
+  let bundled = null;
+  try { const r = await fetch('courses/seowon-hills.json'); if (r.ok) bundled = await r.json(); } catch {}
+  try {
+    // 서버 목록이 원본: 받으면 캐시를 통째로 교체(다른 기기에서 삭제한 구장도 사라지도록)
+    const fresh = {};
+    (await api('/courses')).forEach(c => fresh[c.course_id] = c);
+    if (bundled && !fresh[bundled.course_id]) fresh[bundled.course_id] = bundled;
+    courses = fresh;
+  } catch {
+    if (bundled && !courses[bundled.course_id]) courses[bundled.course_id] = bundled;   // 오프라인: 캐시 유지
+  }
+  lsSet('courses', courses);
+}
+function holeCount(c) { return c.courses.reduce((a, x) => a + x.holes.length, 0); }
+function renderCourseList() {
+  const el = $('#courseList'); el.innerHTML = '';
+  const list = Object.values(courses).sort((a, b) => a.club_name.localeCompare(b.club_name, 'ko'));
+  list.forEach(c => {
+    const row = document.createElement('div'); row.className = 'crow';
+    const b = document.createElement('button'); b.className = 'item';
+    const n = holeCount(c);
+    b.innerHTML = `${esc(c.club_name)}<small>${c.courses.map(x => esc(x.name)).join('·')} ${n}홀</small>` + (c.status === 'pending' ? ' <span class="badge">수집중</span>' : c.status === 'failed' ? ' <span class="badge">실패</span>' : '');
+    b.onclick = () => { if (!n) return toast(c.status === 'failed' ? '수집에 실패한 구장입니다' : '아직 수집 중입니다'); $('#mCourses').classList.remove('on'); openNew(c.course_id); };
+    row.appendChild(b);
+    // 삭제: 홀 데이터 없는 미완성 자리표시, 또는 내가 등록한 구장 (서버가 최종 판단)
+    if ((!n && c.status !== 'ready') || c.mine) {
+      const d = document.createElement('button'); d.className = 'del'; d.textContent = '삭제';
+      d.onclick = async () => {
+        if (!confirm(`'${c.club_name}' 을(를) 목록에서 삭제할까요?`)) return;
+        try { await api('/courses/' + encodeURIComponent(c.course_id), { method: 'DELETE' }); }
+        catch (e) { if (e.status !== 404) return toast(e.message); }
+        delete courses[c.course_id]; lsSet('courses', courses); renderCourseList(); toast('삭제됨');
+      };
+      row.appendChild(d);
+    }
+    el.appendChild(row);
+  });
+  if (!list.length) el.innerHTML = '<p class="msg">구장이 없습니다. 구장추가를 눌러 주세요.</p>';
+}
+$('#btnCourses').onclick = async () => { renderCourseList(); $('#mCourses').classList.add('on'); await loadCourses(); renderCourseList(); };
+
+/* 구장추가 */
+let queueTimer = null;
+$('#btnAddCourse').onclick = () => { $('#mAdd').classList.add('on'); renderQueue(); clearInterval(queueTimer); queueTimer = setInterval(() => { if (!$('#mAdd').classList.contains('on')) return clearInterval(queueTimer); renderQueue(); }, 5000); };
+$('#btnAddSubmit').onclick = async () => {
+  const club_name = $('#addName').value.trim(), url = $('#addUrl').value.trim();
+  if (!club_name) return toast('골프장명을 입력하세요');
+  if (url && !/^https?:\/\//.test(url)) return toast('주소는 http:// 또는 https:// 로 시작해야 합니다');
+  try { await api('/crawl-requests', { method: 'POST', body: { club_name, url } }); $('#addName').value = $('#addUrl').value = ''; toast(url ? '수집 요청됨' : '홈페이지를 찾는 중입니다 — 잠시 후 확인해 주세요'); renderQueue(); }
+  catch (e) { toast('요청 실패: ' + e.message); }
+};
+const ST = { searching: '홈페이지 찾는 중', confirm: '주소 확인 필요', queued: '수집 대기', running: '수집 중', done: '완료', failed: '실패', canceled: '취소됨' };
+function ago(iso) {
+  if (!iso) return null;
+  const m = Math.round((Date.now() - new Date(iso.replace(' ', 'T') + (/[zZ+]/.test(iso) ? '' : 'Z')).getTime()) / 60000);
+  return m < 1 ? '방금' : m < 60 ? `${m}분 전` : m < 1440 ? `${Math.round(m / 60)}시간 전` : `${Math.round(m / 1440)}일 전`;
+}
+async function renderWorker(pending) {
+  let st = null; try { st = await api('/worker/status'); } catch { return; }
+  const last = ago(st.last_seen);
+  let h = st.auto
+    ? `🟢 자동 수집 켜짐 (GitHub) · 수집기 마지막 실행 ${last || '없음'}. 요청하면 보통 1~3분 안에 처리됩니다.`
+    : `⚪ 자동 수집 꺼짐 · 수집기 마지막 실행 ${last || '없음'}. PC에서 worker.py를 켜야 처리됩니다.`;
+  if (st.auto && st.last_wake && !/ ok$/.test(st.last_wake)) h += `<br><span style="color:var(--warn)">⚠ 최근 GitHub 호출 실패 — 토큰 만료·권한 확인 필요 (setup_github.sh 다시 실행: RESET_GH_TOKEN=1)</span>`;
+  if (st.auto && pending) h += ` <button id="btnWake" style="margin-left:6px;height:30px;border:1px solid var(--line);background:none;color:var(--acc);border-radius:8px;padding:0 10px">지금 실행</button>`;
+  $('#workerSt').innerHTML = h;
+  const w = $('#btnWake');
+  if (w) w.onclick = async () => { try { await api('/worker/wake', { method: 'POST' }); toast('수집기를 깨웠습니다 — 1~3분 후 확인'); } catch (e) { toast(e.message); } };
+}
+async function renderQueue() {
+  let q = []; try { q = await api('/crawl-requests'); } catch { return; }
+  renderWorker(q.some(r => ['searching', 'queued', 'running'].includes(r.status)));
+  const el = $('#addQueue');
+  if (!q.length) { el.innerHTML = ''; return; }
+  el.innerHTML = '<p class="msg"><b>요청 현황</b></p>' + q.map(r => {
+    let h = `<div class="req" data-id="${r.id}"><b>${esc(r.club_name)}</b> <span class="st">· ${ST[r.status] || esc(r.status)}</span>`;
+    if (r.status === 'confirm') {
+      h += r.candidate_url
+        ? `<div class="msg">이 주소가 맞나요?<br><a href="${esc(r.candidate_url)}" target="_blank" rel="noopener">${esc(r.candidate_url)}</a></div><input class="cand" value="${esc(r.candidate_url)}" inputmode="url" autocapitalize="off">`
+        : `<div class="msg">${esc(r.message || '홈페이지를 찾지 못했습니다. 주소를 직접 입력해 주세요.')}</div><input class="cand" placeholder="https://" inputmode="url" autocapitalize="off">`;
+      h += `<div class="bar"><button class="pri" data-act="confirm">이 주소로 수집</button><button data-act="cancel">취소</button></div>`;
+    } else if (r.message) h += `<div class="msg">${esc(r.message)}</div>`;
+    if (['searching', 'queued'].includes(r.status)) h += `<div class="bar"><button data-act="cancel">취소</button></div>`;
+    if (['done', 'failed', 'canceled'].includes(r.status)) h += `<div class="bar"><button data-act="remove">목록에서 지우기</button></div>`;
+    return h + '</div>';
+  }).join('');
+  el.querySelectorAll('[data-act]').forEach(b => b.onclick = async () => {
+    const box = b.closest('.req'), id = box.dataset.id;
+    try {
+      if (b.dataset.act === 'cancel') await api(`/crawl-requests/${id}/cancel`, { method: 'POST' });
+      else if (b.dataset.act === 'remove') await api(`/crawl-requests/${id}`, { method: 'DELETE' });
+      else await api(`/crawl-requests/${id}/confirm`, { method: 'POST', body: { url: box.querySelector('.cand').value.trim() } });
+      renderQueue();
+    } catch (e) { toast(e.message); }
+  });
+  if (q.some(r => r.status === 'done')) loadCourses();
+}
+$('#btnImport').onclick = () => $('#fileImport').click();
+$('#fileImport').onchange = async e => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  let j; try { j = JSON.parse(await f.text()); if (!j.course_id || !j.courses) throw 0; } catch { return toast('course.json 형식이 아닙니다'); }
+  try { await api('/courses', { method: 'POST', body: j }); courses[j.course_id] = j; lsSet('courses', courses); renderCourseList(); toast('등록: ' + j.club_name); }
+  catch (e2) { toast('등록 실패: ' + e2.message); }
+};
+
+/* ================= 새 라운드 ================= */
+function openNew(pre) {
+  const sel = $('#nCourse'); sel.innerHTML = '';
+  Object.values(courses).filter(c => holeCount(c)).forEach(c => sel.add(new Option(c.club_name, c.course_id)));
+  if (!sel.options.length) return toast('구장을 먼저 추가하세요');
+  if (pre) sel.value = pre;
+  sel.onchange = fillNew; fillNew();
+  $('#nDate').value = today();
+  $('#mNew').classList.add('on');
+}
+function teesOf(c) { return c.tee_order?.length ? c.tee_order : [...new Set(c.courses.flatMap(x => x.holes.flatMap(h => Object.keys(h.tees_m || {}))))]; }
+function fillNew() {
+  const c = courses[$('#nCourse').value]; if (!c) return;
+  const tees = teesOf(c);
+  $('#nTee').innerHTML = tees.map(t => `<option>${esc(t)}</option>`).join('');
+  $('#nTee').value = tees.includes('WHITE') ? 'WHITE' : tees[0];
+  const names = c.courses.filter(x => x.holes.length).map(x => x.name);
+  $('#nFront').innerHTML = names.map(n => `<option>${esc(n)}</option>`).join('');
+  $('#nBack').innerHTML = '<option value="">(없음 · 9홀)</option>' + names.map(n => `<option>${esc(n)}</option>`).join('');
+  $('#nBack').value = names[1] || '';
+}
+$('#btnNew').onclick = () => {
+  if (round && !confirm('진행 중인 라운드가 있습니다. 새로 시작할까요? (기존 라운드는 서버에 미완료로 남습니다)')) return;
+  openNew();
+};
+function buildHoles(c, parts, tee, saved = []) {
+  const out = []; let seq = 1;
+  parts.forEach(n => (c.courses.find(x => x.name === n)?.holes || []).forEach(h => {
+    const s = saved.find(x => x.seq === seq) || {};
+    out.push({ seq: seq++, course_name: n, hole: h.hole, par: h.par, tee: s.tee || tee, image_url: h.image_url, tees_m: h.tees_m,
+      score: s.score ?? null, putts: s.putts ?? null, remain_m: s.remain_m ?? null, fairway: s.fairway ?? null });
+  }));
+  return out;
+}
+$('#btnStart').onclick = () => {
+  const c = courses[$('#nCourse').value], tee = $('#nTee').value;
+  const parts = [$('#nFront').value, $('#nBack').value].filter(Boolean);
+  round = { id: crypto.randomUUID(), course_id: c.course_id, club_name: c.club_name, played_on: $('#nDate').value || today(), tee, front: parts[0], back: parts[1] || null };
+  round.holes = buildHoles(c, parts, tee);
+  cur = 0; lsSet('round', round); lsSet('cur', cur);
+  const { holes, ...meta } = round;
+  enqueue('round:' + round.id, 'POST', '/rounds', meta);
+  $('#mNew').classList.remove('on'); render();
+};
+
+/* 진행 중 라운드 복원: 못 보낸 입력이 있으면 기기 사본, 없으면 서버 원본 */
+async function restoreRound() {
+  if (outbox.length && round) return;
+  let r = null; try { r = await api('/rounds/active'); } catch (e) { if (e.status === 0) return; }
+  if (!r) { if (round && !outbox.length) { round = null; lsSet('round', null); } return; }
+  const c = courses[r.course_id];
+  if (!c) { toast('진행 중 라운드의 구장 정보가 없습니다'); return; }
+  const prevId = round?.id;
+  round = { id: r.id, course_id: r.course_id, club_name: r.club_name, played_on: r.played_on, tee: r.tee, front: r.front, back: r.back };
+  round.holes = buildHoles(c, [r.front, r.back].filter(Boolean), r.tee, r.holes);
+  if (prevId !== r.id) { const last = r.holes.filter(h => h.score != null).map(h => h.seq).pop(); cur = last ? Math.min(last, round.holes.length - 1) : 0; }
+  lsSet('round', round); lsSet('cur', cur);
+}
+
+/* ================= 홀 화면 ================= */
+const hole = () => round?.holes[cur];
+const lengthM = h => h.tees_m?.[h.tee] ?? null;
+function render() {
+  const h = hole();
+  $('#holePanel').hidden = !h; $('#nav').hidden = !h; $('#hud').hidden = !h; $('#homePanel').hidden = !!h;
+  showSync();
+  if (!h) { $('#hdrTitle').textContent = 'Yardage'; $('#mapImg').onerror = null; $('#mapImg').removeAttribute('src'); $('#mapImg').hidden = true; $('#mapPh').hidden = false; $('#mapPh').textContent = '구장을 선택하고 새 라운드를 시작하세요'; renderHome(); return; }
+  $('#hdrTitle').textContent = `${round.club_name} · ${h.course_name}`;
+  const img = $('#mapImg');
+  if (h.image_url) { img.hidden = false; $('#mapPh').hidden = true; img.onerror = () => { img.hidden = true; $('#mapPh').hidden = false; $('#mapPh').textContent = '코스맵을 불러오지 못했습니다'; }; if (img.getAttribute('src') !== h.image_url) img.src = h.image_url; }
+  else { img.hidden = true; $('#mapPh').hidden = false; $('#mapPh').textContent = '코스맵 없음'; }
+  $('#hud').innerHTML = `<b>${esc(h.course_name)} ${h.hole}</b>홀 · PAR ${h.par}<br>${esc(h.tee)} ${lengthM(h) ?? '–'}m`;
+  const tees = Object.keys(h.tees_m || {});
+  $('#teeRow').innerHTML = tees.map(t => `<button class="${t === h.tee ? 'on' : ''}" data-tee="${esc(t)}">${esc(t)} ${h.tees_m[t]}</button>`).join('');
+  $('#teeRow').querySelectorAll('button').forEach(b => b.onclick = () => { h.tee = b.dataset.tee; save(h); render(); });
+  const so = $('#score'); so.textContent = h.score ?? '–'; so.className = h.score == null ? '' : h.score <= h.par ? 'par' : h.score === h.par + 1 ? 'over' : 'dbl';
+  $('#putts').textContent = h.putts ?? '–';
+  const par3 = h.par === 3;
+  $('#remainRow').hidden = $('#driveRow').hidden = $('#fwRow').hidden = par3;
+  if (!par3) {
+    if (document.activeElement !== $('#remain')) $('#remain').value = h.remain_m ?? '';
+    $('#len').textContent = lengthM(h) ?? '–';
+    showDrive(h);
+    $('#fwRow').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.fw === h.fairway));
+  }
+  renderSummary();
+}
+function showDrive(h) { const d = (lengthM(h) != null && h.remain_m != null) ? lengthM(h) - h.remain_m : null; $('#drive').textContent = d == null ? '–' : d; }
+function renderSummary() {
+  const mk = (el, hs, off) => { el.innerHTML = hs.map(x => `<div class="h">${x.hole}</div>`).join('') + hs.map((x, i) => `<div class="${off + i === cur ? 'cur' : ''}" data-i="${off + i}">${x.score ?? ''}</div>`).join(''); el.querySelectorAll('[data-i]').forEach(d => d.onclick = () => { cur = +d.dataset.i; lsSet('cur', cur); render(); }); };
+  const f = round.holes.slice(0, 9), b = round.holes.slice(9);
+  mk($('#sumFront'), f, 0); mk($('#sumBack'), b, 9); $('#sumBack').hidden = !b.length;
+}
+/* 입력 → 기기 사본 갱신 + 해당 홀만 서버로 (연속 입력은 0.6초 모아서 한 번) */
+const timers = {};
+function save(h) {
+  lsSet('round', round);
+  clearTimeout(timers[h.seq]);
+  timers[h.seq] = setTimeout(() => enqueue(`hole:${round.id}:${h.seq}`, 'PUT', `/rounds/${round.id}/holes/${h.seq}`,
+    { course_name: h.course_name, hole: h.hole, par: h.par, tee: h.tee, length_m: lengthM(h), remain_m: h.par === 3 ? null : h.remain_m, score: h.score, putts: h.putts, fairway: h.fairway }), 600);
+  $('#sync').className = 'wait'; $('#sync').textContent = '⏳';
+}
+function enqueueNow(h) { enqueue(`hole:${round.id}:${h.seq}`, 'PUT', `/rounds/${round.id}/holes/${h.seq}`, { course_name: h.course_name, hole: h.hole, par: h.par, tee: h.tee, length_m: lengthM(h), remain_m: h.par === 3 ? null : h.remain_m, score: h.score, putts: h.putts, fairway: h.fairway }); }
+document.querySelectorAll('.stepper button').forEach(b => b.onclick = () => {
+  const h = hole(), k = b.dataset.k, d = +b.dataset.d;
+  const base = k === 'score' ? h.par : 2;
+  h[k] = Math.max(k === 'putts' ? 0 : 1, (h[k] ?? base) + (h[k] == null ? 0 : d)); save(h); render();
+});
+$('#remain').oninput = e => { const h = hole(); const v = e.target.value; h.remain_m = v === '' ? null : Math.max(0, Math.round(+v)); showDrive(h); save(h); };
+$('#fwRow').querySelectorAll('button').forEach(b => b.onclick = () => { const h = hole(); h.fairway = h.fairway === b.dataset.fw ? null : b.dataset.fw; save(h); render(); });
+$('#prev').onclick = () => { if (cur > 0) { cur--; lsSet('cur', cur); render(); } };
+$('#next').onclick = () => { if (cur < round.holes.length - 1) { cur++; lsSet('cur', cur); render(); } };
+window.addEventListener('pagehide', () => { if (round) Object.keys(timers).forEach(seq => { clearTimeout(timers[seq]); const h = round.holes.find(x => x.seq === +seq); if (h) enqueueNow(h); }); });
+
+$('#btnFinish').onclick = async () => {
+  const blank = round.holes.filter(h => h.score == null).length;
+  if (!confirm(blank ? `스코어 미입력 ${blank}홀이 있습니다. 종료할까요?` : '라운드를 종료할까요?')) return;
+  Object.keys(timers).forEach(seq => { clearTimeout(timers[seq]); const h = round.holes.find(x => x.seq === +seq); if (h) enqueueNow(h); delete timers[seq]; });
+  enqueue('finish:' + round.id, 'POST', `/rounds/${round.id}/finish`, {});
+  round = null; lsSet('round', null); cur = 0; lsSet('cur', 0);
+  render(); await flush(); renderHome();
+};
+
+/* ================= 홈: 서버 통계·기록 ================= */
+async function renderHome() {
+  const el = $('#homePanel');
+  if (!token) { el.innerHTML = ''; return; }
+  let st = null, rs = null;
+  try { [st, rs] = await Promise.all([api('/stats'), api('/rounds')]); } catch (e) { el.innerHTML = `<p class="msg">${e.status === 0 ? '오프라인 — 기록은 연결되면 보입니다.' : esc(e.message)}</p>`; return; }
+  const dr = (st.drive || []).sort((a, b) => b.n - a.n)[0];
+  let h = `<div class="card"><h4>${esc(me?.nickname || '')} 님 통계</h4><div class="kpis">
+    <div><small>평균 스코어(18홀)</small><b>${st.score?.avg_score ?? '–'}</b></div>
+    <div><small>베스트</small><b>${st.score?.best ?? '–'}</b></div>
+    <div><small>티샷 평균${dr ? ' · ' + esc(dr.tee) : ''}</small><b>${dr ? dr.avg_m + 'm' : '–'}</b></div>
+    <div><small>티샷 최장</small><b>${dr ? dr.max_m + 'm' : '–'}</b></div>
+    <div><small>평균 퍼트/홀</small><b>${st.putts ?? '–'}</b></div>
+    <div><small>페어웨이 안착률</small><b>${st.fairway != null ? st.fairway + '%' : '–'}</b></div>
+  </div><p class="msg">티샷 거리는 코스 전장 − 세컨 잔여거리 기준입니다.</p></div>`;
+  h += `<div class="card"><h4>라운드 기록</h4>`;
+  if (!rs.length) h += '<p class="msg">아직 기록이 없습니다.</p>';
+  rs.forEach(r => {
+    const tot = r.holes.reduce((a, x) => a + (x.score || 0), 0), n = r.holes.filter(x => x.score != null).length;
+    const full = r.back ? 18 : 9;
+    h += `<div class="hist"><span>${esc(r.played_on)} ${esc(r.club_name)}<br><small class="msg">${esc(r.front)}${r.back ? '→' + esc(r.back) : ''} · ${esc(r.tee)}${r.finished_at ? '' : ' · <span class="badge">진행중</span>'}</small></span><b>${n ? tot : '–'}</b>${n && n < full ? `<small class="msg">(${n}홀)</small>` : ''}<button data-del="${r.id}">삭제</button></div>`;
+  });
+  el.innerHTML = h + '</div>';
+  el.querySelectorAll('[data-del]').forEach(b => b.onclick = async () => {
+    if (!confirm('이 라운드를 서버에서 삭제할까요?')) return;
+    try { await api('/rounds/' + b.dataset.del, { method: 'DELETE' }); if (round?.id === b.dataset.del) { round = null; lsSet('round', null); render(); } else renderHome(); } catch (e) { toast(e.message); }
+  });
+}
+
+/* ================= 시작 ================= */
+document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('.modal').classList.remove('on'));
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+async function afterLogin() { await flush(); await restoreRound(); render(); }
+(async () => {
+  render();
+  await loadCourses();
+  if (!token) { needLogin(); return; }
+  try { me = await api('/auth/me'); lsSet('me', me); }
+  catch (e) { if (e.status === 401) return; /* 오프라인이면 기기 사본으로 계속 */ }
+  await afterLogin();
+})();
+</script>
+</body>
+</html>
