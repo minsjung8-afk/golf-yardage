@@ -13,8 +13,10 @@
   },
   "rainbow-hills": {
     "name": "레인보우힐스CC",
-    "url": "https://www.rainbowhills.co.kr",
-    "note": "충북 음성, 18홀. 도메인 응답 확인"
+    "url": "https://www.rainbowhills.co.kr/pagesite/course/intro.asp",
+    "note": "충북 음성 27홀. 해외(GitHub 미국 서버) 접속 차단 → 자동 수집 불가. courses/rainbowhills-co-kr.json 은 사용자 크롬(한국)에서 그림 판독해 만든 값. 서코스 좌/우 그린.",
+    "tees": "BLACK,BLUE,WHITE,YELLOW,RED",
+    "course_names": "동,남,서"
   },
   "gimpo-seaside": {
     "name": "김포씨사이드CC",

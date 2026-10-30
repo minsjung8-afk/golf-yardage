@@ -5,7 +5,7 @@ name: admin
 on:
   workflow_dispatch:
     inputs:
-      task:   { description: "작업 (retee | dump | fix)", required: true, default: "retee" }
+      task:   { description: "작업 (retee | dump | fix | upload)", required: true, default: "retee" }
       course_id: { description: "구장 id (dump는 이름 일부도 가능)", required: true }
       arg1: { description: "retee: 예) 5=RED,GREEN,WHITE1,WHITE2,BLUE  또는  BLUE,WHITE,RED", required: false, default: "" }
       arg2: { description: "예: 4=RED,GREEN,WHITE,BLUE (선택)", required: false, default: "" }
@@ -39,6 +39,13 @@ jobs:
         env:
           CID: ${{ github.event.inputs.course_id }}
         run: python apply_fix.py "$CID"
+
+      - name: 저장소의 구장 데이터 올리기 (courses/<id>.json)
+        if: github.event.inputs.task == 'upload'
+        working-directory: crawler
+        env:
+          CID: ${{ github.event.inputs.course_id }}
+        run: pip install -q -r requirements.txt && python worker.py --upload "$CID"
 
       - name: 검수용 내려받기 (inspect 브랜치)
         if: github.event.inputs.task == 'dump'

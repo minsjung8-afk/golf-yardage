@@ -1,0 +1,537 @@
+{
+ "course_id": "rainbowhills-co-kr",
+ "club_name": "레인보우힐스CC",
+ "source": "https://www.rainbowhills.co.kr/pagesite/course/intro.asp",
+ "crawled_at": "2026-10-30",
+ "unit": "m",
+ "tee_order": [
+  "BLACK",
+  "BLUE",
+  "WHITE",
+  "YELLOW",
+  "RED"
+ ],
+ "note": "해외 접속 차단 사이트라 사용자 크롬(한국)에서 홀 그림(hole{n}_3.png)을 직접 판독. 티 C/B/W/S/L=BLACK/BLUE/WHITE/YELLOW/RED. 서코스는 그림의 L:/R: 값을 좌/우 그린으로.",
+ "courses": [
+  {
+   "name": "동",
+   "holes": [
+    {
+     "hole": 1,
+     "par": 5,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 519,
+      "BLUE": 486,
+      "WHITE": 447,
+      "RED": 414
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/one/hole1_3.png",
+     "note": null
+    },
+    {
+     "hole": 2,
+     "par": 3,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 138,
+      "BLUE": 117,
+      "WHITE": 105,
+      "RED": 93
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/one/hole2_3.png",
+     "note": null
+    },
+    {
+     "hole": 3,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 377,
+      "BLUE": 353,
+      "WHITE": 325,
+      "YELLOW": 190,
+      "RED": 178
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/one/hole3_3.png",
+     "note": null
+    },
+    {
+     "hole": 4,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 364,
+      "BLUE": 339,
+      "WHITE": 315,
+      "RED": 259
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/one/hole4_3.png",
+     "note": null
+    },
+    {
+     "hole": 5,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 386,
+      "BLUE": 347,
+      "WHITE": 316,
+      "RED": 294
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/one/hole5_3.png",
+     "note": null
+    },
+    {
+     "hole": 6,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 333,
+      "BLUE": 300,
+      "WHITE": 259,
+      "RED": 232
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/one/hole6_3.png",
+     "note": null
+    },
+    {
+     "hole": 7,
+     "par": 5,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 514,
+      "BLUE": 498,
+      "WHITE": 479,
+      "YELLOW": 439,
+      "RED": 438
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/one/hole7_3.png",
+     "note": null
+    },
+    {
+     "hole": 8,
+     "par": 3,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 166,
+      "BLUE": 152,
+      "WHITE": 138,
+      "RED": 124
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/one/hole8_3.png",
+     "note": null
+    },
+    {
+     "hole": 9,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 409,
+      "BLUE": 392,
+      "WHITE": 374,
+      "YELLOW": 350,
+      "RED": 290
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/one/hole9_3.png",
+     "note": null
+    }
+   ]
+  },
+  {
+   "name": "남",
+   "holes": [
+    {
+     "hole": 1,
+     "par": 5,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 524,
+      "BLUE": 491,
+      "WHITE": 459,
+      "RED": 419
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/two/hole1_3.png",
+     "note": null
+    },
+    {
+     "hole": 2,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 410,
+      "BLUE": 362,
+      "WHITE": 335,
+      "RED": 309
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/two/hole2_3.png",
+     "note": null
+    },
+    {
+     "hole": 3,
+     "par": 3,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 217,
+      "BLUE": 193,
+      "WHITE": 164,
+      "RED": 113
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/two/hole3_3.png",
+     "note": null
+    },
+    {
+     "hole": 4,
+     "par": 3,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 345,
+      "BLUE": 321,
+      "WHITE": 275,
+      "RED": 248
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/two/hole4_3.png",
+     "note": null
+    },
+    {
+     "hole": 5,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 412,
+      "BLUE": 382,
+      "WHITE": 350,
+      "RED": 324
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/two/hole5_3.png",
+     "note": null
+    },
+    {
+     "hole": 6,
+     "par": 3,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 147,
+      "BLUE": 138,
+      "WHITE": 112,
+      "RED": 97
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/two/hole6_3.png",
+     "note": null
+    },
+    {
+     "hole": 7,
+     "par": 5,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 570,
+      "BLUE": 541,
+      "WHITE": 513,
+      "YELLOW": 480,
+      "RED": 446
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/two/hole7_3.png",
+     "note": null
+    },
+    {
+     "hole": 8,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 309,
+      "BLUE": 280,
+      "WHITE": 252,
+      "RED": 222
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/two/hole8_3.png",
+     "note": null
+    },
+    {
+     "hole": 9,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 449,
+      "BLUE": 418,
+      "WHITE": 390,
+      "RED": 368
+     },
+     "greens_m": null,
+     "image_url": "https://www.rainbowhills.co.kr/image/course/two/hole9_3.png",
+     "note": null
+    }
+   ]
+  },
+  {
+   "name": "서",
+   "holes": [
+    {
+     "hole": 1,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 388,
+      "BLUE": 365,
+      "WHITE": 343,
+      "RED": 323
+     },
+     "greens_m": {
+      "좌": {
+       "BLACK": 388,
+       "BLUE": 365,
+       "WHITE": 343,
+       "RED": 323
+      },
+      "우": {
+       "BLACK": 350,
+       "BLUE": 327,
+       "WHITE": 305,
+       "RED": 285
+      }
+     },
+     "image_url": "https://www.rainbowhills.co.kr/image/course/three/hole1_3.png",
+     "note": null
+    },
+    {
+     "hole": 2,
+     "par": 3,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 123,
+      "BLUE": 110,
+      "WHITE": 103,
+      "RED": 94
+     },
+     "greens_m": {
+      "좌": {
+       "BLACK": 123,
+       "BLUE": 110,
+       "WHITE": 103,
+       "RED": 94
+      },
+      "우": {
+       "BLACK": 103,
+       "BLUE": 96,
+       "WHITE": 82,
+       "RED": 69
+      }
+     },
+     "image_url": "https://www.rainbowhills.co.kr/image/course/three/hole2_3.png",
+     "note": null
+    },
+    {
+     "hole": 3,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 282,
+      "BLUE": 252,
+      "WHITE": 218,
+      "RED": 170
+     },
+     "greens_m": {
+      "좌": {
+       "BLACK": 282,
+       "BLUE": 252,
+       "WHITE": 218,
+       "RED": 170
+      },
+      "우": {
+       "BLACK": 346,
+       "BLUE": 286,
+       "WHITE": 252,
+       "RED": 204
+      }
+     },
+     "image_url": "https://www.rainbowhills.co.kr/image/course/three/hole3_3.png",
+     "note": null
+    },
+    {
+     "hole": 4,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 358,
+      "BLUE": 339,
+      "WHITE": 313,
+      "YELLOW": 273,
+      "RED": 240
+     },
+     "greens_m": {
+      "좌": {
+       "BLACK": 358,
+       "BLUE": 339,
+       "WHITE": 313,
+       "YELLOW": 273,
+       "RED": 240
+      },
+      "우": {
+       "BLACK": 405,
+       "BLUE": 386,
+       "WHITE": 361,
+       "YELLOW": 320,
+       "RED": 287
+      }
+     },
+     "image_url": "https://www.rainbowhills.co.kr/image/course/three/hole4_3.png",
+     "note": null
+    },
+    {
+     "hole": 5,
+     "par": 5,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 456,
+      "BLUE": 424,
+      "WHITE": 379,
+      "RED": 371
+     },
+     "greens_m": {
+      "좌": {
+       "BLACK": 456,
+       "BLUE": 424,
+       "WHITE": 379,
+       "RED": 371
+      },
+      "우": {
+       "BLACK": 473,
+       "BLUE": 441,
+       "WHITE": 414,
+       "RED": 388
+      }
+     },
+     "image_url": "https://www.rainbowhills.co.kr/image/course/three/hole5_3.png",
+     "note": null
+    },
+    {
+     "hole": 6,
+     "par": 3,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 142,
+      "BLUE": 120,
+      "WHITE": 100,
+      "RED": 82
+     },
+     "greens_m": {
+      "좌": {
+       "BLACK": 142,
+       "BLUE": 120,
+       "WHITE": 100,
+       "RED": 82
+      },
+      "우": {
+       "BLACK": 148,
+       "BLUE": 127,
+       "WHITE": 110,
+       "RED": 97
+      }
+     },
+     "image_url": "https://www.rainbowhills.co.kr/image/course/three/hole6_3.png",
+     "note": null
+    },
+    {
+     "hole": 7,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 300,
+      "BLUE": 285,
+      "WHITE": 255,
+      "YELLOW": 242,
+      "RED": 230
+     },
+     "greens_m": {
+      "좌": {
+       "BLACK": 300,
+       "BLUE": 285,
+       "WHITE": 255,
+       "YELLOW": 242,
+       "RED": 230
+      },
+      "우": {
+       "BLACK": 289,
+       "BLUE": 275,
+       "WHITE": 245,
+       "YELLOW": 235,
+       "RED": 223
+      }
+     },
+     "image_url": "https://www.rainbowhills.co.kr/image/course/three/hole7_3.png",
+     "note": null
+    },
+    {
+     "hole": 8,
+     "par": 4,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 409,
+      "BLUE": 383,
+      "WHITE": 359,
+      "RED": 321
+     },
+     "greens_m": {
+      "좌": {
+       "BLACK": 409,
+       "BLUE": 383,
+       "WHITE": 359,
+       "RED": 321
+      },
+      "우": {
+       "BLACK": 380,
+       "BLUE": 354,
+       "WHITE": 330,
+       "RED": 292
+      }
+     },
+     "image_url": "https://www.rainbowhills.co.kr/image/course/three/hole8_3.png",
+     "note": null
+    },
+    {
+     "hole": 9,
+     "par": 5,
+     "hdcp": null,
+     "tees_m": {
+      "BLACK": 526,
+      "BLUE": 499,
+      "WHITE": 471,
+      "RED": 448
+     },
+     "greens_m": {
+      "좌": {
+       "BLACK": 526,
+       "BLUE": 499,
+       "WHITE": 471,
+       "RED": 448
+      },
+      "우": {
+       "BLACK": 528,
+       "BLUE": 501,
+       "WHITE": 473,
+       "RED": 450
+      }
+     },
+     "image_url": "https://www.rainbowhills.co.kr/image/course/three/hole9_3.png",
+     "note": null
+    }
+   ]
+  }
+ ]
+}
