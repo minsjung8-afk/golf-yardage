@@ -65,7 +65,8 @@ def main():
         print(f"{prov} {area}: {len(lst)}곳")
         for g in lst:
             n = (g.get("name") or "").strip()
-            if not n or (g.get("holes") and int(g["holes"]) < 9):
+            # 군 체력단련장·미군기지 골프장은 일반 예약·공개 코스맵이 없어 제외
+            if not n or (g.get("holes") and int(g["holes"]) < 9) or re.search(r"체력단련장|river bend|camp |미군|공군|육군|해군", n, re.I):
                 continue
             k = norm(n)
             if k in seen:

@@ -52,6 +52,8 @@ def main():
     started, done_now = time.time(), 0
     for t in targets:
         name = t["name"]; k = norm(name)
+        if re.search(r"체력단련장|river bend|camp |미군|공군|육군|해군", name, re.I):
+            continue
         st = state.get(name, {})
         if st.get("status") == "done" or (st.get("status") in ("failed", "no_homepage") and not a.retry_failed):
             continue
