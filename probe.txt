@@ -1,0 +1,15 @@
+try1 http=000 connect=0.000000s total=40.001166s ip=
+try1 curl exit 28
+try2 http=000 connect=0.000000s total=40.001445s ip=
+try2 curl exit 28
+{
+  "ip": "172.185.33.116",
+  "city": "San Jose",
+  "region": "California",
+  "country": "US",
+  "loc": "37.3394,-121.8950",
+  "org": "AS8075 Microsoft Corporation",
+  "postal": "95110",
+  "timezone": "America/Los_Angeles",
+  "readme": "https://ipinfo.io/missingauth"
+}
