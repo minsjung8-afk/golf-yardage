@@ -1,0 +1,13 @@
+name: probe
+on:
+  workflow_dispatch:
+    inputs:
+      url: { required: true }
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - run: |
+          for i in 1 2; do curl -s -o /dev/null -m 40 -w "try$i http=%{http_code} connect=%{time_connect}s total=%{time_total}s ip=%{remote_ip}\n" -A "Mozilla/5.0" "${{ github.event.inputs.url }}" || echo "try$i curl exit $?"; done
+          curl -s -m 10 https://ipinfo.io/json | head -c 300; echo
