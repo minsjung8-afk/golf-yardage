@@ -161,7 +161,8 @@ input.num{flex:1;min-width:0;height:var(--tap);font-size:28px;text-align:center;
 
 <!-- 구장 목록 -->
 <div class="modal" id="mCourses"><div class="box">
-  <h3>구장 선택</h3>
+  <h3>구장 선택 <small class="msg" id="courseCount"></small></h3>
+  <input id="courseQ" type="search" placeholder="구장 검색 (이름·코스명·초성 예: ㅅㅇㅎㅅ)" autocomplete="off" autocapitalize="off" style="position:sticky;top:0;z-index:3">
   <div class="list" id="courseList"></div>
   <div class="bar"><button id="btnAddCourse" class="pri">＋ 구장추가</button><button id="btnImport">JSON 가져오기</button><button data-close>닫기</button></div>
   <input type="file" id="fileImport" accept="application/json,.json" hidden>
@@ -294,9 +295,26 @@ async function loadCourses() {
   lsSet('courses', courses);
 }
 function holeCount(c) { return c.courses.reduce((a, x) => a + x.holes.length, 0); }
+// 검색: 공백 무시, 대소문자 무시, 한글 초성(ㅅㅇㅎㅅ → 서원힐스) 지원
+const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
+const choOf = t => [...t].map(ch => { const c = ch.charCodeAt(0) - 0xAC00; return c >= 0 && c < 11172 ? CHO[Math.floor(c / 588)] : ch; }).join('');
+const norm = t => String(t || '').toLowerCase().replace(/\s+|cc|컨트리클럽|골프클럽|골프장|gc|c\.c/g, '');
+function courseMatches(c, q) {
+  if (!q) return true;
+  const hay = norm([c.club_name, c.course_id, ...(c.courses || []).map(x => x.name)].join(' '));
+  const nq = norm(q);
+  if (hay.includes(nq)) return true;
+  return /^[ㄱ-ㅎ]+$/.test(nq) && choOf(hay).includes(nq);
+}
 function renderCourseList() {
   const el = $('#courseList'); el.innerHTML = '';
-  const list = Object.values(courses).sort((a, b) => a.club_name.localeCompare(b.club_name, 'ko'));
+  const q = $('#courseQ').value.trim();
+  const all = Object.values(courses);
+  // 최근 라운드한 구장을 위로, 나머지는 가나다순
+  const recent = lsGet('recentCourses', []);
+  const rank = id => { const i = recent.indexOf(id); return i < 0 ? 999 : i; };
+  const list = all.filter(c => courseMatches(c, q)).sort((a, b) => rank(a.course_id) - rank(b.course_id) || a.club_name.localeCompare(b.club_name, 'ko'));
+  $('#courseCount').textContent = q ? `${list.length} / ${all.length}곳` : `${all.length}곳`;
   list.forEach(c => {
     const row = document.createElement('div'); row.className = 'crow';
     const b = document.createElement('button'); b.className = 'item';
@@ -317,9 +335,11 @@ function renderCourseList() {
     }
     el.appendChild(row);
   });
-  if (!list.length) el.innerHTML = '<p class="msg">구장이 없습니다. 구장추가를 눌러 주세요.</p>';
+  if (!list.length) el.innerHTML = q ? `<p class="msg">'${esc(q)}' 검색 결과가 없습니다. 아래 [구장추가]로 요청하세요.</p>` : '<p class="msg">구장이 없습니다. 구장추가를 눌러 주세요.</p>';
 }
-$('#btnCourses').onclick = async () => { renderCourseList(); $('#mCourses').classList.add('on'); await loadCourses(); renderCourseList(); };
+$('#btnCourses').onclick = async () => { $('#courseQ').value = ''; renderCourseList(); $('#mCourses').classList.add('on'); await loadCourses(); renderCourseList(); };
+$('#courseQ').addEventListener('input', () => renderCourseList());
+$('#courseQ').addEventListener('keydown', e => { if (e.key === 'Enter') { const first = $('#courseList button.item'); if (first) first.click(); } });
 
 /* 구장추가 */
 let queueTimer = null;
@@ -454,6 +474,7 @@ $('#btnStart').onclick = () => {
   const parts = [$('#nFront').value, $('#nBack').value].filter(Boolean);
   round = { id: crypto.randomUUID(), course_id: c.course_id, club_name: c.club_name, played_on: $('#nDate').value || today(), tee, front: parts[0], back: parts[1] || null };
   round.holes = buildHoles(c, parts, tee);
+  lsSet('recentCourses', [c.course_id, ...lsGet('recentCourses', []).filter(x => x !== c.course_id)].slice(0, 10));
   cur = 0; lsSet('round', round); lsSet('cur', cur);
   const { holes, ...meta } = round;
   enqueue('round:' + round.id, 'POST', '/rounds', meta);
@@ -581,7 +602,7 @@ async function renderHome() {
 }
 
 /* ================= PWA: 설치·업데이트 ================= */
-const APP_VERSION = '2026.10.29-6';
+const APP_VERSION = '2026.10.30-1';
 const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 let installEvt = null;
