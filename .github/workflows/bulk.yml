@@ -1,0 +1,74 @@
+# 지역 일괄 수집
+#   task=list  : 시·군별 웹 검색으로 골프장 목록 만들기 → bulk-state 브랜치 regions/<key>.json
+#   task=crawl : 목록을 차례로 홈페이지 찾기→수집→업로드 (진행 상황 bulk_state/<key>.json, 다음 실행이 이어서)
+name: bulk
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:   { description: "list | crawl", required: true, default: "list" }
+      key:    { description: "지역 키", required: true, default: "gg_incheon" }
+      limit:  { description: "이번에 처리할 곳 수", required: false, default: "10" }
+      budget: { description: "시간 한도(분)", required: false, default: "300" }
+      retry:  { description: "실패한 곳 다시 (yes/no)", required: false, default: "no" }
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bulk
+  cancel-in-progress: false
+
+jobs:
+  bulk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    env:
+      APP_URL: ${{ secrets.APP_URL }}
+      WORKER_KEY: ${{ secrets.WORKER_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      PYTHONUNBUFFERED: "1"
+      KEY: ${{ github.event.inputs.key }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 이전 진행 상황 가져오기
+        run: |
+          git fetch -q origin bulk-state && git checkout -q origin/bulk-state -- regions bulk_state 2>/dev/null || true
+          mkdir -p crawler/regions crawler/bulk_state
+          [ -d regions ] && cp -rn regions/. crawler/regions/ || true
+          [ -d bulk_state ] && cp -r bulk_state/. crawler/bulk_state/ || true
+          ls crawler/regions crawler/bulk_state
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip, cache-dependency-path: crawler/requirements.txt }
+      - name: 브라우저 캐시
+        if: github.event.inputs.task == 'crawl'
+        id: pwcache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ hashFiles('crawler/requirements.txt') }}
+      - name: 설치
+        run: |
+          pip install -q -r crawler/requirements.txt
+          if [ "${{ github.event.inputs.task }}" = "crawl" ]; then
+            if [ "${{ steps.pwcache.outputs.cache-hit }}" = "true" ]; then python -m playwright install-deps chromium
+            else python -m playwright install --with-deps chromium; fi
+          fi
+      - name: 목록 만들기
+        if: github.event.inputs.task == 'list'
+        working-directory: crawler
+        run: python region_list.py "$KEY" 2>&1 | tee bulk_state/$KEY.list.log
+      - name: 일괄 수집
+        if: github.event.inputs.task == 'crawl'
+        working-directory: crawler
+        run: |
+          R=""; [ "${{ github.event.inputs.retry }}" = "yes" ] && R="--retry-failed"
+          python bulk.py "$KEY" --limit "${{ github.event.inputs.limit }}" --budget-min "${{ github.event.inputs.budget }}" $R 2>&1 | tee bulk_state/$KEY.last.log
+      - name: 진행 상황 저장 (bulk-state 브랜치)
+        if: always()
+        run: |
+          D=$(mktemp -d); cp -r crawler/regions "$D/regions"; cp -r crawler/bulk_state "$D/bulk_state"
+          cd "$D" && git init -q && git checkout -q -b bulk-state
+          git config user.name "crawl-bot"; git config user.email "crawl-bot@users.noreply.github.com"
+          git add -A && git commit -qm "bulk ${{ github.event.inputs.task }} ${{ github.run_id }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" bulk-state

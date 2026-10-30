@@ -260,8 +260,12 @@ SCHEMA_HINT = """
 """
 
 
+USAGE = {"in": 0, "out": 0, "calls": 0}
+
+
 def llm_json(client, content, max_tokens=16000):
     r = client.messages.create(model=MODEL, max_tokens=max_tokens, messages=[{"role": "user", "content": content}])
+    USAGE["in"] += r.usage.input_tokens; USAGE["out"] += r.usage.output_tokens; USAGE["calls"] += 1
     # 모델이 답 앞에 thinking 블록을 붙일 수 있으므로 text 블록만 모은다
     txt = "".join(getattr(b, "text", "") for b in r.content if getattr(b, "type", "") == "text")
     if r.stop_reason == "max_tokens":
@@ -584,6 +588,8 @@ def main():
     review = finalize(client, course_id, struct, pages)
     n = sum(len(c["holes"]) for c in struct["courses"])
     print(f"완료: {n}홀, 검토 필요 {len(review)}건 → out/{course_id}/")
+    (OUT / course_id / "usage.json").write_text(json.dumps(USAGE), encoding="utf-8")
+    print(f"  토큰: in {USAGE['in']:,} / out {USAGE['out']:,} ({USAGE['calls']}회)")
     for r in review:
         print("  -", r)
 
