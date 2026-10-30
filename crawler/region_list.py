@@ -29,15 +29,19 @@ def ask(area):
               '마지막 줄에 JSON 배열만: [{"name": "공식명", "holes": 18, "homepage": "https://... 또는 null"}]')
     for attempt in range(3):
         try:
-            r = client.messages.create(model=MODEL, max_tokens=4000,
-                                       tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 5,
+            r = client.messages.create(model=MODEL, max_tokens=8000,
+                                       tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 8,
                                                "user_location": {"type": "approximate", "country": "KR"}}],
                                        messages=[{"role": "user", "content": prompt}])
             usage["in"] += r.usage.input_tokens; usage["out"] += r.usage.output_tokens
             usage["search"] += getattr(getattr(r.usage, "server_tool_use", None), "web_search_requests", 0) or 0
             text = "".join(b.text for b in r.content if b.type == "text")
             m = re.findall(r"\[\s*\{.*?\}\s*\]", text, re.S)
-            return json.loads(m[-1]) if m else []
+            if m:
+                return json.loads(m[-1])
+            if re.search(r"\[\s*\]\s*`*\s*$", text):
+                return []
+            print("  목록 해석 실패, 재시도:", area, r.stop_reason, text[-200:].replace("\n", " "))
         except Exception as e:
             print("  재시도", area, e); time.sleep(5 * (attempt + 1))
     return []
@@ -49,10 +53,14 @@ def norm(n):
 
 def main():
     key = sys.argv[1] if len(sys.argv) > 1 else "gg_incheon"
-    areas = [(p, a) for p, lst in REGIONS[key].items() for a in lst]
+    only = [x.strip() for x in sys.argv[2].split(",")] if len(sys.argv) > 2 and sys.argv[2].strip() else None
+    areas = [(p, a) for p, lst in REGIONS[key].items() for a in lst if not only or a in only]
     with ThreadPoolExecutor(max_workers=4) as ex:
         results = list(ex.map(lambda pa: (pa, ask(f"{pa[0]} {pa[1]}")), areas))
-    seen, out = {}, []
+    f = HERE / "regions" / f"{key}.json"
+    out = json.loads(f.read_text(encoding="utf-8")) if (only and f.exists()) else []   # 일부 지역만 다시 → 기존 목록에 합침
+    seen = {norm(g["name"]): True for g in out}
+    before = len(out)
     for (prov, area), lst in results:
         print(f"{prov} {area}: {len(lst)}곳")
         for g in lst:
@@ -66,6 +74,8 @@ def main():
             out.append({"name": n, "province": prov, "area": area, "holes": g.get("holes"), "homepage": g.get("homepage")})
     d = HERE / "regions"; d.mkdir(exist_ok=True)
     (d / f"{key}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    if only:
+        print(f"추가 {len(out) - before}곳")
     print(f"총 {len(out)}곳 → regions/{key}.json · 토큰 in {usage['in']:,} out {usage['out']:,} 검색 {usage['search']}회")
 
 

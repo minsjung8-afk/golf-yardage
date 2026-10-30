@@ -11,6 +11,7 @@ on:
       limit:  { description: "이번에 처리할 곳 수", required: false, default: "10" }
       budget: { description: "시간 한도(분)", required: false, default: "300" }
       retry:  { description: "실패한 곳 다시 (yes/no)", required: false, default: "no" }
+      areas:  { description: "list: 일부 시·군만 다시 찾아 합치기 (예: 여주시,양평군)", required: false, default: "" }
 
 permissions:
   contents: write
@@ -57,7 +58,9 @@ jobs:
       - name: 목록 만들기
         if: github.event.inputs.task == 'list'
         working-directory: crawler
-        run: python region_list.py "$KEY" 2>&1 | tee bulk_state/$KEY.list.log
+        env:
+          AREAS: ${{ github.event.inputs.areas }}
+        run: python region_list.py "$KEY" "$AREAS" 2>&1 | tee bulk_state/$KEY.list.log
       - name: 일괄 수집
         if: github.event.inputs.task == 'crawl'
         working-directory: crawler
