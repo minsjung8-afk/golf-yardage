@@ -3,11 +3,16 @@ on:
   workflow_dispatch:
     inputs:
       url: { required: true }
+permissions:
+  contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
       - run: |
+          exec > >(tee probe.txt) 2>&1
           for i in 1 2; do curl -s -o /dev/null -m 40 -w "try$i http=%{http_code} connect=%{time_connect}s total=%{time_total}s ip=%{remote_ip}\n" -A "Mozilla/5.0" "${{ github.event.inputs.url }}" || echo "try$i curl exit $?"; done
           curl -s -m 10 https://ipinfo.io/json | head -c 300; echo
+          sleep 1
+          D=$(mktemp -d); cp probe.txt $D/; cd $D && git init -q && git checkout -q -b probe-log && git config user.name bot && git config user.email bot@users.noreply.github.com && git add -A && git commit -qm probe && git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" probe-log
