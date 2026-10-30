@@ -1,0 +1,1143 @@
+[
+ {
+  "name": "가평베네스트골프클럽",
+  "province": "경기도",
+  "area": "가평군",
+  "holes": 27,
+  "homepage": "https://www.benestgolf.com"
+ },
+ {
+  "name": "베뉴지 컨트리클럽",
+  "province": "경기도",
+  "area": "가평군",
+  "holes": 27,
+  "homepage": "http://www.venuegcc.com/"
+ },
+ {
+  "name": "마이다스밸리 청평 골프클럽",
+  "province": "경기도",
+  "area": "가평군",
+  "holes": 18,
+  "homepage": "https://www.midasgolf.co.kr/"
+ },
+ {
+  "name": "아난티 클럽 서울",
+  "province": "경기도",
+  "area": "가평군",
+  "holes": 27,
+  "homepage": "https://ananti.kr/kr/chord/"
+ },
+ {
+  "name": "프리스틴밸리 골프클럽",
+  "province": "경기도",
+  "area": "가평군",
+  "holes": 18,
+  "homepage": "https://pristinevalley.co.kr"
+ },
+ {
+  "name": "크리스탈밸리 컨트리클럽",
+  "province": "경기도",
+  "area": "가평군",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "리앤리 컨트리클럽",
+  "province": "경기도",
+  "area": "가평군",
+  "holes": 27,
+  "homepage": "https://www.leenleecc.co.kr/"
+ },
+ {
+  "name": "썬힐 골프클럽",
+  "province": "경기도",
+  "area": "가평군",
+  "holes": 36,
+  "homepage": "http://www.sunhillgolf.co.kr/"
+ },
+ {
+  "name": "서울한양컨트리클럽",
+  "province": "경기도",
+  "area": "고양시",
+  "holes": 36,
+  "homepage": "https://www.hanyangcc.com"
+ },
+ {
+  "name": "뉴코리아컨트리클럽",
+  "province": "경기도",
+  "area": "고양시",
+  "holes": 18,
+  "homepage": "http://www.newkoreacc.co.kr"
+ },
+ {
+  "name": "고양컨트리클럽",
+  "province": "경기도",
+  "area": "고양시",
+  "holes": 9,
+  "homepage": "https://www.goyangcc.com"
+ },
+ {
+  "name": "올림픽컨트리클럽",
+  "province": "경기도",
+  "area": "고양시",
+  "holes": 9,
+  "homepage": "http://www.olympicgolf.co.kr"
+ },
+ {
+  "name": "한양파인컨트리클럽",
+  "province": "경기도",
+  "area": "고양시",
+  "holes": 9,
+  "homepage": "https://www.hypine.co.kr"
+ },
+ {
+  "name": "일산 스프링힐스컨트리클럽",
+  "province": "경기도",
+  "area": "고양시",
+  "holes": 9,
+  "homepage": "https://www.springhills.co.kr"
+ },
+ {
+  "name": "뉴서울컨트리클럽",
+  "province": "경기도",
+  "area": "광주시",
+  "holes": 36,
+  "homepage": null
+ },
+ {
+  "name": "이스트밸리컨트리클럽",
+  "province": "경기도",
+  "area": "광주시",
+  "holes": 27,
+  "homepage": "https://www.eastvalley.co.kr/"
+ },
+ {
+  "name": "로제비앙골프클럽",
+  "province": "경기도",
+  "area": "광주시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "곤지암골프클럽",
+  "province": "경기도",
+  "area": "광주시",
+  "holes": 18,
+  "homepage": "https://www.konjiamgolfclub.co.kr/"
+ },
+ {
+  "name": "남촌컨트리클럽",
+  "province": "경기도",
+  "area": "광주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "그린힐컨트리클럽",
+  "province": "경기도",
+  "area": "광주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "강남300컨트리클럽",
+  "province": "경기도",
+  "area": "광주시",
+  "holes": 18,
+  "homepage": "https://www.kn300.com/"
+ },
+ {
+  "name": "더 시에나 서울 컨트리클럽",
+  "province": "경기도",
+  "area": "광주시",
+  "holes": 18,
+  "homepage": "https://thesiena.co.kr/content/seoulcc"
+ },
+ {
+  "name": "김포 SEASIDE 컨트리클럽",
+  "province": "경기도",
+  "area": "김포시",
+  "holes": 18,
+  "homepage": "http://www.gimpocc.co.kr"
+ },
+ {
+  "name": "한림광릉컨트리클럽",
+  "province": "경기도",
+  "area": "남양주시",
+  "holes": 18,
+  "homepage": "https://www.kwangneungcc.co.kr"
+ },
+ {
+  "name": "양주컨트리클럽",
+  "province": "경기도",
+  "area": "남양주시",
+  "holes": 18,
+  "homepage": "https://www.yangjucc.co.kr"
+ },
+ {
+  "name": "비전힐스컨트리클럽",
+  "province": "경기도",
+  "area": "남양주시",
+  "holes": 18,
+  "homepage": "https://www.visionhillscc.co.kr"
+ },
+ {
+  "name": "해비치컨트리클럽 서울",
+  "province": "경기도",
+  "area": "남양주시",
+  "holes": 18,
+  "homepage": "https://www.haevichi.com/ccseoul/ko/"
+ },
+ {
+  "name": "남양주컨트리클럽",
+  "province": "경기도",
+  "area": "남양주시",
+  "holes": 9,
+  "homepage": "http://www.namyangjucc.co.kr"
+ },
+ {
+  "name": "티클라우드 컨트리클럽",
+  "province": "경기도",
+  "area": "동두천시",
+  "holes": 18,
+  "homepage": "http://www.teecloud.co.kr/"
+ },
+ {
+  "name": "남서울컨트리클럽",
+  "province": "경기도",
+  "area": "성남시",
+  "holes": 18,
+  "homepage": "https://www.nscc.co.kr"
+ },
+ {
+  "name": "성남 공군체력단련장",
+  "province": "경기도",
+  "area": "성남시",
+  "holes": 9,
+  "homepage": "http://www.airforce.mil.kr"
+ },
+ {
+  "name": "수원체력단련장",
+  "province": "경기도",
+  "area": "수원시",
+  "holes": 9,
+  "homepage": "https://welfare.airforce.mil.kr"
+ },
+ {
+  "name": "솔트베이 골프클럽",
+  "province": "경기도",
+  "area": "시흥시",
+  "holes": 18,
+  "homepage": "http://sungdam.kr/golf.php"
+ },
+ {
+  "name": "아세코밸리 골프클럽",
+  "province": "경기도",
+  "area": "시흥시",
+  "holes": 9,
+  "homepage": "https://www.asecovalley.com"
+ },
+ {
+  "name": "제일컨트리클럽",
+  "province": "경기도",
+  "area": "안산시",
+  "holes": 27,
+  "homepage": "http://www.jaeil-cc.co.kr"
+ },
+ {
+  "name": "더헤븐컨트리클럽",
+  "province": "경기도",
+  "area": "안산시",
+  "holes": 27,
+  "homepage": "https://www.theheavenresort.com/ISLANDRESORT/"
+ },
+ {
+  "name": "안성컨트리클럽",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 18,
+  "homepage": "http://www.ansungcc.co.kr"
+ },
+ {
+  "name": "안성베네스트골프클럽",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 36,
+  "homepage": "https://www.golfsamsung.com/web/asClubInfo.do"
+ },
+ {
+  "name": "골프존카운티 안성H",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 18,
+  "homepage": "http://www.golfzoncounty.com/"
+ },
+ {
+  "name": "골프존카운티 안성W",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 18,
+  "homepage": "http://www.golfzoncounty.com/ansung_w/main?T=4"
+ },
+ {
+  "name": "골프클럽 안성Q",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 18,
+  "homepage": "https://www.golfclubq.com/"
+ },
+ {
+  "name": "에덴블루 컨트리클럽",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "포웰CC 안성",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 18,
+  "homepage": "https://as.4wellcc.com/"
+ },
+ {
+  "name": "한림안성 CC",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 9,
+  "homepage": null
+ },
+ {
+  "name": "윈체스트 골프클럽",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "마에스트로 컨트리클럽",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "파인크리크 CC",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "크리스밸리 CC",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "이글몬트 CC",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "레이크우드 컨트리클럽",
+  "province": "경기도",
+  "area": "양주시",
+  "holes": 36,
+  "homepage": "https://lakewood.co.kr/"
+ },
+ {
+  "name": "송추 컨트리클럽",
+  "province": "경기도",
+  "area": "양주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "양평TPC 골프클럽",
+  "province": "경기도",
+  "area": "양평군",
+  "holes": 27,
+  "homepage": "http://www.tpcgolf.co.kr/"
+ },
+ {
+  "name": "더스타휴 골프앤리조트",
+  "province": "경기도",
+  "area": "양평군",
+  "holes": 18,
+  "homepage": "https://www.thestarhue.com/"
+ },
+ {
+  "name": "자유로컨트리클럽",
+  "province": "경기도",
+  "area": "연천군",
+  "holes": 27,
+  "homepage": "https://jayurocc.com"
+ },
+ {
+  "name": "88컨트리클럽",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 36,
+  "homepage": "http://www.88countryclub.co.kr"
+ },
+ {
+  "name": "골드CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 36,
+  "homepage": null
+ },
+ {
+  "name": "남부CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "레이크사이드CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 36,
+  "homepage": "https://www.lakesidecc.com"
+ },
+ {
+  "name": "수원컨트리클럽",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 36,
+  "homepage": "http://www.suwoncc.co.kr"
+ },
+ {
+  "name": "신원CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "아시아나CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": "https://www.asianacc.co.kr"
+ },
+ {
+  "name": "양지파인CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "용인컨트리클럽",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "은화삼CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "지산CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "코리아CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": "https://www.gakorea.com"
+ },
+ {
+  "name": "코리아퍼블릭CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 9,
+  "homepage": null
+ },
+ {
+  "name": "태광CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 36,
+  "homepage": null
+ },
+ {
+  "name": "플라자CC 용인",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 36,
+  "homepage": "https://www.plazacc.co.kr"
+ },
+ {
+  "name": "한림용인CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "한성CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "한원CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": "https://www.hanwoncc.co.kr"
+ },
+ {
+  "name": "해솔리아CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "화산CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "블루원용인CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "써닝포인트CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "세현CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 18,
+  "homepage": "https://sehyeoncc.com"
+ },
+ {
+  "name": "글렌로스CC",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 9,
+  "homepage": null
+ },
+ {
+  "name": "처인CC(처인 체력단련장)",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 18,
+  "homepage": "https://www.welfare.mil.kr"
+ },
+ {
+  "name": "선봉대 체력단련장",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 9,
+  "homepage": "https://www.armywelfaregolf.mil.kr"
+ },
+ {
+  "name": "용인 경찰체력단련장",
+  "province": "경기도",
+  "area": "용인시",
+  "holes": 9,
+  "homepage": "https://www.pticc.go.kr"
+ },
+ {
+  "name": "뉴스프링빌 컨트리클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 45,
+  "homepage": "https://www.newspring.co.kr/icheon/"
+ },
+ {
+  "name": "블랙스톤 이천 골프클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 27,
+  "homepage": "https://www.blackstoneresort.com/ic/"
+ },
+ {
+  "name": "이천 실크밸리 골프클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 27,
+  "homepage": "https://silkvalleygc.co.kr"
+ },
+ {
+  "name": "사우스스프링스 컨트리클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 18,
+  "homepage": "http://www.sscc.co.kr/"
+ },
+ {
+  "name": "비에이비스타 컨트리클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 36,
+  "homepage": "http://www.bavista.co.kr"
+ },
+ {
+  "name": "더크로스비 컨트리클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 27,
+  "homepage": "http://www.thecrosbygc.co.kr/"
+ },
+ {
+  "name": "더반 골프클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 9,
+  "homepage": "http://www.theban.co.kr"
+ },
+ {
+  "name": "마이다스레이크 이천 골프앤리조트",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 27,
+  "homepage": "http://www.icmidas.com/"
+ },
+ {
+  "name": "웰링턴 컨트리클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "이천 컨트리클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "에이치원 클럽",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "서원밸리컨트리클럽",
+  "province": "경기도",
+  "area": "파주시",
+  "holes": 18,
+  "homepage": "https://www.seowongolf.co.kr"
+ },
+ {
+  "name": "서원힐스컨트리클럽",
+  "province": "경기도",
+  "area": "파주시",
+  "holes": 27,
+  "homepage": "https://www.seowongolf.co.kr"
+ },
+ {
+  "name": "파주컨트리클럽",
+  "province": "경기도",
+  "area": "파주시",
+  "holes": 18,
+  "homepage": "https://www.onetheclub.com/paju/main"
+ },
+ {
+  "name": "노스팜컨트리클럽",
+  "province": "경기도",
+  "area": "파주시",
+  "holes": 18,
+  "homepage": "https://www.npcc.co.kr"
+ },
+ {
+  "name": "타이거컨트리클럽",
+  "province": "경기도",
+  "area": "파주시",
+  "holes": 18,
+  "homepage": "http://www.tigercc.co.kr/"
+ },
+ {
+  "name": "서서울컨트리클럽",
+  "province": "경기도",
+  "area": "파주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "베스트밸리골프클럽",
+  "province": "경기도",
+  "area": "파주시",
+  "holes": 9,
+  "homepage": null
+ },
+ {
+  "name": "River Bend Golf Course",
+  "province": "경기도",
+  "area": "평택시",
+  "holes": 18,
+  "homepage": "https://humphreys.armymwr.com/programs/river-bend-golf-course"
+ },
+ {
+  "name": "평택 만포대 체력단련장",
+  "province": "경기도",
+  "area": "평택시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "청북 CC",
+  "province": "경기도",
+  "area": "평택시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "포천힐스 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 27,
+  "homepage": "https://www.fortunehills.co.kr"
+ },
+ {
+  "name": "푸른솔 골프클럽 포천",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 27,
+  "homepage": "https://www.purunsol.co.kr/Main/"
+ },
+ {
+  "name": "포레스트힐 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 27,
+  "homepage": "https://www.foresthill.kr"
+ },
+ {
+  "name": "라싸 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 27,
+  "homepage": "http://www.lassagc.com/"
+ },
+ {
+  "name": "포천아도니스 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 36,
+  "homepage": null
+ },
+ {
+  "name": "힐마루골프앤리조트 포천",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 45,
+  "homepage": null
+ },
+ {
+  "name": "대유몽베르 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 36,
+  "homepage": null
+ },
+ {
+  "name": "일동레이크 골프클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "필로스 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "베어크리크 골프장 포천",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 36,
+  "homepage": null
+ },
+ {
+  "name": "샴발라 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "락가든 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "참밸리 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "캐슬렉스 서울 골프클럽",
+  "province": "경기도",
+  "area": "하남시",
+  "holes": 18,
+  "homepage": "https://www.castlexseoul.com"
+ },
+ {
+  "name": "리베라컨트리클럽",
+  "province": "경기도",
+  "area": "화성시",
+  "holes": 36,
+  "homepage": "https://www.shinangolf.com/club/rivieracc"
+ },
+ {
+  "name": "기흥컨트리클럽",
+  "province": "경기도",
+  "area": "화성시",
+  "holes": 36,
+  "homepage": "https://www.ghcc.kr"
+ },
+ {
+  "name": "발리오스컨트리클럽",
+  "province": "경기도",
+  "area": "화성시",
+  "holes": 27,
+  "homepage": "http://baliosgc.com"
+ },
+ {
+  "name": "화성상록컨트리클럽",
+  "province": "경기도",
+  "area": "화성시",
+  "holes": 27,
+  "homepage": "https://www.sangnokresort.co.kr"
+ },
+ {
+  "name": "라비돌컨트리클럽",
+  "province": "경기도",
+  "area": "화성시",
+  "holes": 9,
+  "homepage": "https://www.laviedor.com/la_cc1.asp"
+ },
+ {
+  "name": "화성골프클럽",
+  "province": "경기도",
+  "area": "화성시",
+  "holes": 9,
+  "homepage": "http://www.hwaseonggc.com"
+ },
+ {
+  "name": "링크나인골프클럽",
+  "province": "경기도",
+  "area": "화성시",
+  "holes": 9,
+  "homepage": "https://www.linknine.co.kr"
+ },
+ {
+  "name": "남수원CC",
+  "province": "경기도",
+  "area": "화성시",
+  "holes": 18,
+  "homepage": "https://www.welfare.mil.kr/hotel/content/content.do?m_code=252"
+ },
+ {
+  "name": "안양컨트리클럽",
+  "province": "경기도",
+  "area": "군포시",
+  "holes": 18,
+  "homepage": "https://www.benestgolf.com"
+ },
+ {
+  "name": "유니아일랜드 골프&스파 리조트",
+  "province": "인천광역시",
+  "area": "강화군",
+  "holes": 18,
+  "homepage": "https://www.uniisland.com"
+ },
+ {
+  "name": "강화웰빙CC리조트",
+  "province": "인천광역시",
+  "area": "강화군",
+  "holes": 9,
+  "homepage": "https://www.gakorea.com/wellbeing/index.asp"
+ },
+ {
+  "name": "잭 니클라우스 골프클럽 코리아",
+  "province": "인천광역시",
+  "area": "연수구",
+  "holes": 18,
+  "homepage": "https://jacknicklausgolfclubkorea.com/index.asp"
+ },
+ {
+  "name": "골프존카운티 송도",
+  "province": "인천광역시",
+  "area": "연수구",
+  "holes": 18,
+  "homepage": "https://golfzoncounty.com/golfclub/main?golfclubSeq=68"
+ },
+ {
+  "name": "송도골프클럽",
+  "province": "인천광역시",
+  "area": "연수구",
+  "holes": 9,
+  "homepage": "https://songdogolf.co.kr/"
+ },
+ {
+  "name": "드림파크컨트리클럽",
+  "province": "인천광역시",
+  "area": "서구·청라",
+  "holes": 36,
+  "homepage": "https://www.dreamparkcc.or.kr/"
+ },
+ {
+  "name": "베어즈베스트 청라 골프클럽",
+  "province": "인천광역시",
+  "area": "서구·청라",
+  "holes": 27,
+  "homepage": "https://www.bearsbestcheongnagc.com/"
+ },
+ {
+  "name": "인천국제컨트리클럽",
+  "province": "인천광역시",
+  "area": "서구·청라",
+  "holes": 18,
+  "homepage": "http://www.incheoncc.com"
+ },
+ {
+  "name": "인천그랜드컨트리클럽",
+  "province": "인천광역시",
+  "area": "서구·청라",
+  "holes": 18,
+  "homepage": "https://www.incheongrand.cc/"
+ },
+ {
+  "name": "클럽72",
+  "province": "인천광역시",
+  "area": "영종도(중구)",
+  "holes": 72,
+  "homepage": "https://www.onetheclub.com/club72/main"
+ },
+ {
+  "name": "오렌지듄스 영종 골프클럽",
+  "province": "인천광역시",
+  "area": "영종도(중구)",
+  "holes": 18,
+  "homepage": "https://www.orangedunesyj.com/"
+ },
+ {
+  "name": "베르힐 영종 골프클럽",
+  "province": "인천광역시",
+  "area": "영종도(중구)",
+  "holes": 36,
+  "homepage": null
+ },
+ {
+  "name": "김포씨사이드 컨트리클럽",
+  "province": "경기도",
+  "area": "김포시",
+  "holes": 18,
+  "homepage": "https://www.gimpocc.co.kr"
+ },
+ {
+  "name": "신안컨트리클럽",
+  "province": "경기도",
+  "area": "안성시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "360도 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "금강 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "남여주 대중골프클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 27,
+  "homepage": "http://www.namyeoju.co.kr"
+ },
+ {
+  "name": "렉스필드 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "루트52 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 18,
+  "homepage": "http://www.route52cc.com/"
+ },
+ {
+  "name": "블루헤런 골프클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "빅토리아 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 9,
+  "homepage": "https://www.victoriagc.co.kr/"
+ },
+ {
+  "name": "세라지오 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "소피아그린 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "솔모로 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 36,
+  "homepage": "https://www.solmoro.com/"
+ },
+ {
+  "name": "스카이밸리 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 36,
+  "homepage": null
+ },
+ {
+  "name": "자유 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 18,
+  "homepage": "https://www.jayucc.co.kr/"
+ },
+ {
+  "name": "트리니티 클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 18,
+  "homepage": "https://josunhotel.com/leisure/trinityClub.do"
+ },
+ {
+  "name": "페럼클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "이포 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "YJC골프클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 27,
+  "homepage": "http://www.yeojoocc.co.kr"
+ },
+ {
+  "name": "여주신라 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 27,
+  "homepage": "http://www.shillacc.com/"
+ },
+ {
+  "name": "아리지 컨트리클럽",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "해슬리 나인브릿지",
+  "province": "경기도",
+  "area": "여주시",
+  "holes": 18,
+  "homepage": null
+ },
+ {
+  "name": "H1 CLUB",
+  "province": "경기도",
+  "area": "이천시",
+  "holes": 18,
+  "homepage": "https://www.h1club.co.kr"
+ },
+ {
+  "name": "스마트KU골프파빌리온",
+  "province": "경기도",
+  "area": "파주시",
+  "holes": 27,
+  "homepage": null
+ },
+ {
+  "name": "아도니스 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 36,
+  "homepage": "https://www.adoniscc.co.kr"
+ },
+ {
+  "name": "포천힐마루CC",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 45,
+  "homepage": "https://pocheon.hillmaru.com/"
+ },
+ {
+  "name": "몽베르 컨트리클럽",
+  "province": "경기도",
+  "area": "포천시",
+  "holes": 36,
+  "homepage": null
+ }
+]

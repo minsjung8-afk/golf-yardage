@@ -1,0 +1,162 @@
+
+=== [1] 가평베네스트골프클럽 (경기도 가평군)
+  주소: https://www.benestgolf.com/ → benestgolf-com
+400 - {'type': 'error', 'error': {'type': 'invalid_request_error', '
+  - vision 실패 https://www.benestgolf.com/img/a_ay/Img_ay_course.gif: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', '
+  - vision 실패 https://www.benestgolf.com/img/b_dr/Img_dr_course.gif: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', '
+  - vision 실패 https://www.benestgolf.com/img/c_gp/Img_gp_course.gif: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', '
+  - vision 실패 https://www.benestgolf.com/img/e_gr/Img_gr_course.gif: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', '
+  - Maple 1홀 코스맵 없음
+  - Maple 2홀 코스맵 없음
+  - Maple 3홀 코스맵 없음
+  - Maple 4홀 코스맵 없음
+  - Maple 5홀 코스맵 없음
+  - Maple 6홀 코스맵 없음
+  - Maple 7홀 코스맵 없음
+  - Maple 8홀 코스맵 없음
+  - Maple 9홀 코스맵 없음
+  - Pine 1홀 코스맵 없음
+  - Pine 2홀 코스맵 없음
+  - Pine 3홀 코스맵 없음
+  - Pine 4홀 코스맵 없음
+  - Pine 5홀 코스맵 없음
+  - Pine 6홀 코스맵 없음
+  - Pine 7홀 코스맵 없음
+  - Pine 8홀 코스맵 없음
+  - Pine 9홀 코스맵 없음
+  - Birch 1홀 코스맵 없음
+  - Birch 2홀 코스맵 없음
+  - Birch 3홀 코스맵 없음
+  - Birch 4홀 코스맵 없음
+  - Birch 5홀 코스맵 없음
+  - Birch 6홀 코스맵 없음
+  - Birch 7홀 코스맵 없음
+  - Birch 8홀 코스맵 없음
+  - Birch 9홀 코스맵 없음
+
+  업로드: benestgolf-com 27홀
+  ✔ 27홀 · 맵 0장 · $0.546
+
+=== [2] 베뉴지 컨트리클럽 (경기도 가평군)
+  홈페이지 없음: 검색 결과에 나온 홈페이지가 모두 제외 대상인 옛 도메인(venuegcc.com)뿐이고, 새 골프장 전용 도메인은 확인하지 못함
+
+=== [3] 마이다스밸리 청평 골프클럽 (경기도 가평군)
+  주소: https://www.midasgolf.co.kr/ → midasgolf-co-kr
+ (img 22, table 0, links 11)
+  · https://www.midasgolf.co.kr/cp/MidasCourse  (img 22, table 0, links 11)
+  · https://www.midasgolf.co.kr/ic/OlympusCourse  (img 20, table 9, links 12)
+  · https://www.midasgolf.co.kr/ic/TitanCourse  (img 20, table 9, links 12)
+  · https://www.midasgolf.co.kr/ic/MidasCourse  (img 20, table 9, links 12)
+[2/3] 구조화 (claude-sonnet-5-5)
+  그림 판독: 4페이지 (파·거리가 그림 안에 있는 페이지)
+[3/3] 이미지 다운로드·검증
+완료: 18홀, 검토 필요 7건 → out/midasgolf-co-kr/
+  토큰: in 92,239 / out 6,059 (5회)
+  - 청평 페이지에는 티 이름이 없고 홀당 거리가 하나뿐이라 티 키를 T1로 쓰고 미터(m) 값을 넣었다. 다른 티 거리는 확인할 수 없다.
+  - 마이다스 코스는 페이지 라벨이 Hole1~9이지만, 설명에는 10~18홀로 되어 있다. 이 출력은 페이지 라벨(1~9)을 따랐다. HDCP도 밸리 코스는 홀수, 마이다스 코스는 짝수여서 18홀 통합 시 10~18번으로 보이나 확정하지 못했다.
+  - 마이다스 코스 9홀(박카스)의 설명 텍스트가 중간에 잘렸다.
+  - 마이다스 코스 2홀은 Lady Tee가 Par6로 운영된다고 적혀 있으나 레이디 티 거리는 없다. par는 5로 두었다.
+  - 홀별 이미지는 hole.png(코스 일러스트)를 택했고 graph.png(고저 그래프)는 제외했다.
+  - 9홀 전체도는 image_url에 넣지 않았다: https://www.midasgolf.co.kr/Content/mobile/upload-temp/midascp-holeheader-valley-map.png (밸리), https://www.midasgolf.co.kr/Content/mobile/upload-temp/midascp-holeheader-midas-map.png (마이다스)
+  - 마이다스레이크 이천(올림푸스·타이탄·마이다스 코스) 페이지는 다른 골프장이므로 제외했다. 같은 청평 페이지가 대소문자만 다른 URL로 중복 수집되었으나 내용은 같다.
+
+  업로드: midasgolf-co-kr 18홀
+  ✔ 18홀 · 맵 18장 · $0.368
+
+=== [4] 아난티 클럽 서울 (경기도 가평군)
+  주소: https://ananti.kr/ko → ananti-kr
+는 이름이 없고, 아난티 남해·제주·중앙·코드 페이지가 섞여 있다. 아난티 클럽 서울은 가평 설악면의 골프장으로 현 아난티 코드 골프클럽(주소 가가평군 설악면 유명로 961-34)에 해당한다고 보고 코드 페이지(CD0205·CD0206·CD0207)만 사용했다. 이 판단은 확인이 필요하다. 남해·제주·중앙 데이터는 제외했다.
+  - 티 이름이 페이지에 없어 거리가 긴 순서대로 T1/T2/T3을 썼다. 야드와 미터가 함께 있어 미터 값을 썼다.
+  - HDCP 값이 페이지에 없어 모든 홀의 hdcp를 null로 두었다.
+  - 모든 홀의 그린은 하나이므로 greens는 null이다.
+  - 느티나무 5번홀(파3)만 티가 4개(158/134/108/98m)다. 거리순으로 T1~T4를 붙였고 다른 홀의 T3와 같은 티인지 알 수 없다.
+  - 느티나무 6번홀 T3가 190m(208yd)로 T2(294m)와 차이가 매우 커 원문 오류일 수 있다. 원문 그대로 기재했다.
+  - 잣나무 5번홀 설명은 '실제로는 400야드가 넘는다'고 하나 표의 최장 거리는 367yd(336m)다. 원문 그대로 기재했다. 잣나무 8번홀 T3(346m)도 T2(485m)와 차이가 크지만 표 값 그대로 기재했다.
+  - 홀 이미지(golfclub-{birch|zelkova|nutpine}-holeN.jpg)는 파일명과 alt로 홀 번호를 확인했다. 코스맵(조감도)인지 사진인지는 구분할 수 없고 홀마다 하나뿐이어서 그대로 썼다.
+  - 코스 전체(9홀) 도면은 image_url에서 제외했다: https://cdn.ananti.kr/plf/ui/img/golfclub/golfclub-course-birch.png , https://cdn.ananti.kr/plf/ui/img/golfclub/golfclub-course-zelkova.png , https://cdn.ananti.kr/plf/ui/img/golfclub/golfclub-course-nutpine.png
+  - 느티나무 코스 헤더 이미지(https://cdn.ananti.kr/brand_mkt/chord/cdgolf_zelkova_pc.jpg)는 배너라서 제외했다.
+  - en/ja/zh 페이지의 코드 코스 내용은 한국어 페이지와 동일하거나 중간에 잘려 있어 한국어 페이지를 기준으로 했다. '/en//chord/golf-course' 등 이중 슬래시 주소는 오류 페이지(500)였다.
+
+  업로드: ananti-kr 27홀
+  ✔ 27홀 · 맵 27장 · $0.505
+
+=== [5] 프리스틴밸리 골프클럽 (경기도 가평군)
+  주소: https://pristinevalley.co.kr/ → pristinevalley-co-kr
+[1/3] 수집: 프리스틴밸리 골프클럽 https://pristinevalley.co.kr/  → out/pristinevalley-co-kr/
+  · https://pristinevalley.co.kr/  (img 0, table 0, links 0)
+[2/3] 구조화 (claude-sonnet-5-5)
+[3/3] 이미지 다운로드·검증
+완료: 0홀, 검토 필요 2건 → out/pristinevalley-co-kr/
+  토큰: in 1,417 / out 229 (1회)
+  - 수집된 페이지(https://pristinevalley.co.kr/)가 403 Forbidden(접근 차단) 응답이라 코스·홀·티·전장·이미지 정보가 전혀 없음. 홀별 데이터를 추출하지 못했으며 추정하지 않음.
+  - 코스명, 홀별 par/hdcp, 티별 전장, 그린 구성, 단위, 코스맵 이미지 URL 모두 확인 불가. 접근 가능한 코스 안내 페이지 또는 VISION 데이터로 재수집 필요.
+
+  ✘ 홀 정보를 못 찾음: 수집된 페이지(https://pristinevalley.co.kr/)가 403 Forbidden(접근 차단) 응답이라 코스·홀·티·전장·이미지 정보가 전혀 없음. 홀별 데이터를 추출하지 못했으며 추정하지 않음.; 코스명, 홀별 par/hdcp, 티별 전장, 그린 구성, 단위, 코스맵 이미지 URL 모두 확인 불가. 접근 가능한 코스 안내 페이지 또는 VISION 데이터로 재수집 필요.
+
+=== [6] 크리스탈밸리 컨트리클럽 (경기도 가평군)
+  주소: https://www.crystalvalley.co.kr/ → crystalvalley-co-kr
+rystalvalley.co.kr/html/course/course03_02_08.asp  (img 1, table 1, links 15)
+  · https://www.crystalvalley.co.kr/html/course/course03_02_09.asp  (img 1, table 1, links 15)
+  · https://www.crystalvalley.co.kr/html/course/course04_01.asp  (img 1, table 0, links 10)
+  · https://www.crystalvalley.co.kr/html/course/course04_02.asp  (img 1, table 0, links 10)
+  · https://www.crystalvalley.co.kr/html/course/course04_03.asp  (img 1, table 0, links 10)
+  · https://www.crystalvalley.co.kr/html/course/course04_04.asp  (img 1, table 0, links 10)
+[2/3] 구조화 (claude-sonnet-5-5)
+  그림 판독: 5페이지 (파·거리가 그림 안에 있는 페이지)
+[3/3] 이미지 다운로드·검증
+완료: 18홀, 검토 필요 6건 → out/crystalvalley-co-kr/
+  토큰: in 33,150 / out 6,621 (6회)
+  - 크리스탈 1번홀 WHITE: 제원표는 381m, 홀 상세 페이지는 382m로 달랐다. 표 값 381을 사용했다.
+  - 티 이름은 원문대로 BLUE/WHITE/SILVER/RED로 적었다. 제원표 표기는 'Blue Tee' 등이고 상세 페이지는 'BLUE' 등이다.
+  - 홀별 이미지(course01_hNN.jpg, course02_hNN.jpg)는 홀당 1장뿐이라 코스맵인지 사진인지 확정하지 못했다. 그래서 image_confidence를 0.85로 두었다.
+  - 18홀/9홀 전체도 또는 홀 번호를 식별할 수 없는 이미지는 image_url에 넣지 않았다: https://www.crystalvalley.co.kr/img/course/airView.jpg (조감도, 전체)
+  - 베스트 코스 배너 이미지(best01~04.jpg)는 홍보용이라 제외했다.
+  - 코스 종합 정보는 6,519m/Par 72, 7,130야드로 표시되어 있고, 홀별 데이터에는 포함하지 않았다.
+
+  업로드: crystalvalley-co-kr 18홀
+  ✔ 18홀 · 맵 18장 · $0.311
+
+=== [7] 리앤리 컨트리클럽 (경기도 가평군)
+  주소: https://www.leenleecc.co.kr/ → leenleecc-co-kr
+[1/3] 수집: 리앤리 컨트리클럽 https://www.leenleecc.co.kr/  → out/leenleecc-co-kr/
+  · https://www.leenleecc.co.kr/  (img 0, table 0, links 0)
+[2/3] 구조화 (claude-sonnet-5-5)
+[3/3] 이미지 다운로드·검증
+완료: 0홀, 검토 필요 4건 → out/leenleecc-co-kr/
+  토큰: in 1,315 / out 244 (1회)
+  - 수집된 페이지(https://www.leenleecc.co.kr/)가 403 Forbidden 오류만 반환되어 코스·홀·티별 전장·파·핸디캡·이미지 정보를 확인할 수 없음
+  - 홀별 코스 데이터, 티 이름, 단위(m/yd), 그린 구성, 코스맵 이미지 URL이 모두 없어 추정 없이 courses를 빈 배열로 둠
+  - VISION 블록도 제공되지 않아 보완할 수 있는 자료 없음
+  - 코스 안내 페이지를 다시 수집해야 함
+
+  ✘ 홀 정보를 못 찾음: 수집된 페이지(https://www.leenleecc.co.kr/)가 403 Forbidden 오류만 반환되어 코스·홀·티별 전장·파·핸디캡·이미지 정보를 확인할 수 없음; 홀별 코스 데이터, 티 이름, 단위(m/yd), 그린 구성, 코스맵 이미지 URL이 모두 없어 추정 없이 courses를 빈 배열로 둠
+
+=== [8] 썬힐 골프클럽 (경기도 가평군)
+  홈페이지 없음: 찾은 주소가 접속되지 않습니다(http://www.sunhillgolf.co.kr, https://www.sunhillgolf.co.kr/HomePage/views/introduce/directions). 주소를 직접 입력해 주세요
+
+=== [9] 서울한양컨트리클럽 (경기도 고양시)
+  주소: https://www.hanyangcc.com/ → hanyangcc-com
+  · https://www.hanyangcc.com/course/course4.asp  (img 9, table 0, links 6)
+[2/3] 구조화 (claude-sonnet-5-5)
+  그림 판독: 1페이지 (파·거리가 그림 안에 있는 페이지)
+[3/3] 이미지 다운로드·검증
+완료: 36홀, 검토 필요 9건 → out/hanyangcc-com/
+  토큰: in 20,103 / out 12,026 (2회)
+  - 스코어보드 표 헤더 C.T/R.T/L.T 중 C.T=Champion, R.T=Regular은 코스공략도 페이지 표기로 확인됨. L.T는 약어 풀이가 페이지에 없어 'Lady'로 추정해 표기함.
+  - 페이지의 코스 구분은 NEW OUT(1~9), NEW IN(10~18), OLD OUT(1~9), OLD IN(10~18) 4개 탭이다. 스코어보드는 NEW/OLD 18홀 단위로 표기하므로 탭 이름 기준으로 코스를 나눴고 홀 번호는 원문 그대로(IN은 10~18) 사용함.
+  - OLD IN 16홀 Regular: 코스공략도 텍스트는 209m(229yds), 스코어보드 표는 309m. 표 값 309를 사용함(209는 오기로 추정).
+  - OLD OUT 6홀 핸디캡: 코스공략도는 15, 스코어보드 표는 7. 표 값 7을 사용함(15는 8홀 핸디캡과 중복).
+  - NEW 코스 핸디캡: 7홀과 17홀이 모두 14로 중복되고 13이 빠져 있음. 원문 표 그대로 기재했으며 확정 못함.
+  - 이미지: 코스공략도 페이지에서 이미지 배치가 텍스트 홀 번호와 맞지 않음(예: NEW OUT 1~9 페이지에 coures_n10~n18 이미지가 나열되고, NEW IN 페이지에 n01~n09가 나열됨). 파일명(coures_nXX=NEW XX홀, coures_oXX=OLD XX홀)으로 홀을 식별했고 코스맵인지 사진인지는 확인하지 못해 confidence를 0.7로 둠.
+  - OLD 코스 일부 홀(1·4·7·11·15·17 등)은 본문에 A/B 두 그린이 언급되지만 표에는 그린별 전장이 없어 greens는 null로 둠.
+  - 18홀 전체도(코스개요): https://www.hanyangcc.com/images/course/coursetotal(260929).png 는 image_url에 넣지 않음.
+  - 스코어보드 OLD 코스 TOTAL의 '5.934'는 표기 오류(5,934)로 보이며 홀별 값에는 영향 없음.
+
+  업로드: hanyangcc-com 36홀
+  ✔ 36홀 · 맵 36장 · $0.241
+
+=== [10] 뉴코리아컨트리클럽 (경기도 고양시)
+  홈페이지 없음: 찾은 주소가 접속되지 않습니다(https://www.newkoreacc.co.kr/, https://www.newkoreacc.co.kr/course/course02.asp). 주소를 직접 입력해 주세요
+
+대상 163 · 완료 5 · 실패 2 · 홈페이지없음 3 · 남음 153
+지금까지 약 $2.32 (₩3,252) · 곳당 평균 $0.23 → 남은 곳 예상 $36 (₩49,759)
